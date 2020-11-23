@@ -44,6 +44,7 @@ flutter:
   assets:
     - splash.png
     - getstartedbtn.png
+    - login.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
