@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_on_the_go/Screens/HomePage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
@@ -6,7 +7,7 @@ class ForgetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -62,6 +63,8 @@ class ForgetPasswordPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.41,
                   height: MediaQuery.of(context).size.height * 0.06,
                   child: InkWell(
+                    onTap: () => Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => HomePage())),
                     child: Image.asset(
                       'assets/getstartedbtn.png',
                       fit: BoxFit.cover,
