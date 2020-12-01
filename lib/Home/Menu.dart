@@ -25,7 +25,7 @@ class Menu extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
                 child: Image.asset(
-                  'splash.png',
+                  'assets/images/app-banner.png',
                   fit: BoxFit.fitWidth,
                 ),
               ).pOnly(left: 20, right: 20, bottom: 20, top: 10),
@@ -83,25 +83,26 @@ class Menu extends StatelessWidget {
                               height: MediaQuery.of(context).size.height * 0.10,
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: Image.asset(
-                                'login.png',
+                                'assets/images/veg1.png',
                                 fit: BoxFit.cover,
                               )).pOnly(left: 10),
                           Container(
                               height: MediaQuery.of(context).size.height * 0.10,
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: Image.asset(
-                                'login.png',
+                                'assets/images/veg2.png',
                                 fit: BoxFit.cover,
                               )),
                           Container(
                               height: MediaQuery.of(context).size.height * 0.10,
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: Image.asset(
-                                'login.png',
+                                'assets/images/veg3.png',
                                 fit: BoxFit.cover,
                               )).pOnly(right: 10),
                         ],
                       ),
+                      Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,52 +111,25 @@ class Menu extends StatelessWidget {
                               height: MediaQuery.of(context).size.height * 0.10,
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: Image.asset(
-                                'login.png',
+                                'assets/images/veg4.png',
                                 fit: BoxFit.cover,
                               )).pOnly(left: 10),
                           Container(
                               height: MediaQuery.of(context).size.height * 0.10,
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: Image.asset(
-                                'login.png',
+                                'assets/images/veg5.png',
                                 fit: BoxFit.cover,
                               )),
                           Container(
                               height: MediaQuery.of(context).size.height * 0.10,
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: Image.asset(
-                                'login.png',
+                                'assets/images/veg6.png',
                                 fit: BoxFit.cover,
                               )).pOnly(right: 10),
                         ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              height: MediaQuery.of(context).size.height * 0.10,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: Image.asset(
-                                'login.png',
-                                fit: BoxFit.cover,
-                              )).pOnly(left: 10),
-                          Container(
-                              height: MediaQuery.of(context).size.height * 0.10,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: Image.asset(
-                                'login.png',
-                                fit: BoxFit.cover,
-                              )),
-                          Container(
-                              height: MediaQuery.of(context).size.height * 0.10,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: Image.asset(
-                                'login.png',
-                                fit: BoxFit.cover,
-                              )).pOnly(right: 10),
-                        ],
-                      ),
+                      ).pOnly(bottom:10),
                     ],
                   ).p(20)
                 ],

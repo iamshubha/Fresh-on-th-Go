@@ -66,19 +66,19 @@ class _HomePageState extends State<HomePage> {
         },
         items: [
           BottomNavigationBarItem(
-            backgroundColor: Colors.blue,
-            title: Text('Favorites'),
-            icon: Icon(Icons.favorite),
+            backgroundColor: Colors.grey[400],
+            title: Text('Home'),
+            icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.red,
-            title: Text('News'),
-            icon: Icon(Icons.library_books),
+            backgroundColor: Colors.grey[400],
+            title: Text('Menu'),
+            icon: Icon(Icons.menu_open),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.yellow,
-            title: Text('News'),
-            icon: Icon(Icons.library_books),
+            backgroundColor: Colors.grey[400],
+            title: Text('Profile'),
+            icon: Icon(Icons.person_outline_outlined),
           ),
         ],
       ),
