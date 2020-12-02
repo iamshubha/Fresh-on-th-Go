@@ -30,21 +30,20 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color(0xFF5BB774),
         elevation: 0,
         leading: Builder(
-      builder: (BuildContext context) {
-        return IconButton(
-          // iconSize: 3,
-          icon: Image.asset(
-            'assets/images/menu.png',
-            
-          ),
+          builder: (BuildContext context) {
+            return IconButton(
+              // iconSize: 3,
+              icon: Image.asset(
+                'assets/images/menu.png',
+              ),
 
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
           },
-          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        );
-      },
-    ),
+        ),
         // InkWell(
         //   child: Image.asset(
         //     'assets/images/menu.png',
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> {
         //     width: 4,
         //   ),
         //   onTap: () => Scaffold.of(context).CustomDrawer(),
-       
+
         // ),
         actions: [Image.asset('assets/images/cart.png')],
         title: Column(
@@ -66,6 +65,60 @@ class _HomePageState extends State<HomePage> {
         // leading: Icon(Icons.ac_unit),
       ),
       drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image.asset(
+                      "assets/images/menu-bottom.png",
+                      fit: BoxFit.cover,
+                    ),
+                  ).pOnly(right: 20),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      "Nombre de usuario".text.bold.size(10).make(),
+                      "Género masculino".text.size(10).make(),
+                      "Direcclòn : lorem Ipsum".text.size(10).make(),
+                      "EDITAR PERFIL".text.white.size(10).make()
+                    ],
+                  ),
+                ],
+              ),
+              // UserAccountsDrawerHeader(
+              //   currentAccountPicture: CircleAvatar(child: Image.asset('assets/images/home-icon.png',fit: BoxFit.cover,)),
+              // ),
+              // "bfgfyfghfx".text.make(),
+              decoration: BoxDecoration(color: Colors.green),
+            ),
+            ListTile(
+              leading: Image.asset("assets/images/menu-icon.png"),
+              title: "CATEGORIAS".text.make(),
+            ),
+            Divider(),
+            ListTile(
+              leading: Image.asset("assets/images/menu-icon.png"),
+              title: "CATEGORIAS".text.make(),
+            ),
+            Divider(),
+            ListTile(
+              leading: Image.asset("assets/images/menu-icon.png"),
+              title: "CATEGORIAS".text.make(),
+            ),
+            Divider(),
+            ListTile(
+              leading: Image.asset("assets/images/menu-icon.png"),
+              title: "CATEGORIAS".text.make(),
+            ),
+            Divider()
+          ],
+        ),
         elevation: 0,
       ),
       body: PageView(

@@ -34,7 +34,8 @@ class Menu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  child: "OFFER DEE HOY".text.make(),
+                  alignment: Alignment.center,
+                  child: "OFFER DEl HOY".text.make(),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -46,14 +47,14 @@ class Menu extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.045,
                   width: MediaQuery.of(context).size.width * 0.40,
                   alignment: Alignment.center,
-                  child: "OFFER DEE HOY".text.white.make(),
+                  child: "Categorias".text.white.make(),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: "OFFER DEE HOY".text.size(10).make(),
+                  child: "FAVORITE".text.size(10).make(),
                 )
               ],
-            ).pOnly(right: 20, left: 20),
+            ).pOnly(right: 25, left: 25),
             Container(
               // color: Colors.red,
               // height: MediaQuery.of(context).size.height * 0.40,
@@ -66,13 +67,14 @@ class Menu extends StatelessWidget {
                     leading: ClipRRect(
                         borderRadius: BorderRadius.circular(90),
                         child: Image.asset(
-                          'login.png',
+                          'assets/images/titleicon.png',
                           height: 50,
                           width: 50,
                           fit: BoxFit.cover,
                         )),
-                    title: Text('Tap me!'),
-                    subtitle: Text('I expand, too!'),
+                    title: 'VEGETALES FRESCOS'.text.size(14).black.make(),
+                    subtitle:
+                        'FRESH VAGITABLE PARAA TI'.text.black.size(5).make(),
                     initiallyExpanded: true,
                     children: [
                       Row(
@@ -129,7 +131,7 @@ class Menu extends StatelessWidget {
                                 fit: BoxFit.cover,
                               )).pOnly(right: 10),
                         ],
-                      ).pOnly(bottom:10),
+                      ).pOnly(bottom: 10),
                     ],
                   ).p(20)
                 ],
