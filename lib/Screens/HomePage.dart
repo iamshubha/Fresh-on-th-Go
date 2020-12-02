@@ -29,7 +29,32 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xFF5BB774),
         elevation: 0,
-        actions: [Icon(Icons.baby_changing_station)],
+        leading: Builder(
+      builder: (BuildContext context) {
+        return IconButton(
+          // iconSize: 3,
+          icon: Image.asset(
+            'assets/images/menu.png',
+            
+          ),
+
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        );
+      },
+    ),
+        // InkWell(
+        //   child: Image.asset(
+        //     'assets/images/menu.png',
+        //     height: 4,
+        //     width: 4,
+        //   ),
+        //   onTap: () => Scaffold.of(context).CustomDrawer(),
+       
+        // ),
+        actions: [Image.asset('assets/images/cart.png')],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,13 +74,12 @@ class _HomePageState extends State<HomePage> {
         children: [Menu(), Home(), Profile()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        // fixedColor: Colors.orange,
+        iconSize: 5,
         type: BottomNavigationBarType.shifting,
-        // backgroundColor: Colors.blue,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.white.withOpacity(.60),
-        selectedFontSize: 16,
-        unselectedFontSize: 12,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Color(0xFFE6E6E6), //Colors.white.withOpacity(.60),
+        // selectedFontSize: 16,
+        // unselectedFontSize: 12,
         currentIndex: _currectIndex,
         onTap: (value) {
           _pageController.jumpToPage(value);
@@ -68,20 +92,27 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             backgroundColor: Colors.grey[400],
             title: Text('Home'),
-            icon: Icon(Icons.home),
+            icon: Image.asset('assets/images/home-icon.png'),
           ),
           BottomNavigationBarItem(
             backgroundColor: Colors.grey[400],
             title: Text('Menu'),
-            icon: Icon(Icons.menu_open),
+            icon: Image.asset('assets/images/menu-bottom.png'),
           ),
           BottomNavigationBarItem(
             backgroundColor: Colors.grey[400],
             title: Text('Profile'),
-            icon: Icon(Icons.person_outline_outlined),
+            icon: Image.asset('assets/images/profile-bottom.png'),
           ),
         ],
       ),
     );
+  }
+}
+
+class CustomDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer();
   }
 }

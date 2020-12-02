@@ -110,14 +110,14 @@ class _HomeState extends State<Home> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
-                      children: ["Filter".text.make(), Icon(Icons.menu)],
-                    ).p(6),
+                      children: ["Filter".text.make(), Image.asset('assets/images/filter-bg.png')],
+                    ),
                   )
                 ],
               ).pOnly(top: 10, bottom: 10, right: 20, left: 20),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.55,
+              height: MediaQuery.of(context).size.height * 0.539,
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int i) {
