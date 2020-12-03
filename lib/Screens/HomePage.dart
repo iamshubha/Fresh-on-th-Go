@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Home/Home.dart';
 import 'package:fresh_on_the_go/Home/Menu.dart';
 import 'package:fresh_on_the_go/Home/Profile.dart';
+import 'package:fresh_on_the_go/Screens/CheckOutPage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,9 +52,13 @@ class _HomePageState extends State<HomePage> {
         //     width: 4,
         //   ),
         //   onTap: () => Scaffold.of(context).CustomDrawer(),
-
         // ),
-        actions: [Image.asset('assets/images/cart.png')],
+        actions: [
+          GestureDetector(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => CheckOutPage())),
+              child: Image.asset('assets/images/cart.png'))
+        ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
