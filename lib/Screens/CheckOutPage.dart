@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CheckOutPage extends StatelessWidget {
@@ -7,12 +8,12 @@ class CheckOutPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       appBar: AppBar(
-        backgroundColor: Color(0xFF5BB774),
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
         leading: InkWell(
           child: Image.asset(
-            'assets/images/menu.png',
+            'assets/images/back-ico.png',
             height: 4,
             width: 4,
           ),
@@ -33,7 +34,7 @@ class CheckOutPage extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFF5BB774),
+              color: kPrimaryColor,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0)),
@@ -124,7 +125,6 @@ class CheckOutPage extends StatelessWidget {
                   children: [
                     "ORDER SUMMERY".text.bold.make().pOnly(bottom: 20),
                     Container(
-                     
                       height: MediaQuery.of(context).size.height * 0.45,
                       // width: MediaQuery.of(context).size.width * 0.50,
                       child: ListView.builder(
@@ -161,19 +161,17 @@ class CheckOutPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      alignment: Alignment.center,
-                      height: MediaQuery.of(context).size.height*0.07,
-                      color: Color(0xFF2DB573),
-                      child:"Total".text.bold.make()
-                    ),
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        color: Color(0xFF2DB573),
+                        child: "Total".text.bold.make()),
                   ),
-                   Expanded(
+                  Expanded(
                     child: Container(
-                       height: MediaQuery.of(context).size.height*0.07,
-                      color: Color(0xFFFFD553),
-                      alignment: Alignment.center,
-                      child:"CONFIRM ORDER".text.bold.make()
-                    ),
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        color: Color(0xFFFFD553),
+                        alignment: Alignment.center,
+                        child: "CONFIRM ORDER".text.bold.make()),
                   )
                 ],
               )

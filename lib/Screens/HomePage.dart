@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Home/Home.dart';
 import 'package:fresh_on_the_go/Home/Menu.dart';
 import 'package:fresh_on_the_go/Home/Profile.dart';
@@ -23,12 +25,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  // = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF5BB774),
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         leading: Builder(
           builder: (BuildContext context) {
@@ -37,7 +38,6 @@ class _HomePageState extends State<HomePage> {
               icon: Image.asset(
                 'assets/images/menu.png',
               ),
-
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -45,14 +45,6 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        // InkWell(
-        //   child: Image.asset(
-        //     'assets/images/menu.png',
-        //     height: 4,
-        //     width: 4,
-        //   ),
-        //   onTap: () => Scaffold.of(context).CustomDrawer(),
-        // ),
         actions: [
           GestureDetector(
               onTap: () => Navigator.push(
@@ -63,8 +55,8 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Shubha Banerjee".text.size(10).make(),
-            "Baishnab para Santipur Nadia".text.size(10).make(),
+            "LUGAR DE ENTERGA".text.size(10).make(),
+            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL".text.size(3).make(),
           ],
         ),
         // leading: Icon(Icons.ac_unit),
@@ -100,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               //   currentAccountPicture: CircleAvatar(child: Image.asset('assets/images/home-icon.png',fit: BoxFit.cover,)),
               // ),
               // "bfgfyfghfx".text.make(),
-              decoration: BoxDecoration(color: Colors.green),
+              decoration: BoxDecoration(color: kPrimaryColor),
             ),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
@@ -132,7 +124,8 @@ class _HomePageState extends State<HomePage> {
         children: [Menu(), Home(), Profile()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        iconSize: 5,
+        iconSize: 2, elevation: 0,
+        mouseCursor: MouseCursor.uncontrolled,
         type: BottomNavigationBarType.shifting,
         selectedItemColor: Colors.black,
         unselectedItemColor: Color(0xFFE6E6E6), //Colors.white.withOpacity(.60),
@@ -148,19 +141,28 @@ class _HomePageState extends State<HomePage> {
         },
         items: [
           BottomNavigationBarItem(
-            backgroundColor: Colors.grey[400],
+            backgroundColor: Color(0xFFE6E6E6),
             title: Text('Home'),
-            icon: Image.asset('assets/images/home-icon.png'),
+            icon: Image.asset(
+              'assets/images/home-icon.png',
+              height: MediaQuery.of(context).size.height * 0.046,
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.grey[400],
+            backgroundColor: Color(0xFFE6E6E6),
             title: Text('Menu'),
-            icon: Image.asset('assets/images/menu-bottom.png'),
+            icon: Image.asset(
+              'assets/images/menu-bottom.png',
+              height: MediaQuery.of(context).size.height * 0.046,
+            ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: Colors.grey[400],
+            backgroundColor: Color(0xFFE6E6E6),
             title: Text('Profile'),
-            icon: Image.asset('assets/images/profile-bottom.png'),
+            icon: Image.asset(
+              'assets/images/profile-bottom.png',
+              height: MediaQuery.of(context).size.height * 0.046,
+            ),
           ),
         ],
       ),

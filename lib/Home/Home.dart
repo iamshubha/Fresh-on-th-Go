@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ListItem {
   int value;
   String name;
-
   ListItem(this.value, this.name);
 }
 
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
                   height: 20,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: Color(0xFF5BB774),
+                    color: kPrimaryColor,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0)),
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                   height: 28,
                   width: MediaQuery.of(context).size.width * 0.40,
                   decoration: BoxDecoration(
-                    color: Color(0xFF5BB774),
+                    color: kPrimaryColor,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0)),
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             Container(
-              height: 80,
+              height: MediaQuery.of(context).size.height * 0.091,
               color: Colors.white,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -97,27 +97,33 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-              color: Color(0xFF5BB774),
+              color: kPrimaryColor,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   "117 Items".text.white.bold.size(18).make(),
                   Expanded(
                     child: SizedBox(),
                   ),
                   Container(
+                    width: MediaQuery.of(context).size.width * 0.2,
                     decoration: BoxDecoration(
                       color: Color(0xFFFFD456),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
-                      children: ["Filter".text.make(), Image.asset('assets/images/filter-bg.png')],
-                    ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        "Filter".text.make(),
+                        Image.asset('assets/images/filter-bg.png')
+                      ],
+                    ).pOnly(left: 5, right: 2),
                   )
                 ],
               ).pOnly(top: 10, bottom: 10, right: 20, left: 20),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.539,
+              height: MediaQuery.of(context).size.height * 0.55,
               child: ListView.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int i) {

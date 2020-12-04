@@ -1,4 +1,5 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class Menu extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Color(0xFF5BB774),
+                color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0)),
@@ -31,30 +32,35 @@ class Menu extends StatelessWidget {
               ).pOnly(left: 20, right: 20, bottom: 20, top: 10),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
+                  width: MediaQuery.of(context).size.width * 0.32,
                   alignment: Alignment.center,
                   child: "OFFER DEl HOY".text.make(),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20)),
-                      color: Color(0xFF5BB774)),
+                      color: kPrimaryColor),
                   // height: 20,
                   height: MediaQuery.of(context).size.height * 0.045,
-                  width: MediaQuery.of(context).size.width * 0.40,
+                  // width: MediaQuery.of(context).size.width * 0.40,
                   alignment: Alignment.center,
                   child: "Categorias".text.white.make(),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width * 0.32,
                   alignment: Alignment.center,
-                  child: "FAVORITE".text.size(10).make(),
+                  child: "FAVORITE".text.make(),
                 )
               ],
-            ).pOnly(right: 25, left: 25),
+            )
+            // .pOnly(right: 25, left: 25)
+            ,
             Container(
               // color: Colors.red,
               // height: MediaQuery.of(context).size.height * 0.40,
