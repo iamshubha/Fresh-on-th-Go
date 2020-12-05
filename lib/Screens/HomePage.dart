@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
-            title: Text('Home'),
+            label: 'Home',
             icon: Image.asset(
               'assets/images/home-icon.png',
               height: MediaQuery.of(context).size.height * 0.046,
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
-            title: Text('Menu'),
+            label: 'Menu',
             icon: Image.asset(
               'assets/images/menu-bottom.png',
               height: MediaQuery.of(context).size.height * 0.046,
@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
-            title: Text('Profile'),
+            label: 'Profile',
             icon: Image.asset(
               'assets/images/profile-bottom.png',
               height: MediaQuery.of(context).size.height * 0.046,

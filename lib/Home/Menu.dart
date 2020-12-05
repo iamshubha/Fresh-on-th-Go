@@ -27,7 +27,7 @@ class Menu extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25),
                 child: Image.asset(
                   'assets/images/app-banner.png',
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                 ),
               ).pOnly(left: 20, right: 20, bottom: 20, top: 10),
             ),
@@ -62,8 +62,6 @@ class Menu extends StatelessWidget {
             // .pOnly(right: 25, left: 25)
             ,
             Container(
-              // color: Colors.red,
-              // height: MediaQuery.of(context).size.height * 0.40,
               child: Column(
                 children: [
                   ExpansionTileCard(
