@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
 import 'package:fresh_on_the_go/Screens/StartPage.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: StartPage(),
+      home: StartPage()
     );
   }
 }

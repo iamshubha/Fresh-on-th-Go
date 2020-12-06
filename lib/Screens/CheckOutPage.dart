@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/CheckOutPayment.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CheckOutPage extends StatelessWidget {
@@ -70,48 +72,7 @@ class CheckOutPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: Color(0xFFFFD553),
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100))),
-                        child: Image.asset(
-                          'assets/images/delevery-ico.png',
-                          fit: BoxFit.cover,
-                        )).p(8),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          "ENTREGA EN".text.bold.size(10).make(),
-                          "P ROXIMA RANURA DE ENTRREGA PROXIMA RANURA DE ENTERGA EL RIEMPO DE ENTEREGA"
-                              .text
-                              .bold
-                              .size(7)
-                              .make(),
-                          "SABADO, 12 DE DICIEMBRE DE 2020".text.make(),
-                        ],
-                      ),
-                    ),
-                    Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(100))),
-                            child: Image.asset('assets/images/edit.png',
-                                fit: BoxFit.cover))
-                        .p(8)
-                  ],
-                ),
-              ),
+              BannerWidget(),
               SizedBox(
                 height: 10,
               ),
@@ -167,11 +128,19 @@ class CheckOutPage extends StatelessWidget {
                         child: "Total".text.bold.make()),
                   ),
                   Expanded(
-                    child: Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        color: Color(0xFFFFD553),
-                        alignment: Alignment.center,
-                        child: "CONFIRM ORDER".text.bold.make()),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => CheckOutPaymentPage()));
+                      },
+                      child: Container(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          color: Color(0xFFFFD553),
+                          alignment: Alignment.center,
+                          child: "CONFIRM ORDER".text.bold.make()),
+                    ),
                   )
                 ],
               )

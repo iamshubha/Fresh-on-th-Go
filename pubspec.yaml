@@ -24,6 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   bubble_tab_indicator: any
+  carousel_slider: ^2.3.1
+  connectivity: ^2.0.2
   cupertino_icons: ^1.0.0
   expandable: ^4.1.4
   expansion_tile_card: ^1.1.0
@@ -47,7 +49,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-   
+
     - splash.png
     - getstartedbtn.png
     - login.png
