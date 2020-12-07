@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              // iconSize: 3,
               icon: Image.asset(
                 'assets/images/menu.png',
               ).p(5),
@@ -49,12 +48,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           GestureDetector(
               onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => MyCartPage()
-                      // CheckOutPage()
-
-                      )),
-              child: Image.asset('assets/images/cart.png').p(5))
+                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
+              child: Image.asset(
+                'assets/images/cart.png',
+                fit: BoxFit.contain,
+              ).p(10))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -172,7 +170,8 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
-            label: 'Menu',
+            // title: 'Menu'.text.black.make(),
+            label :"Menu",
             icon: Image.asset(
               'assets/images/menu-bottom.png',
               height: MediaQuery.of(context).size.height * 0.046,

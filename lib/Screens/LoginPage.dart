@@ -42,8 +42,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.60,
-                left: MediaQuery.of(context).size.width * 0.20,
-                right: MediaQuery.of(context).size.width * 0.20),
+                left: MediaQuery.of(context).size.width * 0.10,
+                right: MediaQuery.of(context).size.width * 0.10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -88,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
                       'passwordico.png',
                       width: 10,
                     ).pOnly(top: 10, bottom: 10, right: 10),
-
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       borderSide: BorderSide(
@@ -106,22 +105,32 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100.0),
                     ),
-                    // fillColor: Color(rgb(255,213,82)),
-                    fillColor: Color(0xFFFFD552), //fromRGBO(255, 213, 82,0.0),
-
+                    fillColor: Color(0xFFFFD552),
                     hintText: "Nombre de usuario",
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.40,
-                  child: InkWell(
-                    onTap: () => loginFunction(),
-                    child: Image.asset('assets/getstartedbtn.png'),
-                  ),
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => ForgetPasswordPage())),
+                      child: "Forgot password".text.make(),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      child: InkWell(
+                        onTap: () => loginFunction(),
+                        child: Image.asset('assets/getstartedbtn.png'),
+                      ),
+                    ),
+                  ],
+                ).pOnly(left: 5, right: 5),
               ],
             ),
           ),

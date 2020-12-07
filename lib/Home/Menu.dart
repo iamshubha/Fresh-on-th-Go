@@ -26,7 +26,7 @@ class Menu extends StatelessWidget {
                     child: TextFormField(
                       decoration: InputDecoration( hintText: "Buscar producto",
                         border: InputBorder.none,
-                        prefixIcon: Image.asset('assets/images/search.png').pOnly(right:10)
+                        prefixIcon: Image.asset('assets/images/search.png').p(10)
                       ),
                     ),
               ).pOnly(left:MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
