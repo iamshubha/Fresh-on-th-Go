@@ -5,7 +5,6 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: ,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -19,7 +18,7 @@ class StartPage extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.20),
           child: InkWell(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => LoginPage()));
             },
             child: Image.asset('assets/getstartedbtn.png'),

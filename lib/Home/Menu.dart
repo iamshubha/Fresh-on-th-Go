@@ -16,13 +16,29 @@ class Menu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
+              color: kPrimaryColor,
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: Container(
+                // width: MediaQuery.of(context).size.width*0.80,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                    child: TextFormField(
+                      decoration: InputDecoration( hintText: "Buscar producto",
+                        border: InputBorder.none,
+                        prefixIcon: Image.asset('assets/images/search.png').pOnly(right:10)
+                      ),
+                    ),
+              ).pOnly(left:MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
+            ),
+            Container(
               decoration: BoxDecoration(
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0)),
               ),
-              height: MediaQuery.of(context).size.height * 0.30,
+              height: MediaQuery.of(context).size.height * 0.25,
               width: MediaQuery.of(context).size.width,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),

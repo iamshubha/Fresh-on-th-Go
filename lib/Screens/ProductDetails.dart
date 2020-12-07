@@ -34,12 +34,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         leading: InkWell(
           child: Image.asset(
             'assets/images/back-ico.png',
-            height: 4,
-            width: 4,
-          ),
+            // height: 4,
+            // width: 4,
+          ).p(5),
           onTap: () => Navigator.pop(context),
         ),
-        actions: [Image.asset('assets/images/cart.png')],
+        actions: [Image.asset('assets/images/cart.png').p(5)],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,11 +178,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             "Fresh & go $i".text.size(8).make(),
                             "Regulador de platano $i".text.bold.make(),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 "\$: $i".text.xl.make().pOnly(
                                     right: MediaQuery.of(context).size.width *
-                                        0.135),
+                                        0.07),
                                 //  Expanded(child: SizedBox()),
                                 Container(
                                   decoration: BoxDecoration(
@@ -194,12 +194,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     alignment: Alignment.center,
                                     color: Color(0xFFFFD456),
                                     child: VxStepper(
-                                      inputBoxColor: Colors.grey[350],
+                                      inputBoxColor: Colors.white,
                                       actionButtonColor: Colors.transparent,
                                       onChange: (v) {
                                         print(v);
                                       },
-                                    ).pOnly(left: 5, right: 5))
+                                    )).pOnly(left: 0, right: 5)
                               ],
                             )
                           ],

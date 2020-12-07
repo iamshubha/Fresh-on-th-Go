@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Screens/ForgetPasswordPage.dart';
+import 'package:fresh_on_the_go/Screens/HomePage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _userEditingController = TextEditingController();
+  final _passwordEditingController = TextEditingController();
+  loginFunction() {
+    try {
+      if (_userEditingController.text == id) {
+        if (_passwordEditingController.text == password) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => HomePage()));
+        }
+      } else {}
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  String id = "customer1@gmail.com";
+
+  String password = "123";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +49,13 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 TextFormField(
+                  controller: _userEditingController,
                   decoration: InputDecoration(
                     filled: true,
                     suffixIcon: Image.asset(
                       'usernameico.png',
                       width: 10,
                     ).pOnly(top: 10, bottom: 10, right: 10),
-
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       borderSide: BorderSide(
@@ -48,9 +73,7 @@ class LoginPage extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100.0),
                     ),
-                    // fillColor: Color(rgb(255,213,82)),
-                    fillColor: Color(0xFFFFD552), //fromRGBO(255, 213, 82,0.0),
-
+                    fillColor: Color(0xFFFFD552),
                     hintText: "Nombre de usuario",
                   ),
                 ),
@@ -58,6 +81,7 @@ class LoginPage extends StatelessWidget {
                   height: 10,
                 ),
                 TextFormField(
+                  controller: _passwordEditingController,
                   decoration: InputDecoration(
                     filled: true,
                     suffixIcon: Image.asset(
@@ -94,12 +118,7 @@ class LoginPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.40,
                   child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ForgetPasswordPage()));
-                    },
+                    onTap: () => loginFunction(),
                     child: Image.asset('assets/getstartedbtn.png'),
                   ),
                 ),

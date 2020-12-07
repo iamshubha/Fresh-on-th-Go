@@ -15,12 +15,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PageController _pageController;
-  int _currectIndex;
+  int _currectIndex = 1;
   @override
   void initState() {
-    _currectIndex = 0;
+    // _currectIndex = 0;
     _pageController = PageController(
-      initialPage: 0,
+      initialPage: 1,
       keepPage: true,
     );
     super.initState();
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               // iconSize: 3,
               icon: Image.asset(
                 'assets/images/menu.png',
-              ),
+              ).p(5),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -49,13 +49,12 @@ class _HomePageState extends State<HomePage> {
         actions: [
           GestureDetector(
               onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => 
-                  
-                  MyCartPage()
-                  // CheckOutPage()
-                  
-                  )),
-              child: Image.asset('assets/images/cart.png'))
+                  context,
+                  MaterialPageRoute(builder: (_) => MyCartPage()
+                      // CheckOutPage()
+
+                      )),
+              child: Image.asset('assets/images/cart.png').p(5))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -100,6 +99,32 @@ class _HomePageState extends State<HomePage> {
               // "bfgfyfghfx".text.make(),
               decoration: BoxDecoration(color: kPrimaryColor),
             ),
+            Container(
+              decoration: BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(70))),
+              height: MediaQuery.of(context).size.height * 0.08,
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/delevery-ico.png',
+                    fit: BoxFit.contain,
+                  ).p(5),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      "proxima ranura de enterega"
+                          .text
+                          .size(1)
+                          .bold
+                          .uppercase
+                          .make(),
+                      "Sabado. 12de dicilmbre de".text.white.bold.make()
+                    ],
+                  )
+                ],
+              ),
+            ).p(10),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
               title: "CATEGORIAS".text.make(),
@@ -107,17 +132,17 @@ class _HomePageState extends State<HomePage> {
             Divider(),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "CATEGORIAS".text.make(),
+              title: "perfil".text.uppercase.make(),
             ),
             Divider(),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "CATEGORIAS".text.make(),
+              title: "mi pedido".text.uppercase.make(),
             ),
             Divider(),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "CATEGORIAS".text.make(),
+              title: "cerrar sesion".text.uppercase.make(),
             ),
             Divider()
           ],
@@ -127,16 +152,15 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: [Menu(), Home(), Profile()],
+        children: [Home(), Menu(), Profile()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 2, elevation: 0,
         mouseCursor: MouseCursor.uncontrolled,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.black,
         unselectedItemColor: Color(0xFFE6E6E6), //Colors.white.withOpacity(.60),
-        // selectedFontSize: 16,
-        // unselectedFontSize: 12,
+
         currentIndex: _currectIndex,
         onTap: (value) {
           _pageController.jumpToPage(value);
@@ -148,17 +172,17 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
-            label: 'Home',
+            label: 'Menu',
             icon: Image.asset(
-              'assets/images/home-icon.png',
+              'assets/images/menu-bottom.png',
               height: MediaQuery.of(context).size.height * 0.046,
             ),
           ),
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
-            label: 'Menu',
+            label: 'Home',
             icon: Image.asset(
-              'assets/images/menu-bottom.png',
+              'assets/images/home-icon.png',
               height: MediaQuery.of(context).size.height * 0.046,
             ),
           ),
