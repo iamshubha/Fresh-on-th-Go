@@ -6,6 +6,7 @@ import 'package:fresh_on_the_go/Home/Menu.dart';
 import 'package:fresh_on_the_go/Home/Profile.dart';
 import 'package:fresh_on_the_go/Screens/CheckOutPage.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -58,8 +59,8 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "LUGAR DE ENTERGA".text.size(10).make(),
-            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL".text.size(3).make(),
+            "LUGAR DE ENTERGA".text.size(10).textStyle(GoogleFonts.openSans()).make(),
+            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL".text.size(3).textStyle(GoogleFonts.openSans()).make(),
           ],
         ),
         // leading: Icon(Icons.ac_unit),
@@ -83,10 +84,10 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      "Nombre de usuario".text.bold.size(10).make(),
-                      "Género masculino".text.size(10).make(),
-                      "Direcclòn : lorem Ipsum".text.size(10).make(),
-                      "EDITAR PERFIL".text.white.size(10).make()
+                      "Nombre de usuario".text.bold.size(10).textStyle(GoogleFonts.openSans()).make(),
+                      "Género masculino".text.size(10).textStyle(GoogleFonts.openSans()).make(),
+                      "Direcclòn : lorem Ipsum".text.size(10).textStyle(GoogleFonts.openSans()).make(),
+                      "EDITAR PERFIL".text.white.size(10).textStyle(GoogleFonts.openSans()).make()
                     ],
                   ),
                 ],
@@ -113,11 +114,11 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       "proxima ranura de enterega"
                           .text
-                          .size(1)
+                          .size(1).textStyle(GoogleFonts.openSans())
                           .bold
                           .uppercase
                           .make(),
-                      "Sabado. 12de dicilmbre de".text.white.bold.make()
+                      "Sabado. 12de dicilmbre de".text.white.textStyle(GoogleFonts.openSans()).bold.make()
                     ],
                   )
                 ],
@@ -125,22 +126,22 @@ class _HomePageState extends State<HomePage> {
             ).p(10),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "CATEGORIAS".text.make(),
+              title: "CATEGORIAS".text.textStyle(GoogleFonts.openSans()).make(),
             ),
             Divider(),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "perfil".text.uppercase.make(),
+              title: "perfil".text.uppercase.textStyle(GoogleFonts.openSans()).make(),
             ),
             Divider(),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "mi pedido".text.uppercase.make(),
+              title: "mi pedido".text.uppercase.textStyle(GoogleFonts.openSans()).make(),
             ),
             Divider(),
             ListTile(
               leading: Image.asset("assets/images/menu-icon.png"),
-              title: "cerrar sesion".text.uppercase.make(),
+              title: "cerrar sesion".text.uppercase.textStyle(GoogleFonts.openSans()).make(),
             ),
             Divider()
           ],
@@ -150,7 +151,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: [Home(), Menu(), Profile()],
+        children: [Menu(), Home(), Profile()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 2, elevation: 0,
@@ -171,7 +172,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             backgroundColor: Color(0xFFE6E6E6),
             // title: 'Menu'.text.black.make(),
-            label :"Menu",
+            label: "Menu",
             icon: Image.asset(
               'assets/images/menu-bottom.png',
               height: MediaQuery.of(context).size.height * 0.046,

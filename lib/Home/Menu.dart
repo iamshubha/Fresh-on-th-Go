@@ -1,10 +1,11 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 
-class Menu extends StatelessWidget {
+class Home extends StatelessWidget {
   final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
   final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
   @override
@@ -26,7 +27,7 @@ class Menu extends StatelessWidget {
                     child: TextFormField(
                       decoration: InputDecoration( hintText: "Buscar producto",
                         border: InputBorder.none,
-                        prefixIcon: Image.asset('assets/images/search.png').p(10)
+                        prefixIcon: Image.asset('assets/images/search.png').p(8)
                       ),
                     ),
               ).pOnly(left:MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
@@ -54,7 +55,7 @@ class Menu extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.32,
                   alignment: Alignment.center,
-                  child: "OFFER DEl HOY".text.make(),
+                  child: "Oferta del día".text.textStyle(GoogleFonts.openSans()).make(),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.32,
@@ -67,12 +68,12 @@ class Menu extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.045,
                   // width: MediaQuery.of(context).size.width * 0.40,
                   alignment: Alignment.center,
-                  child: "Categorias".text.white.make(),
+                  child: "Categorias".text.textStyle(GoogleFonts.openSans()).white.make(),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.32,
                   alignment: Alignment.center,
-                  child: "FAVORITE".text.make(),
+                  child: "Favoritos".text.textStyle(GoogleFonts.openSans()).make(),
                 )
               ],
             )
@@ -93,9 +94,9 @@ class Menu extends StatelessWidget {
                           width: 50,
                           fit: BoxFit.cover,
                         )),
-                    title: 'VEGETALES FRESCOS'.text.size(14).black.make(),
+                    title: 'Verduras Frescas'.text.size(14).textStyle(GoogleFonts.openSans()).black.make(),
                     subtitle:
-                        'FRESH VAGITABLE PARAA TI'.text.black.size(5).make(),
+                        'Verduras frescas para ti.'.text.black.textStyle(GoogleFonts.openSans()).size(5).make(),
                     initiallyExpanded: true,
                     children: [
                       Row(

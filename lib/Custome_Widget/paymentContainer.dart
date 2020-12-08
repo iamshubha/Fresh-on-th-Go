@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -22,8 +23,8 @@ class PaymentContainer extends StatelessWidget {
           color: isSelect == true ? setColor : Color(0xFFE9E9E9)),
       child: ListTile(
         leading: isSelect == true
-            ? string.text.uppercase.white.make()
-            : string.text.uppercase.black.make(),
+            ? string.text.textStyle(GoogleFonts.openSans()).uppercase.white.make()
+            : string.text.textStyle(GoogleFonts.openSans()).uppercase.black.make(),
         trailing: Container(
           decoration: BoxDecoration(
             color: Colors.white,

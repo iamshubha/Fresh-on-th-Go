@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/MyCart.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -39,12 +41,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ).p(5),
           onTap: () => Navigator.pop(context),
         ),
-        actions: [Image.asset('assets/images/cart.png').p(5)],
+        actions: [
+          InkWell(
+                  onTap: () => Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => MyCartPage())),
+                  child: Image.asset('assets/images/cart.png'))
+              .p(5)
+        ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "My Cart".text.make(),
+            "Mi carrito".text.textStyle(GoogleFonts.openSans()).make(),
           ],
         ),
       ),
@@ -107,8 +115,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        "Regulardor de platano".text.make(),
-                        "\$ : 200".text.xl.make(),
+                        "Regulardor de platano"
+                            .text
+                            .textStyle(GoogleFonts.openSans())
+                            .make(),
+                        "\$ : 200"
+                            .text
+                            .xl
+                            .textStyle(GoogleFonts.openSans())
+                            .make(),
                       ],
                     ),
                     GestureDetector(
@@ -120,8 +135,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         decoration: BoxDecoration(
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(8)),
-                        child:
-                            "ADD TO CART".text.bold.white.size(10).make().p(8),
+                        child: "AÑADIR AL CARRITO"
+                            .text
+                            .textStyle(GoogleFonts.openSans())
+                            .bold
+                            .white
+                            .size(10)
+                            .make()
+                            .p(8),
                       ).pOnly(right: 10),
                     ),
                   ],
@@ -134,9 +155,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                "Details".text.bold.uppercase.make().pOnly(bottom: 5),
+                "Detalles"
+                    .text
+                    .textStyle(GoogleFonts.openSans())
+                    .bold
+                    .uppercase
+                    .make()
+                    .pOnly(bottom: 5),
                 "Lorem Ipsum es simplemente texto ficticio de la inpresion y la composicionLorem Ipsum es simplemente texto ficticio de la inpresion y la composicionLorem Ipsum es simplemente texto ficticio de la inpresion ."
                     .text
+                    .textStyle(GoogleFonts.openSans())
                     .size(4)
                     .letterSpacing(0)
                     .make()
@@ -175,8 +203,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            "Fresh & go $i".text.size(8).make(),
-                            "Regulador de platano $i".text.bold.make(),
+                            "Fresh & go $i"
+                                .text
+                                .textStyle(GoogleFonts.openSans())
+                                .size(8)
+                                .make(),
+                            "Regulador de platano $i"
+                                .text
+                                .textStyle(GoogleFonts.openSans())
+                                .bold
+                                .make(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -188,7 +224,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   decoration: BoxDecoration(
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: "ADD".text.white.size(10).make().p(8),
+                                  child: "ADD"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .white
+                                      .size(10)
+                                      .make()
+                                      .p(8),
                                 ).pOnly(right: 10),
                                 Container(
                                     alignment: Alignment.center,
@@ -232,10 +274,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         height: 55,
         alignment: Alignment.center,
         child:
-        //  Row(
-        //   children: [
-            "ir al carrito".text.white.xl2.bold.uppercase.make(),
-            // Image.asset('')//TODO:Image add here
+            //  Row(
+            //   children: [
+            "ir al carrito"
+                .text
+                .white
+                .textStyle(GoogleFonts.openSans())
+                .xl2
+                .bold
+                .uppercase
+                .make(),
+        // Image.asset('')//TODO:Image add here
         //   ],
         // ),
       ),

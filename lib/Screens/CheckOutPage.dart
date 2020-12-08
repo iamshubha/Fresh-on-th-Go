@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/CheckOutPayment.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CheckOutPage extends StatelessWidget {
@@ -26,7 +27,7 @@ class CheckOutPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Checkout".text.make(),
+            "Revisa".text.textStyle(GoogleFonts.openSans()).make(),
             // "Baishnab para Santipur Nadia".text.size(10).make(),
           ],
         ),
@@ -55,7 +56,7 @@ class CheckOutPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(100))),
                 child: Image.asset('assets/images/checkout-top-select.png'),
               ),
-              "DELEVERY".text.bold.make(),
+              "ENTREGA".text.textStyle(GoogleFonts.openSans()).bold.make(),
               SizedBox(width: 18),
               Container(
                 height: 25,
@@ -65,7 +66,7 @@ class CheckOutPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(100))),
                 child: Image.asset('assets/images/checkout-top-select.png'),
               ),
-              "PAYMENT".text.bold.make(),
+              "PAGO".text.bold.textStyle(GoogleFonts.openSans()).make(),
               Expanded(child: SizedBox()),
             ],
           ).pOnly(bottom: 15),
@@ -84,24 +85,41 @@ class CheckOutPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    "ORDER SUMMERY".text.bold.make().pOnly(bottom: 20),
+                    "RESUMEN DEL PEDIDO"
+                        .text
+                        .bold
+                        .textStyle(GoogleFonts.openSans())
+                        .make()
+                        .pOnly(bottom: 20),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.44,
                       // width: MediaQuery.of(context).size.width * 0.50,
                       child: ListView.builder(
                         itemCount: 10,
                         itemBuilder: (BuildContext context, int i) {
                           return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  "Product Name $i".text.make(),
+                                  "nombre del producto $i"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .make(),
                                   Expanded(child: SizedBox()),
-                                  "Qty : $i".text.make(),
+                                  "Cant : $i"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .make(),
                                   SizedBox(
                                     width: 40,
                                   ),
-                                  "\$250".text.make(),
+                                  "\$250"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .make(),
                                   SizedBox(
                                     width: 25,
                                   ),
@@ -116,7 +134,7 @@ class CheckOutPage extends StatelessWidget {
                     ),
                   ],
                 ).pOnly(
-                    left: 20, right: 20, top: 20), //.pOnly(left: 20, top: 20),
+                    left: 10, right: 10, top: 20), //.pOnly(left: 20, top: 20),
               ),
               Row(
                 children: [
@@ -125,7 +143,11 @@ class CheckOutPage extends StatelessWidget {
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height * 0.07,
                         color: Color(0xFF2DB573),
-                        child: "Total".text.bold.make()),
+                        child: "Total"
+                            .text
+                            .bold
+                            .textStyle(GoogleFonts.openSans())
+                            .make()),
                   ),
                   Expanded(
                     child: GestureDetector(
@@ -139,11 +161,15 @@ class CheckOutPage extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.07,
                           color: Color(0xFFFFD553),
                           alignment: Alignment.center,
-                          child: "CONFIRM ORDER".text.bold.make()),
+                          child: "CONFIRMAR PEDIDO"
+                              .text
+                              .textStyle(GoogleFonts.openSans())
+                              .bold
+                              .make()),
                     ),
                   )
                 ],
-              )
+              ).pOnly(top: 1)
             ],
           ).pOnly(left: 10, right: 10)
         ],

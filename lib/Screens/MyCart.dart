@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/CheckOutPage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MyCartPage extends StatelessWidget {
@@ -21,7 +22,12 @@ class MyCartPage extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        actions: [Image.asset('assets/images/cart.png')],
+        actions: [
+          InkWell(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
+              child: Image.asset('assets/images/cart.png'))
+        ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,8 +88,16 @@ class MyCartPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  "Fresh & go $i".text.size(8).make(),
-                                  "Regulador de platano $i".text.bold.make(),
+                                  "Fresh & go $i"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .size(8)
+                                      .make(),
+                                  "Regulador de platano $i"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .bold
+                                      .make(),
                                   DropdownButtonHideUnderline(
                                       child: DropdownButton(
                                           // value: _selectedItem,
@@ -95,7 +109,11 @@ class MyCartPage extends StatelessWidget {
                                   })),
                                   Row(
                                     children: [
-                                      "\$: $i".text.xl.make(),
+                                      "\$: $i"
+                                          .text
+                                          .xl
+                                          .textStyle(GoogleFonts.openSans())
+                                          .make(),
                                       Expanded(child: SizedBox()),
                                       Container(
                                         decoration: BoxDecoration(
@@ -105,6 +123,7 @@ class MyCartPage extends StatelessWidget {
                                         child: "ADD"
                                             .text
                                             .white
+                                            .textStyle(GoogleFonts.openSans())
                                             .size(10)
                                             .make()
                                             .p(8),
@@ -139,14 +158,25 @@ class MyCartPage extends StatelessWidget {
                 Expanded(
                   child: Container(
                     alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.09,
                     color: Color(0xFF2DB573),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        "Total :".text.color(Colors.grey[200]).bold.make(),
-                        "\$ : 200".text.bold.white.xl2.make()
+                        "Total :"
+                            .text
+                            .textStyle(GoogleFonts.openSans())
+                            .color(Colors.grey[200])
+                            .bold
+                            .make(),
+                        "\$ : 200"
+                            .text
+                            .textStyle(GoogleFonts.openSans())
+                            .bold
+                            .white
+                            .xl2
+                            .make()
                       ],
                     ),
                   ),
@@ -158,13 +188,17 @@ class MyCartPage extends StatelessWidget {
                           MaterialPageRoute(builder: (_) => CheckOutPage()));
                     },
                     child: Container(
-                        height: MediaQuery.of(context).size.height * 0.1,
+                        height: MediaQuery.of(context).size.height * 0.09,
                         color: Color(0xFFFFD553),
                         alignment: Alignment.center,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            "PROCEED TO \nCHECKOUT".text.bold.make(),
+                            "PASAR POR \nLA CAJA"
+                                .text
+                                .textStyle(GoogleFonts.openSans())
+                                .bold
+                                .make(),
                             Image.asset('assets/images/basket-ico.png')
                           ],
                         )),

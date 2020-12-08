@@ -49,7 +49,6 @@ class ForgetPasswordPage extends StatelessWidget {
                     ),
                     // fillColor: Color(rgb(255,213,82)),
                     fillColor: Color(0xFFFFD552), //fromRGBO(255, 213, 82,0.0),
-
                     hintText: "Nombre de usuario",
                   ),
                 ),
@@ -63,8 +62,7 @@ class ForgetPasswordPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.41,
                   height: MediaQuery.of(context).size.height * 0.06,
                   child: InkWell(
-                    onTap: () => Navigator.of(context)
-                        .pop(),
+                    onTap: () => Navigator.of(context).pop(),
                     child: Image.asset(
                       'assets/getstartedbtn.png',
                       fit: BoxFit.cover,

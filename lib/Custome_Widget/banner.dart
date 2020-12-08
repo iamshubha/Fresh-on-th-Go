@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BannerWidget extends StatelessWidget {
@@ -23,13 +24,16 @@ class BannerWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                "ENTREGA EN".text.bold.size(2).make(),
-                "P ROXIMA RANURA DE ENTERGA\n EL RIEMPO DE ENTEREGA"
-                    .text
+                "ENTREGA EN".text.bold.textStyle(GoogleFonts.openSans()).size(2).make(),
+                "P ROXIMA RANURA DE ENTERGA EL RIEMPO DE ENTEREGA"
+                    .text.textStyle(GoogleFonts.openSans())
                     .bold
                     .size(4)
                     .make(),
-                "SABADO, 12 DE DICIEMBRE DE 2020".text.size(7).make(),
+                Text(
+                  "SABADO, 12 DE DICIEMBRE DE 2020",
+                  style: GoogleFonts.openSans(),//GoogleFonts.openSansTextTheme(),
+                ).text.size(7).make(),
               ],
             ),
           ),

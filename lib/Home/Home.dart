@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ListItem {
@@ -8,12 +9,12 @@ class ListItem {
   ListItem(this.value, this.name);
 }
 
-class Home extends StatefulWidget {
+class Menu extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _MenuState createState() => _MenuState();
 }
 
-class _HomeState extends State<Home> {
+class _MenuState extends State<Menu> {
   List<ListItem> _dropdownItems = [
     ListItem(1, "First Value"),
     ListItem(2, "Second Item"),
@@ -73,7 +74,7 @@ class _HomeState extends State<Home> {
                         bottomRight: Radius.circular(20.0)),
                   ),
                   alignment: Alignment.topCenter,
-                  child: "FRUTA FRESCA".text.white.make(),
+                  child: "FRUTA FRESCA".text.textStyle(GoogleFonts.openSans()).white.make(),
                 ).pOnly(bottom: 10)
               ],
             ),
@@ -91,7 +92,7 @@ class _HomeState extends State<Home> {
                       color: Colors.grey[350],
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    child: "Product $i".text.center.black.make().p(4),
+                    child: "Producto $i".text.textStyle(GoogleFonts.openSans()).center.black.make().p(4),
                   ).p(7);
                 },
               ),
@@ -101,7 +102,7 @@ class _HomeState extends State<Home> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "117 Items".text.white.bold.size(18).make(),
+                  "117 Artículos".text.textStyle(GoogleFonts.openSans()).white.bold.size(18).make(),
                   Expanded(
                     child: SizedBox(),
                   ),
@@ -114,7 +115,7 @@ class _HomeState extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        "Filter".text.make(),
+                        "Filter".text.textStyle(GoogleFonts.openSans()).make(),
                         Image.asset('assets/images/filter-bg.png')
                       ],
                     ).pOnly(left: 5, right: 2),
@@ -148,8 +149,8 @@ class _HomeState extends State<Home> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            "Fresh & go $i".text.size(8).make(),
-                            "Regulador de platano $i".text.bold.make(),
+                            "Fresh & go $i".text.textStyle(GoogleFonts.openSans()).size(8).make(),
+                            "Regulador de platano $i".text.textStyle(GoogleFonts.openSans()).bold.make(),
                             DropdownButtonHideUnderline(
                                 child: DropdownButton(
                                     value: _selectedItem,
@@ -161,13 +162,13 @@ class _HomeState extends State<Home> {
                                     })),
                             Row(
                               children: [
-                                "\$: $i".text.xl.make(),
+                                "\$: $i".text.textStyle(GoogleFonts.openSans()).xl.make(),
                                 Expanded(child: SizedBox()),
                                 Container(
                                   decoration: BoxDecoration(
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: "ADD".text.white.size(10).make().p(8),
+                                  child: "AÑADIR".text.textStyle(GoogleFonts.openSans()).white.size(10).make().p(8),
                                 ).pOnly(right: 10),
                                 Container(
                                   alignment: Alignment.center,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Custome_Widget/paymentContainer.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CheckOutPaymentPage extends StatelessWidget {
@@ -56,7 +57,7 @@ class CheckOutPaymentPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(100))),
                 child: Image.asset('assets/images/checkout-top-select.png'),
               ),
-              "DELEVERY".text.bold.make(),
+              "ENTREGA".text.bold.make(),
               SizedBox(width: 18),
               Container(
                 height: 25,
@@ -66,7 +67,7 @@ class CheckOutPaymentPage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(100))),
                 child: Image.asset('assets/images/checkout-top-select.png'),
               ),
-              "PAYMENT".text.bold.make(),
+              "PAGO".text.bold.make(),
               Expanded(child: SizedBox()),
             ],
           ).pOnly(bottom: 15),
@@ -85,7 +86,7 @@ class CheckOutPaymentPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    "ORDER SUMMERY".text.bold.make().pOnly(bottom: 20),
+                    "RESUMEN DEL PEDIDO".text.bold.make().pOnly(bottom: 20),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.4,
                       // width: MediaQuery.of(context).size.width * 0.50,
@@ -94,22 +95,22 @@ class CheckOutPaymentPage extends StatelessWidget {
                           PaymentContainer(
                             setColor: kPrimaryColor,
                             isSelect: _selectionMethod,
-                            string: "Wallet upi",
+                            string: "Billetera upi",
                           ),
                           PaymentContainer(
                             setColor: kPrimaryColor,
                             isSelect: !_selectionMethod,
-                            string: "Net Banking",
+                            string: "Banca neta",
                           ),
                           PaymentContainer(
                             setColor: kPrimaryColor,
                             isSelect: !_selectionMethod,
-                            string: "Credit / Debit / Atm Card",
+                            string: "Tarjeta de crédito / débito / cajero automático",
                           ),
                           PaymentContainer(
                             setColor: kPrimaryColor,
                             isSelect: !_selectionMethod,
-                            string: "Cash on delevery",
+                            string: "Contra reembolso",
                           ),
                         ],
                       ),
@@ -156,8 +157,8 @@ class CheckOutPaymentPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        "Total :".text.color(Colors.grey[200]).bold.make(),
-                        "\$ : 200".text.bold.white.xl2.make()
+                        "Total :".text.color(Colors.grey[200]).textStyle(GoogleFonts.openSans()).bold.make(),
+                        "\$ : 200".text.bold.white.textStyle(GoogleFonts.openSans()).xl2.make()
                       ],
                     )),
               ),
@@ -166,7 +167,7 @@ class CheckOutPaymentPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.07,
                     color: Color(0xFFFFD553),
                     alignment: Alignment.center,
-                    child: "PAY NOW".text.bold.make()),
+                    child: "PAY NOW".text.bold.textStyle(GoogleFonts.openSans()).make()),
               )
             ],
           )

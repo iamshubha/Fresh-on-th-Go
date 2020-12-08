@@ -1,55 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Custome_Widget/const.dart';
-import 'package:fresh_on_the_go/Screens/CreateAccount.dart';
-import 'package:fresh_on_the_go/Screens/ForgetPasswordPage.dart';
-import 'package:fresh_on_the_go/Screens/HomePage.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:fresh_on_the_go/Screens/LoginPage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class CreateAccount extends StatelessWidget {
   final _userEditingController = TextEditingController();
   final _passwordEditingController = TextEditingController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  loginFunction() {
-    try {
-      if (_userEditingController.text == id) {
-        if (_passwordEditingController.text == password) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomePage()));
-        } else {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            backgroundColor: kPrimaryColor,
-            content: Text('Compruebe la contraseña'),
-            // duration: Duration(seconds: 3),
-          ));
-        }
-      } else {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: kPrimaryColor,
-          content: Text('Por favor verifique su ID'),
-          // duration: Duration(seconds: 3),
-        ));
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  String id = "customer1@gmail.com";
-
-  String password = "123";
+  final _confirmPasswordEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
       body: SingleChildScrollView(
-        // physics: BouncingScrollPhysics(parent: true),
         // physics: NeverScrollableScrollPhysics(),
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -125,6 +86,39 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
+                    hintText: "Contraseña",
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  controller: _confirmPasswordEditingController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    suffixIcon: Image.asset(
+                      'passwordico.png',
+                      width: 10,
+                    ).pOnly(top: 10, bottom: 10, right: 10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        // width: 2.0,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(8.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                    fillColor: Color(0xFFFFD552),
                     hintText: "Nombre de usuario",
                   ),
                 ),
@@ -134,31 +128,16 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ForgetPasswordPage())),
-                      child: "Olvidé mi contraseña".text.textStyle(GoogleFonts.oswald()).make(),
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: InkWell(
-                        onTap: () => loginFunction(),
+                        onTap: () => Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) => LoginPage())),
                         child: Image.asset('assets/getstartedbtn.png'),
                       ),
                     ),
                   ],
                 ).pOnly(left: 5, right: 5),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: kPrimaryColor)),
-                  color: kPrimaryColor,
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CreateAccount())),
-                  child: "Crear una cuenta ".text.textStyle(GoogleFonts.oswald()).bold.make().p(20),
-                ).pOnly(top: 20)
               ],
             ),
           ),
