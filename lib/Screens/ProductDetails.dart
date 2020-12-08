@@ -52,7 +52,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Mi carrito".text.textStyle(GoogleFonts.openSans()).make(),
+            "Detalles de producto"
+                .text
+                .textStyle(GoogleFonts.openSans())
+                .make(),
           ],
         ),
       ),
