@@ -139,8 +139,16 @@ class _LoginPageState extends State<LoginPage> {
                           context,
                           MaterialPageRoute(
                               builder: (_) => ForgetPasswordPage())),
-                      child: "Olvidé mi contraseña".text.textStyle(GoogleFonts.oswald()).make(),
-                    ),
+                      child: Row(
+                        children: [
+                          Image.asset('assets/images/forgetpass-ico.png'),
+                          "Olvidé mi \ncontraseña"
+                              .text
+                              .textStyle(GoogleFonts.oswald())
+                              .make(),
+                        ],
+                      ),
+                    ).pOnly(top: 5),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: InkWell(
@@ -150,15 +158,28 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ).pOnly(left: 5, right: 5),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: kPrimaryColor)),
-                  color: kPrimaryColor,
-                  onPressed: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => CreateAccount())),
-                  child: "Crear una cuenta ".text.textStyle(GoogleFonts.oswald()).bold.make().p(20),
-                ).pOnly(top: 20)
+                InkWell(
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ForgetPasswordPage())),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        "NUEVA USUARIO?"
+                            .text
+                            .textStyle(GoogleFonts.oswald())
+                            .bold
+                            .make(),
+                        "REGÍSTRESE CON NOSOTRAS"
+                            .text
+                            .textStyle(GoogleFonts.oswald())
+                            .bold
+                            .xl
+                            .color(kPrimaryColor)
+                            .make(),
+                      ],
+                    ),
+                  ),
+                ).pOnly(top:MediaQuery.of(context).size.height*0.03)
               ],
             ),
           ),

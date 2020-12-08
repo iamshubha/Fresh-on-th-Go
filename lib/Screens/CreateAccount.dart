@@ -17,10 +17,11 @@ class CreateAccount extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/login.png'), fit: BoxFit.cover)),
+                  image: AssetImage('assets/images/registration-bg.png'),
+                  fit: BoxFit.cover)),
           child: Padding(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.60,
+                top: MediaQuery.of(context).size.height * 0.550,
                 left: MediaQuery.of(context).size.width * 0.10,
                 right: MediaQuery.of(context).size.width * 0.10),
             child: Column(
@@ -126,7 +127,7 @@ class CreateAccount extends StatelessWidget {
                   height: 10,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.40,
