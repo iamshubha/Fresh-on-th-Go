@@ -119,7 +119,7 @@ class CreateAccount extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Nombre de usuario",
+                    hintText: "Confirmar Contraseña",
                   ),
                 ),
                 SizedBox(
