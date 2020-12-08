@@ -122,7 +122,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             .text
                             .textStyle(GoogleFonts.openSans())
                             .make(),
-                        "\$ : 200"
+                        "\$ 200"
                             .text
                             .xl
                             .textStyle(GoogleFonts.openSans())

@@ -158,7 +158,7 @@ class CheckOutPaymentPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         "Total :".text.color(Colors.grey[200]).textStyle(GoogleFonts.openSans()).bold.make(),
-                        "\$ : 200".text.bold.white.textStyle(GoogleFonts.openSans()).xl2.make()
+                        "\$ 200".text.bold.white.textStyle(GoogleFonts.openSans()).xl2.make()
                       ],
                     )),
               ),

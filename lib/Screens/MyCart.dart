@@ -170,7 +170,7 @@ class MyCartPage extends StatelessWidget {
                             .color(Colors.grey[200])
                             .bold
                             .make(),
-                        "\$ : 200"
+                        "\$ 200"
                             .text
                             .textStyle(GoogleFonts.openSans())
                             .bold
