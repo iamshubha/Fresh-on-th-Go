@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/CreateAccount.dart';
 import 'package:fresh_on_the_go/Screens/ForgetPasswordPage.dart';
 import 'package:fresh_on_the_go/Screens/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -159,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                 ).pOnly(left: 5, right: 5),
                 InkWell(
                   onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ForgetPasswordPage())),
+                      MaterialPageRoute(builder: (_) => CreateAccount())),
                   child: Container(
                     child: Column(
                       children: [
