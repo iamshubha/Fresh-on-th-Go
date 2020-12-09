@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
+import 'package:fresh_on_the_go/Screens/OderList.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
@@ -170,6 +171,8 @@ class _ProfileState extends State<Profile> {
                 ListTile(
                   leading: Image.asset('assets/images/order-list.png'),
                   title: "Order List".text.make(),
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => OrderListPage())),
                 ).pOnly(top: 10),
                 ListTile(
                   leading: Image.asset('assets/images/account-details.png'),

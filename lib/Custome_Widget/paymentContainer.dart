@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class PaymentContainer extends StatelessWidget {
