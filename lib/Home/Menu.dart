@@ -1,5 +1,7 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -10,7 +12,42 @@ class Home extends StatelessWidget {
   final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(  appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Image.asset(
+                'assets/images/menu.png',
+              ).p(5),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+        actions: [
+          GestureDetector(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
+              child: Image.asset(
+                'assets/images/cart.png',
+                fit: BoxFit.contain,
+              ).p(10))
+        ],
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            "LUGAR DE ENTERGA".text.size(10).textStyle(GoogleFonts.openSans()).make(),
+            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL".text.size(3).textStyle(GoogleFonts.openSans()).make(),
+          ],
+        ),
+        // leading: Icon(Icons.ac_unit),
+      ),
+     drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -47,6 +49,50 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Image.asset(
+                'assets/images/menu.png',
+              ).p(5),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+        actions: [
+          GestureDetector(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
+              child: Image.asset(
+                'assets/images/cart.png',
+                fit: BoxFit.contain,
+              ).p(10))
+        ],
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            "LUGAR DE ENTERGA"
+                .text
+                .size(10)
+                .textStyle(GoogleFonts.openSans())
+                .make(),
+            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL"
+                .text
+                .size(3)
+                .textStyle(GoogleFonts.openSans())
+                .make(),
+          ],
+        ),
+        // leading: Icon(Icons.ac_unit),
+      ),
+      drawer: CustomDrawer(),
       body: Container(
         color: Colors.grey[350],
         child: Column(
@@ -74,7 +120,11 @@ class _MenuState extends State<Menu> {
                         bottomRight: Radius.circular(20.0)),
                   ),
                   alignment: Alignment.topCenter,
-                  child: "FRUTA FRESCA".text.textStyle(GoogleFonts.openSans()).white.make(),
+                  child: "FRUTA FRESCA"
+                      .text
+                      .textStyle(GoogleFonts.openSans())
+                      .white
+                      .make(),
                 ).pOnly(bottom: 10)
               ],
             ),
@@ -92,7 +142,13 @@ class _MenuState extends State<Menu> {
                       color: Colors.grey[350],
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    child: "Producto $i".text.textStyle(GoogleFonts.openSans()).center.black.make().p(4),
+                    child: "Producto $i"
+                        .text
+                        .textStyle(GoogleFonts.openSans())
+                        .center
+                        .black
+                        .make()
+                        .p(4),
                   ).p(7);
                 },
               ),
@@ -102,7 +158,13 @@ class _MenuState extends State<Menu> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  "117 Artículos".text.textStyle(GoogleFonts.openSans()).white.bold.size(18).make(),
+                  "117 Artículos"
+                      .text
+                      .textStyle(GoogleFonts.openSans())
+                      .white
+                      .bold
+                      .size(18)
+                      .make(),
                   Expanded(
                     child: SizedBox(),
                   ),
@@ -149,8 +211,16 @@ class _MenuState extends State<Menu> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            "Fresh & go $i".text.textStyle(GoogleFonts.openSans()).size(8).make(),
-                            "Regulador de platano $i".text.textStyle(GoogleFonts.openSans()).bold.make(),
+                            "Fresh & go $i"
+                                .text
+                                .textStyle(GoogleFonts.openSans())
+                                .size(8)
+                                .make(),
+                            "Regulador de platano $i"
+                                .text
+                                .textStyle(GoogleFonts.openSans())
+                                .bold
+                                .make(),
                             DropdownButtonHideUnderline(
                                 child: DropdownButton(
                                     value: _selectedItem,
@@ -162,13 +232,23 @@ class _MenuState extends State<Menu> {
                                     })),
                             Row(
                               children: [
-                                "\$: $i".text.textStyle(GoogleFonts.openSans()).xl.make(),
+                                "\$: $i"
+                                    .text
+                                    .textStyle(GoogleFonts.openSans())
+                                    .xl
+                                    .make(),
                                 Expanded(child: SizedBox()),
                                 Container(
                                   decoration: BoxDecoration(
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: "AÑADIR".text.textStyle(GoogleFonts.openSans()).white.size(10).make().p(8),
+                                  child: "AÑADIR"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .white
+                                      .size(10)
+                                      .make()
+                                      .p(8),
                                 ).pOnly(right: 10),
                                 Container(
                                   alignment: Alignment.center,
