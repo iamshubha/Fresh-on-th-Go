@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/LoginPage.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:fresh_on_the_go/Screens/OderList.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -185,6 +186,8 @@ class _ProfileState extends State<Profile> {
                 ListTile(
                   leading: Image.asset('assets/images/logout.png'),
                   title: "Logout".text.make(),
+                  onTap: () => Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (_) => LoginPage())),
                 ).pOnly(top: 10),
               ],
             ),
