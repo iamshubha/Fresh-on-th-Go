@@ -71,7 +71,7 @@ class OrderListPage extends StatelessWidget {
                         children: [
                           "#2525".text.make(),
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.03,
+                            height: MediaQuery.of(context).size.height * 0.04,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -82,8 +82,8 @@ class OrderListPage extends StatelessWidget {
                                 .white
                                 .bold
                                 .uppercase
-                                .make()
-                                .p(6),
+                                .make().pOnly(left:5,right:5)
+                                ,
                           ),
                           Row(
                             children: [
@@ -103,7 +103,7 @@ class OrderListPage extends StatelessWidget {
                         children: [
                           "#2525".text.make(),
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.03,
+                            height: MediaQuery.of(context).size.height * 0.04,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -130,7 +130,7 @@ class OrderListPage extends StatelessWidget {
                         children: [
                           "#2525".text.make(),
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.03,
+                            height: MediaQuery.of(context).size.height * 0.04,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -162,7 +162,7 @@ class OrderListPage extends StatelessWidget {
                         children: [
                           "#2525".text.make(),
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.03,
+                            height: MediaQuery.of(context).size.height * 0.04,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
