@@ -137,7 +137,7 @@ class _ProfileState extends State<Profile> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          "155 Orders"
+                          "155 Pedidos"
                               .text
                               .xl
                               .white
@@ -145,7 +145,7 @@ class _ProfileState extends State<Profile> {
                               .textStyle(GoogleFonts.openSans())
                               .make(),
                           Expanded(child: SizedBox()),
-                          "Edit Profile"
+                          "Editar Perfil"
                               .text
                               .xl
                               .white
@@ -171,21 +171,21 @@ class _ProfileState extends State<Profile> {
               children: [
                 ListTile(
                   leading: Image.asset('assets/images/order-list.png'),
-                  title: "Order List".text.make(),
+                  title: "Lista de Pedidos".text.make(),
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (_) => OrderListPage())),
                 ).pOnly(top: 10),
                 ListTile(
                   leading: Image.asset('assets/images/account-details.png'),
-                  title: "Account Details".text.make(),
+                  title: "Detalles de Cuenta".text.make(),
                 ).pOnly(top: 10),
                 ListTile(
                   leading: Image.asset('assets/images/helpsupport.png'),
-                  title: "Help & Support".text.make(),
+                  title: "Ayuda & Apoyo".text.make(),
                 ).pOnly(top: 10),
                 ListTile(
                   leading: Image.asset('assets/images/logout.png'),
-                  title: "Logout".text.make(),
+                  title: "Carrar Sessión".text.make(),
                   onTap: () => Navigator.pushReplacement(
                       context, MaterialPageRoute(builder: (_) => LoginPage())),
                 ).pOnly(top: 10),
