@@ -1,15 +1,66 @@
-import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Screens/LoginPage.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'dart:convert';
 
-class CreateAccount extends StatelessWidget {
+import 'package:connectivity/connectivity.dart';
+import 'package:flutter/material.dart';
+import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/LoginPage.dart';
+import 'package:fresh_on_the_go/Screens/OtpPage.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
+
+class CreateAccount extends StatefulWidget {
+  @override
+  _CreateAccountState createState() => _CreateAccountState();
+}
+
+class _CreateAccountState extends State<CreateAccount> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _userEditingController = TextEditingController();
+
   final _passwordEditingController = TextEditingController();
+
   final _confirmPasswordEditingController = TextEditingController();
+
+  createUserPostRequest() async {
+    var network = await Connectivity().checkConnectivity();
+    print(network.index);
+    if (network.index == 2) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        backgroundColor: kPrimaryColor,
+        content: Text('Please Check Your Internet Connection'),
+        // duration: Duration(seconds: 3),
+      ));
+    } else {
+      String url = "http://my-demo.xyz/farmers/apis/customer/register";
+      final response = await http.post(url, body: {
+        "user_type": "3",
+        "email": _userEditingController.text.toString(),
+        "password": _confirmPasswordEditingController.text.toString()
+      });
+      // var data = jsonDecode(response.body);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => OtpPage()));
+    }
+  }
+
+  @override
+  void initState() {
+    // createUserPostRequest();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _userEditingController.dispose();
+    _passwordEditingController.dispose();
+    _confirmPasswordEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         // physics: NeverScrollableScrollPhysics(),
         child: Container(
@@ -132,8 +183,9 @@ class CreateAccount extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: InkWell(
-                        onTap: () => Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => LoginPage())),
+                        onTap: createUserPostRequest,
+                        // () => Navigator.pushReplacement(context,
+                        //     MaterialPageRoute(builder: (_) => LoginPage())),
                         child: Image.asset('assets/getstartedbtn.png'),
                       ),
                     ),
