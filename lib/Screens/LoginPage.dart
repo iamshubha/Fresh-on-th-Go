@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/CreateAccount.dart';
@@ -15,25 +16,35 @@ class _LoginPageState extends State<LoginPage> {
   final _userEditingController = TextEditingController();
   final _passwordEditingController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  loginFunction() {
+  loginFunction() async {
     try {
-      if (_userEditingController.text == id) {
-        if (_passwordEditingController.text == password) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomePage()));
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+          // duration: Duration(seconds: 3),
+        ));
+      } else {
+        if (_userEditingController.text == id) {
+          if (_passwordEditingController.text == password) {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => HomePage()));
+          } else {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              backgroundColor: kPrimaryColor,
+              content: Text('Compruebe la contraseña'),
+              // duration: Duration(seconds: 3),
+            ));
+          }
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
-            content: Text('Compruebe la contraseña'),
+            content: Text('Por favor verifique su ID'),
             // duration: Duration(seconds: 3),
           ));
         }
-      } else {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: kPrimaryColor,
-          content: Text('Por favor verifique su ID'),
-          // duration: Duration(seconds: 3),
-        ));
       }
     } catch (e) {
       print(e);
@@ -41,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   String id = "customer1@gmail.com";
-
   String password = "123";
 
   @override
@@ -92,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Nombre de usuario",
+                    hintText: "Nombre de usuário",
                   ),
                 ),
                 SizedBox(
@@ -125,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Nombre de usuario",
+                    hintText: "Nombre de usuário",
                   ),
                 ),
                 SizedBox(
@@ -164,12 +174,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     child: Column(
                       children: [
-                        "NUEVA USUARIO?"
+                        "NUEVO USUARIO?""      "
                             .text
                             .textStyle(GoogleFonts.oswald())
                             .bold
                             .make(),
-                        "REGÍSTRESE CON NOSOTRAS"
+                        "REGÍSTRESE CON NOSOTROS"
                             .text
                             .textStyle(GoogleFonts.oswald())
                             .bold
