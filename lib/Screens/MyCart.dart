@@ -32,7 +32,7 @@ class MyCartPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "My Cart".text.make(),
+            "Mi Carrito".text.make(),
             // "Baishnab para Santipur Nadia".text.size(10).make(),
           ],
         ),
