@@ -32,12 +32,19 @@ class _CreateAccountState extends State<CreateAccount> {
       ));
     } else {
       String url = "http://my-demo.xyz/farmers/apis/customer/register";
-      final response = await http.post(url, body: {
+      final headers = {'Content-Type': 'application/json'};
+
+      Map<String, dynamic> body = {
         "user_type": "3",
         "email": _userEditingController.text.toString(),
         "password": _confirmPasswordEditingController.text.toString()
-      });
-      // var data = jsonDecode(response.body);
+      };
+
+      String jsonBody = json.encode(body);
+
+      final response = await http.post(url, body: jsonBody, headers: headers);
+      var data = jsonDecode(response.body);
+      print(data);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => OtpPage()));
     }
