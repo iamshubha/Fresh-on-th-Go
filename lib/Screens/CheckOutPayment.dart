@@ -102,11 +102,11 @@ class CheckOutPaymentPage extends StatelessWidget {
                             isSelect: !_selectionMethod,
                             string: "Banca neta",
                           ),
-                          PaymentContainer(
-                            setColor: kPrimaryColor,
-                            isSelect: !_selectionMethod,
-                            string: "Tarjeta de crédito / débito / cajero automático",
-                          ),
+                          // PaymentContainer(
+                          //   setColor: kPrimaryColor,
+                          //   isSelect: !_selectionMethod,
+                          //   string: "Tarjeta de crédito / débito / cajero automático",
+                          // ),
                           PaymentContainer(
                             setColor: kPrimaryColor,
                             isSelect: !_selectionMethod,
