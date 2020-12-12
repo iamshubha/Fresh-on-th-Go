@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/LoginPage.dart';
@@ -105,7 +106,7 @@ class _CreateAccountState extends State<CreateAccount> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextFormField(
+                TextFormField( validator: (value) => EmailValidator.validate(value) ? null : "Please enter a valid email",
                   controller: _userEditingController,
                   decoration: InputDecoration(
                     filled: true,

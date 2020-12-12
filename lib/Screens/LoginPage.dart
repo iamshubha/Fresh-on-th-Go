@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/CreateAccount.dart';
@@ -88,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextFormField(
+                   validator: (value) => EmailValidator.validate(value) ? null : "Please enter a valid email",
                   controller: _userEditingController,
                   decoration: InputDecoration(
                     filled: true,
