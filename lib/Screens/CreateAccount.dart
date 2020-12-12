@@ -16,44 +16,63 @@ class CreateAccount extends StatefulWidget {
 class _CreateAccountState extends State<CreateAccount> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _userEditingController = TextEditingController();
-
   final _passwordEditingController = TextEditingController();
-
   final _confirmPasswordEditingController = TextEditingController();
 
   createUserPostRequest() async {
-    var network = await Connectivity().checkConnectivity();
-    print(network.index);
-    if (network.index == 2) {
+    if (_passwordEditingController.text ==
+        _confirmPasswordEditingController.text) {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+          // duration: Duration(seconds: 3),
+        ));
+      } else {
+        String url = "http://my-demo.xyz/farmers/apis/customer/register";
+        final headers = {'Content-Type': 'application/json'};
+
+        Map<String, dynamic> body = {
+          "user_type": "3",
+          "email": _userEditingController.text.toString(),
+          "password": _confirmPasswordEditingController.text.toString()
+        };
+        String jsonBody = json.encode(body);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var data = jsonDecode(response.body);
+        print(data);
+        // var data = {
+        //   "status": true,
+        //   "message": "added successfully.",
+        //   "data": true
+        // };
+        if (data['status']) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text(data['message']),
+            duration: Duration(seconds: 2),
+          ));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => OtpPage(_userEditingController.text)));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text(data['message']),
+            duration: Duration(seconds: 2),
+          ));
+        }
+      }
+    } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: kPrimaryColor,
-        content: Text('Please Check Your Internet Connection'),
+        content: Text('Confirm Password must be same'),
         // duration: Duration(seconds: 3),
       ));
-    } else {
-      String url = "http://my-demo.xyz/farmers/apis/customer/register";
-      final headers = {'Content-Type': 'application/json'};
-
-      Map<String, dynamic> body = {
-        "user_type": "3",
-        "email": _userEditingController.text.toString(),
-        "password": _confirmPasswordEditingController.text.toString()
-      };
-
-      String jsonBody = json.encode(body);
-
-      final response = await http.post(url, body: jsonBody, headers: headers);
-      var data = jsonDecode(response.body);
-      print(data);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => OtpPage()));
     }
-  }
-
-  @override
-  void initState() {
-    // createUserPostRequest();
-    super.initState();
   }
 
   @override
