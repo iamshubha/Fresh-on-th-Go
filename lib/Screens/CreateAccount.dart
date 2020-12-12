@@ -53,7 +53,7 @@ class _CreateAccountState extends State<CreateAccount> {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text(data['message']),
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 3),
           ));
           Navigator.pushReplacement(
               context,
@@ -63,7 +63,7 @@ class _CreateAccountState extends State<CreateAccount> {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text(data['message']),
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 3),
           ));
         }
       }

@@ -43,7 +43,7 @@ class _OtpPageState extends State<OtpPage> {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: kPrimaryColor,
           content: Text(data['message']),
-          duration: Duration(seconds: 1),
+          duration: Duration(seconds: 3),
         ));
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => LoginPage()));
@@ -51,7 +51,7 @@ class _OtpPageState extends State<OtpPage> {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: kPrimaryColor,
           content: Text(data['message']),
-           duration: Duration(seconds: 1)
+           duration: Duration(seconds: 3)
         ));
       }
     }
