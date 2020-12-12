@@ -6,6 +6,8 @@ import 'package:fresh_on_the_go/Screens/ForgetPasswordPage.dart';
 import 'package:fresh_on_the_go/Screens/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -27,22 +29,31 @@ class _LoginPageState extends State<LoginPage> {
           // duration: Duration(seconds: 3),
         ));
       } else {
-        if (_userEditingController.text == id) {
-          if (_passwordEditingController.text == password) {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => HomePage()));
-          } else {
-            _scaffoldKey.currentState.showSnackBar(SnackBar(
-              backgroundColor: kPrimaryColor,
-              content: Text('Compruebe la contraseña'),
-              // duration: Duration(seconds: 3),
-            ));
-          }
+        String url = "http://my-demo.xyz/farmers/apis/customer/login";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {
+          "user_type": "3",
+          "email": _userEditingController.text.toString(),
+          "password": _passwordEditingController.text.toString()
+        };
+        String jsonBody = json.encode(body);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var data = jsonDecode(response.body);
+        print(data);
+        
+        if (data['status']) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 2),
+          ));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => HomePage()));
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
-            content: Text('Por favor verifique su ID'),
-            // duration: Duration(seconds: 3),
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 2),
           ));
         }
       }
@@ -174,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     child: Column(
                       children: [
-                        "NUEVO USUARIO?""      "
+                        "NUEVO USUARIO?" "      "
                             .text
                             .textStyle(GoogleFonts.oswald())
                             .bold
