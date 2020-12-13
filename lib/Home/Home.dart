@@ -29,7 +29,6 @@ class _HomeState extends State<Home> {
     });
     var response = await http.get(
         "http://888travelthailand.com/farmers/apis/product/searchproductbycatagory_6prod?limit=6");
-
     setState(() {
       var getResponse = jsonDecode(response.body);
       data = getResponse['data']; //[0]['cdata'];
