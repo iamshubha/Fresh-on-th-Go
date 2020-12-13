@@ -1,18 +1,93 @@
-import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
-import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Home extends StatelessWidget {
-  final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
-  final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
+class ListItem {
+  int value;
+  String name;
+  ListItem(this.value, this.name);
+}
+
+class Menu extends StatefulWidget {
+  @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  List<ListItem> _dropdownItems = [
+    ListItem(1, "First Value"),
+    ListItem(2, "Second Item"),
+    ListItem(3, "Third Item"),
+    ListItem(4, "Fourth Item")
+  ];
+
+  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
+  ListItem _selectedItem;
+
+  var getDataForAllCategory;
+  var data;
+  bool loader = false;
+  getDataFromServer() async {
+    var url = http.get(
+        "http://888travelthailand.com/farmers/apis/product/searchallproduct");
+    var urlForCat = http.get(
+        "http://888travelthailand.com/farmers/apis/product/getallcategories");
+    var response = await Future.wait([url, urlForCat]);
+    setState(() {
+      final data1 = jsonDecode(response[0].body);
+      final data2 = jsonDecode(response[1].body);
+      print(data2);
+      print(data1);
+      data = data1['data'];
+      getDataForAllCategory = data2['data'];
+      loader = true;
+    });
+    print("${data.length} " + "shubha" + "${getDataForAllCategory.length}");
+  }
+
+  fetchDataWithCatType(String cid) async {
+    setState(() {
+      loader = false;
+    });
+    var response = await http.get(
+        "http://888travelthailand.com/farmers/apis/product/searchproductbycatagory?cid=$cid");
+
+    setState(() {
+      var getResponse = jsonDecode(response.body);
+      data = getResponse['data'];
+      loader = true;
+    });
+  }
+
+  void initState() {
+    super.initState();
+    _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
+    _selectedItem = _dropdownMenuItems[0].value;
+    getDataFromServer();
+  }
+
+  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
+    List<DropdownMenuItem<ListItem>> items = List();
+    for (ListItem listItem in listItems) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(listItem.name),
+          value: listItem,
+        ),
+      );
+    }
+    return items;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(  appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
         leading: Builder(
@@ -41,221 +116,216 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "LUGAR DE ENTERGA".text.size(10).textStyle(GoogleFonts.openSans()).make(),
-            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL".text.size(3).textStyle(GoogleFonts.openSans()).make(),
+            "LUGAR DE ENTERGA"
+                .text
+                .size(10)
+                .textStyle(GoogleFonts.openSans())
+                .make(),
+            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL"
+                .text
+                .size(3)
+                .textStyle(GoogleFonts.openSans())
+                .make(),
           ],
         ),
         // leading: Icon(Icons.ac_unit),
       ),
-     drawer: CustomDrawer(),
-      body: SingleChildScrollView(
+      drawer: CustomDrawer(),
+      body: Container(
+        color: Colors.grey[350],
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              color: kPrimaryColor,
-              height: MediaQuery.of(context).size.height * 0.05,
-              child: Container(
-                // width: MediaQuery.of(context).size.width*0.80,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                    child: TextFormField(
-                      decoration: InputDecoration( hintText: "Buscar producto",
-                        border: InputBorder.none,
-                        prefixIcon: Image.asset('assets/images/search.png').p(8)
-                      ),
-                    ),
-              ).pOnly(left:MediaQuery.of(context).size.width*0.05,right: MediaQuery.of(context).size.width*0.05),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.0),
-                    bottomRight: Radius.circular(20.0)),
-              ),
-              height: MediaQuery.of(context).size.height * 0.25,
-              width: MediaQuery.of(context).size.width,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(25),
-                child: Image.asset(
-                  'assets/images/app-banner.png',
-                  fit: BoxFit.cover,
-                ),
-              ).pOnly(left: 20, right: 20, bottom: 20, top: 10),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.32,
-                  alignment: Alignment.center,
-                  child: "Oferta del día".text.textStyle(GoogleFonts.openSans()).make(),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.32,
+                  height: 20,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                      color: kPrimaryColor),
-                  // height: 20,
-                  height: MediaQuery.of(context).size.height * 0.045,
-                  // width: MediaQuery.of(context).size.width * 0.40,
-                  alignment: Alignment.center,
-                  child: "Categorias".text.textStyle(GoogleFonts.openSans()).white.make(),
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0)),
+                  ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.32,
-                  alignment: Alignment.center,
-                  child: "Favoritos".text.textStyle(GoogleFonts.openSans()).make(),
-                )
+                  height: 28,
+                  width: MediaQuery.of(context).size.width * 0.40,
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0)),
+                  ),
+                  alignment: Alignment.topCenter,
+                  child: "FRUTA FRESCA"
+                      .text
+                      .textStyle(GoogleFonts.openSans())
+                      .white
+                      .make(),
+                ).pOnly(bottom: 10)
               ],
-            )
-            // .pOnly(right: 25, left: 25)
-            ,
+            ),
+            loader == true
+                ? Container(
+                    height: MediaQuery.of(context).size.height * 0.091,
+                    color: Colors.white,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: getDataForAllCategory.length,
+                      itemBuilder: (_, i) {
+                        return InkWell(
+                          onTap: () {
+                            fetchDataWithCatType(
+                                getDataForAllCategory[i]['cid']);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.30,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[350],
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: "${getDataForAllCategory[i]['name']}"
+                                .text
+                                .textStyle(GoogleFonts.openSans())
+                                .center
+                                .black
+                                .make()
+                                .p(4),
+                          ).p(7),
+                        );
+                      },
+                    ),
+                  )
+                : Container(),
             Container(
-              child: Column(
+              color: kPrimaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ExpansionTileCard(
-                    baseColor: Colors.grey[800],
-                    expandedColor: Colors.grey[200],
-                    key: cardB,
-                    leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(90),
-                        child: Image.asset(
-                          'assets/images/titleicon.png',
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                        )),
-                    title: 'Verduras Frescas'.text.size(14).textStyle(GoogleFonts.openSans()).black.make(),
-                    subtitle:
-                        'Verduras frescas para ti.'.text.black.textStyle(GoogleFonts.openSans()).size(5).make(),
-                    initiallyExpanded: true,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ProductDetailsPage())),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.10,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: Image.asset(
-                                  'assets/images/veg1.png',
-                                  fit: BoxFit.cover,
-                                )).pOnly(left: 10),
-                          ),
-                          InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ProductDetailsPage())),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.10,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: Image.asset(
-                                  'assets/images/veg2.png',
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ProductDetailsPage())),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.10,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: Image.asset(
-                                  'assets/images/veg3.png',
-                                  fit: BoxFit.cover,
-                                )).pOnly(right: 10),
-                          ),
-                        ],
-                      ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ProductDetailsPage())),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.10,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: Image.asset(
-                                  'assets/images/veg4.png',
-                                  fit: BoxFit.cover,
-                                )).pOnly(left: 10),
-                          ),
-                          InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ProductDetailsPage())),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.10,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: Image.asset(
-                                  'assets/images/veg5.png',
-                                  fit: BoxFit.cover,
-                                )),
-                          ),
-                          InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => ProductDetailsPage())),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.10,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: Image.asset(
-                                  'assets/images/veg6.png',
-                                  fit: BoxFit.cover,
-                                )).pOnly(right: 10),
-                          ),
-                        ],
-                      ).pOnly(bottom: 10),
-                    ],
-                  ).p(20)
+                  loader == true
+                      ? Text("${data.length} Artículos")
+                          .text
+                          .textStyle(GoogleFonts.openSans())
+                          .white
+                          .bold
+                          .size(18)
+                          .make()
+                      : Container(
+                          child: CircularProgressIndicator(),
+                        ),
+                  Expanded(
+                    child: SizedBox(),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFD456),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        "Filter".text.textStyle(GoogleFonts.openSans()).make(),
+                        Image.asset('assets/images/filter-bg.png')
+                      ],
+                    ).pOnly(left: 5, right: 2),
+                  )
                 ],
-              ),
-            )
+              ).pOnly(top: 10, bottom: 10, right: 20, left: 20),
+            ),
+            loader == true
+                ? Container(
+                    height: MediaQuery.of(context).size.height * 0.544,
+                    child: ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  "${data[i]['image']}",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ).p(20),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.60,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  "${data[i]['name']}"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .size(8)
+                                      .make(),
+                                  "${data[i]['Catagory']}"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .bold
+                                      .make()
+                                      .pOnly(bottom: 20),
+                                  // DropdownButtonHideUnderline(
+                                  //     child: DropdownButton(
+                                  //         value: _selectedItem,
+                                  //         items: _dropdownMenuItems,
+                                  //         onChanged: (value) {
+                                  //           setState(() {
+                                  //             // _selectedItem = value;
+                                  //           });
+                                  //         })),
+                                  Row(
+                                    children: [
+                                      "\$: ${data[i]['cost_price']}"
+                                          .text
+                                          .textStyle(GoogleFonts.openSans())
+                                          .xl
+                                          .make(),
+                                      Expanded(child: SizedBox()),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: "AÑADIR"
+                                            .text
+                                            .textStyle(GoogleFonts.openSans())
+                                            .white
+                                            .size(10)
+                                            .make()
+                                            .p(8),
+                                      ).pOnly(right: 10),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        color: Color(0xFFFFD456),
+                                        child: VxStepper(
+                                          inputBoxColor: Colors.grey[350],
+                                          actionButtonColor: Colors.transparent,
+                                          onChange: (v) {
+                                            print(v);
+                                          },
+                                        ).pOnly(left: 5, right: 5),
+                                      )
+                                    ],
+                                  )
+                                ],
+                                // ),
+                              ),
+                            ).pOnly(top: 30)
+                          ],
+                        );
+                      },
+                    ),
+                  )
+                : Center(child: CircularProgressIndicator()),
           ],
         ),
       ),
