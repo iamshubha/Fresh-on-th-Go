@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +7,12 @@ import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
 class ProductDetailsPage extends StatefulWidget {
+  final String cid, pid;
+  ProductDetailsPage({@required this.cid, @required this.pid});
+
   @override
   _ProductDetailsPageState createState() => _ProductDetailsPageState();
 }
@@ -14,9 +20,25 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   final Connectivity _stateNet = Connectivity();
   int _current = 0;
+  var predictData;
+  var productDetails;
   a() async {
     var result = await Connectivity().checkConnectivity();
-    print(result);
+    print(result.index);
+    if (result.index != 2) {
+      var productDescriptionse = http.get(
+          'http://888travelthailand.com/farmers/apis/product/searchproductbyid?pid=${widget.pid}');
+      var predictDataResponse = http.get(
+          'http://888travelthailand.com/farmers/apis/product/searchproductbycatagory?cid=$widget.cid');
+      var responseData =
+          await Future.wait([productDescriptionse, predictDataResponse]);
+      final data1 = jsonDecode(responseData[0].body);
+      final data2 = jsonDecode(responseData[1].body);
+      setState(() {
+        productDetails = data1;
+        predictData = data2;
+      });
+    }
   }
 
   @override

@@ -1,50 +1,54 @@
-import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
+import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/material.dart';
 
-class ListItem {
-  int value;
-  String name;
-  ListItem(this.value, this.name);
-}
-
-class Menu extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _MenuState createState() => _MenuState();
+  _HomeState createState() => _HomeState();
 }
 
-class _MenuState extends State<Menu> {
-  List<ListItem> _dropdownItems = [
-    ListItem(1, "First Value"),
-    ListItem(2, "Second Item"),
-    ListItem(3, "Third Item"),
-    ListItem(4, "Fourth Item")
-  ];
+class _HomeState extends State<Home> {
+  final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
 
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
+  final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
 
+  bool loader = true;
+
+  var data;
+
+  getCartData() async {
+    setState(() {
+      loader = false;
+    });
+    var response = await http.get(
+        "http://888travelthailand.com/farmers/apis/product/searchproductbycatagory_6prod?limit=6");
+
+    setState(() {
+      var getResponse = jsonDecode(response.body);
+      data = getResponse['data']; //[0]['cdata'];
+      loader = true;
+    });
+    print(data.length);
+    print(data[0]['cdata'].length);
+    print(data[0]['c_img']);
+    print(data[0]['cdata'][0].length);
+    print(data[0]['cdata'][0]['image']);
+    print(data[0]['cdata'][5]['image']);
+  }
+
+  @override
   void initState() {
+    getCartData();
     super.initState();
-    _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    _selectedItem = _dropdownMenuItems[0].value;
   }
 
-  List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListItem>> items = List();
-    for (ListItem listItem in listItems) {
-      items.add(
-        DropdownMenuItem(
-          child: Text(listItem.name),
-          value: listItem,
-        ),
-      );
-    }
-    return items;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,188 +97,252 @@ class _MenuState extends State<Menu> {
         // leading: Icon(Icons.ac_unit),
       ),
       drawer: CustomDrawer(),
-      body: Container(
-        color: Colors.grey[350],
+      body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Container(
+              color: kPrimaryColor,
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: Container(
+                // width: MediaQuery.of(context).size.width*0.80,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      hintText: "Buscar producto",
+                      border: InputBorder.none,
+                      prefixIcon: Image.asset('assets/images/search.png').p(8)),
+                ),
+              ).pOnly(
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.05),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0)),
+              ),
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Image.asset(
+                  'assets/images/app-banner.png',
+                  fit: BoxFit.cover,
+                ),
+              ).pOnly(left: 20, right: 20, bottom: 20, top: 10),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: 20,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0)),
-                  ),
+                  width: MediaQuery.of(context).size.width * 0.32,
+                  alignment: Alignment.center,
+                  child: "Oferta del día"
+                      .text
+                      .textStyle(GoogleFonts.openSans())
+                      .make(),
                 ),
                 Container(
-                  height: 28,
-                  width: MediaQuery.of(context).size.width * 0.40,
+                  width: MediaQuery.of(context).size.width * 0.32,
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0)),
-                  ),
-                  alignment: Alignment.topCenter,
-                  child: "FRUTA FRESCA"
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      color: kPrimaryColor),
+                  // height: 20,
+                  height: MediaQuery.of(context).size.height * 0.045,
+                  // width: MediaQuery.of(context).size.width * 0.40,
+                  alignment: Alignment.center,
+                  child: "Categorias"
                       .text
                       .textStyle(GoogleFonts.openSans())
                       .white
                       .make(),
-                ).pOnly(bottom: 10)
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.32,
+                  alignment: Alignment.center,
+                  child:
+                      "Favoritos".text.textStyle(GoogleFonts.openSans()).make(),
+                )
               ],
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.091,
-              color: Colors.white,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 20,
-                itemBuilder: (_, i) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width * 0.30,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[350],
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: "Producto $i"
-                        .text
-                        .textStyle(GoogleFonts.openSans())
-                        .center
-                        .black
-                        .make()
-                        .p(4),
-                  ).p(7);
-                },
-              ),
-            ),
-            Container(
-              color: kPrimaryColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  "117 Artículos"
-                      .text
-                      .textStyle(GoogleFonts.openSans())
-                      .white
-                      .bold
-                      .size(18)
-                      .make(),
-                  Expanded(
-                    child: SizedBox(),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFD456),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        "Filter".text.textStyle(GoogleFonts.openSans()).make(),
-                        Image.asset('assets/images/filter-bg.png')
-                      ],
-                    ).pOnly(left: 5, right: 2),
-                  )
-                ],
-              ).pOnly(top: 10, bottom: 10, right: 20, left: 20),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.55,
-              child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int i) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ExpansionTileCard(
+                    baseColor: Colors.grey[800],
+                    expandedColor: Colors.grey[200],
+                    key: cardB,
+                    leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(90),
+                        child: Image.network(
+                          '${data[0]['c_img']}',
+                          fit: BoxFit.cover,
+                        )),
+                    title: '${data[0]['cname']}'
+                        .text
+                        .size(14)
+                        .textStyle(GoogleFonts.openSans())
+                        .black
+                        .make(),
+                    subtitle: 'Verduras frescas para ti.'
+                        .text
+                        .black
+                        .textStyle(GoogleFonts.openSans())
+                        .size(5)
+                        .make(),
+                    initiallyExpanded: true,
                     children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/veg$i.png',
-                            fit: BoxFit.cover,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProductDetailsPage(
+                                          cid: data[0]['cdata'][0]['cid'],
+                                          pid: data[0]['cdata'][0]['pid'],
+                                        ))),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: Image.network(
+                                  data[0]['cdata'][0]['image'],
+                                  fit: BoxFit.cover,
+                                )).pOnly(left: 10),
                           ),
-                        ),
-                      ).p(20),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.60,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            "Fresh & go $i"
-                                .text
-                                .textStyle(GoogleFonts.openSans())
-                                .size(8)
-                                .make(),
-                            "Regulador de platano $i"
-                                .text
-                                .textStyle(GoogleFonts.openSans())
-                                .bold
-                                .make(),
-                            DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                    value: _selectedItem,
-                                    items: _dropdownMenuItems,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        // _selectedItem = value;
-                                      });
-                                    })),
-                            Row(
-                              children: [
-                                "\$: $i"
-                                    .text
-                                    .textStyle(GoogleFonts.openSans())
-                                    .xl
-                                    .make(),
-                                Expanded(child: SizedBox()),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: "AÑADIR"
-                                      .text
-                                      .textStyle(GoogleFonts.openSans())
-                                      .white
-                                      .size(10)
-                                      .make()
-                                      .p(8),
-                                ).pOnly(right: 10),
-                                Container(
-                                  alignment: Alignment.center,
-                                  color: Color(0xFFFFD456),
-                                  child: VxStepper(
-                                    inputBoxColor: Colors.grey[350],
-                                    actionButtonColor: Colors.transparent,
-                                    onChange: (v) {
-                                      print(v);
-                                    },
-                                  ).pOnly(left: 5, right: 5),
-                                )
-                              ],
-                            )
-                          ],
-                          // ),
-                        ),
-                      ).pOnly(top: 30)
+                          InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProductDetailsPage(
+                                        cid: data[0]['cdata'][1]['cid'],
+                                        pid: data[0]['cdata'][1]['pid']))),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: Image.network(
+                                  data[0]['cdata'][1]['image'],
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                          InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProductDetailsPage(
+                                        cid: data[0]['cdata'][2]['cid'],
+                                        pid: data[0]['cdata'][2]['pid']))),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: Image.network(
+                                  data[0]['cdata'][2]['image'],
+                                  fit: BoxFit.cover,
+                                )).pOnly(right: 10),
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProductDetailsPage(
+                                        cid: data[0]['cdata'][3]['cid'],
+                                        pid: data[0]['cdata'][3]['pid']))),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: Image.network(
+                                  data[0]['cdata'][3]['image'],
+                                  fit: BoxFit.cover,
+                                )).pOnly(left: 10),
+                          ),
+                          InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProductDetailsPage(
+                                        cid: data[0]['cdata'][4]['cid'],
+                                        pid: data[0]['cdata'][4]['pid']))),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: Image.network(
+                                  data[0]['cdata'][4]['image'],
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                          InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProductDetailsPage(
+                                        cid: data[0]['cdata'][5]['cid'],
+                                        pid: data[0]['cdata'][5]['pid']))),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.10,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: Image.network(
+                                  data[0]['cdata'][5]['image'],
+                                  fit: BoxFit.cover,
+                                )).pOnly(right: 10),
+                          ),
+                        ],
+                      ).pOnly(bottom: 10),
                     ],
-                  );
-                },
+                  ).p(20)
+
+                  //; }),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

@@ -32,7 +32,8 @@ class _CreateAccountState extends State<CreateAccount> {
           // duration: Duration(seconds: 3),
         ));
       } else {
-        String url = "http://my-demo.xyz/farmers/apis/customer/register";
+        String url =
+            "http://888travelthailand.com/farmers/apis/customer/register";
         final headers = {'Content-Type': 'application/json'};
 
         Map<String, dynamic> body = {
@@ -44,11 +45,6 @@ class _CreateAccountState extends State<CreateAccount> {
         final response = await http.post(url, body: jsonBody, headers: headers);
         var data = jsonDecode(response.body);
         print(data);
-        // var data = {
-        //   "status": true,
-        //   "message": "added successfully.",
-        //   "data": true
-        // };
         if (data['status']) {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
@@ -106,7 +102,10 @@ class _CreateAccountState extends State<CreateAccount> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                TextFormField( validator: (value) => EmailValidator.validate(value) ? null : "Please enter a valid email",
+                TextFormField(
+                  validator: (value) => EmailValidator.validate(value)
+                      ? null
+                      : "Please enter a valid email",
                   controller: _userEditingController,
                   decoration: InputDecoration(
                     filled: true,

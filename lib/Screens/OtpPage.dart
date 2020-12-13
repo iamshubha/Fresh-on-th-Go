@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
@@ -27,18 +26,21 @@ class _OtpPageState extends State<OtpPage> {
         content: Text('Please Check Your Internet Connection'),
       ));
     } else {
-      String url = "http://my-demo.xyz/farmers/apis/customer/upd_usr_after_otp";
-      final headers = {'Content-Type': 'application/json'};
+      String url =
+          "http://888travelthailand.com/farmers/apis/customer/upd_usr_after_otp";
+      final headers = {'Content-Type': 'application/json', 'Charset': 'utf-8'};
       Map<String, dynamic> body = {
         "user_type": "3",
         "email": widget.text.toString(),
         "otp": _otpEditingController.text.toString()
       };
-      String jsonBody = json.encode(body);
-      final response = await http.post(url, body: jsonBody, headers: headers);
+      print(body);
+      String jsonBody = jsonEncode(body);
+      print(jsonBody);
+      var response = await http.post(url, body: jsonBody,headers: headers);
       var data = jsonDecode(response.body);
-      // var data = {"status": true, "message": "User created successfully."};
       print(data);
+      print(response);
       if (data['status']) {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: kPrimaryColor,
@@ -53,6 +55,7 @@ class _OtpPageState extends State<OtpPage> {
           content: Text(data['message']),
            duration: Duration(seconds: 3)
         ));
+
       }
     }
   }

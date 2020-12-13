@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           // duration: Duration(seconds: 3),
         ));
       } else {
-        String url = "http://my-demo.xyz/farmers/apis/customer/login";
+        String url = "http://888travelthailand.com/farmers/apis/customer/login";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "user_type": "3",

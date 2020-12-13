@@ -16,11 +16,10 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool loader = false;
-  String uid = "17";
+  String uid = "1";
   var data;
   getDataFromServer() async {
-    String url =
-        "http://my-demo.xyz/farmers/apis/customer/get_details_by_id?id=$uid";
+    String url = "http://888travelthailand.com/farmers/apis/customer/get_details_by_id?id=$uid";
     final response = await http.get(url);
     setState(() {
       data = jsonDecode(response.body);
@@ -199,4 +198,9 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+    @override
+  void dispose() { 
+    super.dispose();
+  }
+
 }
