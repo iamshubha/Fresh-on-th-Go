@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordEditingController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   loginFunction() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
     try {
       var network = await Connectivity().checkConnectivity();
       print(network.index);
@@ -27,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: kPrimaryColor,
           content: Text('Please Check Your Internet Connection'),
-          // duration: Duration(seconds: 3),
         ));
       } else {
         String url = "http://888travelthailand.com/farmers/apis/customer/login";
@@ -41,13 +42,16 @@ class _LoginPageState extends State<LoginPage> {
         final response = await http.post(url, body: jsonBody, headers: headers);
         var data = jsonDecode(response.body);
         print(data);
-        
+
         if (data['status']) {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text('${data['message']}'),
             duration: Duration(seconds: 3),
           ));
+          setState(() {
+            _prefs.setString('uid', data['data'][0]['uid']);
+          });
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => HomePage()));
         } else {
@@ -89,7 +93,9 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextFormField(
-                   validator: (value) => EmailValidator.validate(value) ? null : "Please enter a valid email",
+                  validator: (value) => EmailValidator.validate(value)
+                      ? null
+                      : "Please enter a valid email",
                   controller: _userEditingController,
                   decoration: InputDecoration(
                     filled: true,

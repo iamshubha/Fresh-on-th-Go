@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,7 +23,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   bool loader = true;
   var predictData;
   var productDetails;
+  String uid;
   a() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      uid = _prefs.getString('uid');
+    });
     var result = await Connectivity().checkConnectivity();
     print(result.index);
     if (result.index != 2) {
@@ -103,25 +109,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ).pOnly(bottom: 10),
           loader == true
               ? Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   width: MediaQuery.of(context).size.width * 0.75,
-                  height: MediaQuery.of(context).size.height * 0.32,
+                  height: MediaQuery.of(context).size.height * 0.28,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.all(5.0),
+                        height: MediaQuery.of(context).size.height * 0.20,
+                        // width: MediaQuery.of(context).size.width,
+                        // margin: EdgeInsets.all(5.0),
                         child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(5.0)),
-                            child: Stack(
-                              children: <Widget>[
-                                Image.network(productDetails['image'],
-                                    fit: BoxFit.cover, width: 1000.0),
-                              ],
-                            )),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          child: Image.network(productDetails['image'],
+                              fit: BoxFit.cover),
+                        ),
                       ),
                       // CarouselSlider(
                       //   items: imageSliders,
@@ -196,7 +201,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       )
                     ],
                   ),
-                ).pOnly(bottom: MediaQuery.of(context).size.height * 0.043)
+                ).pOnly(bottom: MediaQuery.of(context).size.height * 0.03)
               : Center(child: CircularProgressIndicator()),
           loader == true
               ? Container(

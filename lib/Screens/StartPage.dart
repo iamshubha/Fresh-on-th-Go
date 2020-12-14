@@ -42,7 +42,6 @@ class StartPage extends StatelessWidget {
               right: MediaQuery.of(context).size.width * 0.20),
           child: InkWell(
             onTap: () {
-              // uu();
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => LoginPage()));
             },

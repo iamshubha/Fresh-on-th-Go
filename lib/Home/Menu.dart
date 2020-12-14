@@ -1,8 +1,10 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -19,20 +21,25 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  int qnt;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<ListItem> _dropdownItems = [
     ListItem(1, "First Value"),
     ListItem(2, "Second Item"),
     ListItem(3, "Third Item"),
     ListItem(4, "Fourth Item")
   ];
-
   List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
   ListItem _selectedItem;
-
   var getDataForAllCategory;
   var data;
   bool loader = false;
+  String uid;
   getDataFromServer() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      uid = _prefs.getString('uid');
+    });
     var url = http.get(
         "http://888travelthailand.com/farmers/apis/product/searchallproduct");
     var urlForCat = http.get(
@@ -47,7 +54,11 @@ class _MenuState extends State<Menu> {
       getDataForAllCategory = data2['data'];
       loader = true;
     });
-    print("${data.length} " + "shubha" + "${getDataForAllCategory.length}");
+    print("${data.length} " +
+        "shubha" +
+        "${getDataForAllCategory.length}" +
+        "--" +
+        uid);
   }
 
   fetchDataWithCatType(String cid) async {
@@ -62,6 +73,42 @@ class _MenuState extends State<Menu> {
       data = getResponse['data'];
       loader = true;
     });
+  }
+
+  addToCart(String pid, String qty) async {
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        String url = "http://888travelthailand.com/farmers/apis/order/addcart";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {"pid": "$pid", "qty": "$qty", "uid": "1"};
+        String jsonBody = json.encode(body);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var data = jsonDecode(response.body);
+        print(data);
+        if (data['status']) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 3),
+          ));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 3),
+          ));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   void initState() {
@@ -87,6 +134,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
@@ -241,6 +289,7 @@ class _MenuState extends State<Menu> {
                     child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int i) {
+                        // int ai;
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,19 +339,23 @@ class _MenuState extends State<Menu> {
                                           .xl
                                           .make(),
                                       Expanded(child: SizedBox()),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: "AÑADIR"
-                                            .text
-                                            .textStyle(GoogleFonts.openSans())
-                                            .white
-                                            .size(10)
-                                            .make()
-                                            .p(8),
-                                      ).pOnly(right: 10),
+                                      InkWell(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: "AÑADIR"
+                                              .text
+                                              .textStyle(GoogleFonts.openSans())
+                                              .white
+                                              .size(10)
+                                              .make()
+                                              .p(8),
+                                        ).pOnly(right: 10),
+                                        onTap: () =>
+                                            addToCart(data[i]['pid'], "$qnt"),
+                                      ),
                                       Container(
                                         alignment: Alignment.center,
                                         color: Color(0xFFFFD456),
@@ -311,6 +364,9 @@ class _MenuState extends State<Menu> {
                                           actionButtonColor: Colors.transparent,
                                           onChange: (v) {
                                             print(v);
+                                            setState(() {
+                                              qnt = v;
+                                            });
                                           },
                                         ).pOnly(left: 5, right: 5),
                                       )
