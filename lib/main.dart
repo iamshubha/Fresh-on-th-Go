@@ -18,15 +18,13 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // primarySwatch: Color(0xFF5BB774),
-        accentColor: Color(0xFF5BB774),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      
-      home: StartPage()
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          // primarySwatch: Color(0xFF5BB774),
+          accentColor: Color(0xFF5BB774),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: StartPage());
   }
 }

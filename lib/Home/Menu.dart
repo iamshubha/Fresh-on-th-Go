@@ -87,7 +87,11 @@ class _MenuState extends State<Menu> {
       } else {
         String url = "http://888travelthailand.com/farmers/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
-        Map<String, dynamic> body = {"pid": "$pid", "qty": "$qty", "uid": "$uid"};
+        Map<String, dynamic> body = {
+          "pid": "$pid",
+          "qty": "$qty",
+          "uid": "$uid"
+        };
         String jsonBody = json.encode(body);
         final response = await http.post(url, body: jsonBody, headers: headers);
         var data = jsonDecode(response.body);
@@ -364,9 +368,7 @@ class _MenuState extends State<Menu> {
                                           actionButtonColor: Colors.transparent,
                                           onChange: (v) {
                                             print(v);
-                                            setState(() {
-                                              qnt = v;
-                                            });
+                                            setState(() => qnt = v);
                                           },
                                         ).pOnly(left: 5, right: 5),
                                       )

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
@@ -176,19 +175,23 @@ class _MyCartPageState extends State<MyCartPage> {
                                   //   // _selectedItem = value;
                                   //   // });
                                   // })),
-                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       "\$: ${data['data'][i]['price']}"
                                           .text
                                           .xl
                                           .textStyle(GoogleFonts.openSans())
                                           .make(),
-                                           Container(
+                                      Container(
                                         alignment: Alignment.center,
                                         // color: Color(0xFFFFD456),
-                                        child:"qty: ${data['data'][i]['qty']}".text.xl
-                                          .textStyle(GoogleFonts.openSans())
-                                          .make(),
+                                        child: "qty: ${data['data'][i]['qty']}"
+                                            .text
+                                            .xl
+                                            .textStyle(GoogleFonts.openSans())
+                                            .make(),
                                       ),
                                       // Expanded(child: SizedBox()),
                                       // Container(
@@ -204,7 +207,6 @@ class _MyCartPageState extends State<MyCartPage> {
                                       //       .make()
                                       //       .p(8),
                                       // ).pOnly(right: 10),
-                                     
                                     ],
                                   )
                                 ],

@@ -18,12 +18,53 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final Connectivity _stateNet = Connectivity();
-  int _current = 0;
+  int qnt;
   bool loader = true;
   var predictData;
   var productDetails;
   String uid;
+  addToCart(String pid, String qty) async {
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        String url = "http://888travelthailand.com/farmers/apis/order/addcart";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {
+          "pid": "$pid",
+          "qty": "$qty",
+          "uid": "$uid"
+        };
+        String jsonBody = json.encode(body);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var data = jsonDecode(response.body);
+        print(data);
+        if (data['status']) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 3),
+          ));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 3),
+          ));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   a() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -62,6 +103,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: kPrimaryBackgroundColor,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -285,20 +327,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                       .size
                                                       .width *
                                                   0.07),
-                                      //  Expanded(child: SizedBox()),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: "ADD"
-                                            .text
-                                            .textStyle(GoogleFonts.openSans())
-                                            .white
-                                            .size(10)
-                                            .make()
-                                            .p(8),
-                                      ).pOnly(right: 10),
+                                      InkWell(
+                                        onTap: () => addToCart(
+                                            predictData[i]['pid'], "$qnt"),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: "ADD"
+                                              .text
+                                              .textStyle(GoogleFonts.openSans())
+                                              .white
+                                              .size(10)
+                                              .make()
+                                              .p(8),
+                                        ).pOnly(right: 10),
+                                      ),
                                       Container(
                                           alignment: Alignment.center,
                                           color: Color(0xFFFFD456),
@@ -308,6 +353,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 Colors.transparent,
                                             onChange: (v) {
                                               print(v);
+                                              setState(() => qnt = v);
                                             },
                                           )).pOnly(left: 0, right: 5)
                                     ],
