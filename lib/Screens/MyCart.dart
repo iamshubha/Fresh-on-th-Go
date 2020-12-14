@@ -1,14 +1,81 @@
+import 'dart:convert';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/CheckOutPage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
-class MyCartPage extends StatelessWidget {
+class MyCartPage extends StatefulWidget {
+  @override
+  _MyCartPageState createState() => _MyCartPageState();
+}
+
+class _MyCartPageState extends State<MyCartPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String uid;
+  var data;
+  bool loader = true;
+  getCartData() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    uid = _prefs.getString('uid');
+    try {
+      setState(() => loader = false);
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        String url =
+            "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+        var response = await http.get(url);
+        var rsp = jsonDecode(response.body);
+        setState(() {
+          data = rsp;
+          loader = true;
+        });
+        print(data);
+        if (data['status']) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 3),
+          ));
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text('${data['message']}'),
+            duration: Duration(seconds: 3),
+          ));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCartData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: kPrimaryBackgroundColor,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -65,7 +132,7 @@ class MyCartPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.45,
                     // width: MediaQuery.of(context).size.width * 0.50,
                     child: ListView.builder(
-                      itemCount: 4,
+                      itemCount: data['data'].length,
                       itemBuilder: (BuildContext context, int i) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -76,8 +143,8 @@ class MyCartPage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.25,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  'assets/images/veg$i.png',
+                                child: Image.network(
+                                  data['data'][i]['image'],
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -88,8 +155,9 @@ class MyCartPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  "Fresh & go $i"
+                                  "${data['data'][i]['pname']}"
                                       .text
+                                      .bold
                                       .textStyle(GoogleFonts.openSans())
                                       .size(8)
                                       .make(),
@@ -97,48 +165,46 @@ class MyCartPage extends StatelessWidget {
                                       .text
                                       .textStyle(GoogleFonts.openSans())
                                       .bold
-                                      .make(),
-                                  DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                          // value: _selectedItem,
-                                          // items: _dropdownMenuItems,
-                                          onChanged: (value) {
-                                    // setState(() {
-                                    // _selectedItem = value;
-                                    // });
-                                  })),
-                                  Row(
+                                      .make()
+                                      .pOnly(top: 10),
+                                  // DropdownButtonHideUnderline(
+                                  //     child: DropdownButton(
+                                  //         // value: _selectedItem,
+                                  //         // items: _dropdownMenuItems,
+                                  //         onChanged: (value) {
+                                  //   // setState(() {
+                                  //   // _selectedItem = value;
+                                  //   // });
+                                  // })),
+                                  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
-                                      "\$: $i"
+                                      "\$: ${data['data'][i]['price']}"
                                           .text
                                           .xl
                                           .textStyle(GoogleFonts.openSans())
                                           .make(),
-                                      Expanded(child: SizedBox()),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: "ADD"
-                                            .text
-                                            .white
-                                            .textStyle(GoogleFonts.openSans())
-                                            .size(10)
-                                            .make()
-                                            .p(8),
-                                      ).pOnly(right: 10),
-                                      Container(
+                                           Container(
                                         alignment: Alignment.center,
-                                        color: Color(0xFFFFD456),
-                                        child: VxStepper(
-                                          inputBoxColor: Colors.grey[350],
-                                          actionButtonColor: Colors.transparent,
-                                          onChange: (v) {
-                                            print(v);
-                                          },
-                                        ).pOnly(left: 5, right: 5),
-                                      )
+                                        // color: Color(0xFFFFD456),
+                                        child:"qty: ${data['data'][i]['qty']}".text.xl
+                                          .textStyle(GoogleFonts.openSans())
+                                          .make(),
+                                      ),
+                                      // Expanded(child: SizedBox()),
+                                      // Container(
+                                      //   decoration: BoxDecoration(
+                                      //       color: Colors.green,
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(8)),
+                                      //   child: "ADD"
+                                      //       .text
+                                      //       .white
+                                      //       .textStyle(GoogleFonts.openSans())
+                                      //       .size(10)
+                                      //       .make()
+                                      //       .p(8),
+                                      // ).pOnly(right: 10),
+                                     
                                     ],
                                   )
                                 ],
@@ -170,7 +236,7 @@ class MyCartPage extends StatelessWidget {
                             .color(Colors.grey[200])
                             .bold
                             .make(),
-                        "\$ 200"
+                        "\$ ${data['total_price']}"
                             .text
                             .textStyle(GoogleFonts.openSans())
                             .bold
