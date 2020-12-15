@@ -357,7 +357,8 @@ class _MenuState extends State<Menu> {
                                               .size(10)
                                               .make()
                                               .p(4),
-                                        ).pOnly(right: 10),
+                                        ).pOnly(right: 10
+                                        ),
                                         onTap: () =>
                                             addToCart(data[i]['pid'], "$qnt"),
                                       ),

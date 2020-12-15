@@ -1,3 +1,4 @@
+import 'package:fresh_on_the_go/Home/Menu.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
@@ -169,6 +170,7 @@ class _HomeState extends State<Home> {
                 ? Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ExpansionTileCard(
                           baseColor: Colors.grey[800],
@@ -512,7 +514,19 @@ class _HomeState extends State<Home> {
                             ).pOnly(bottom: 10),
                           ],
                         ).p(20),
-
+                        InkWell(
+                          onTap: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => Menu())),
+                          child: Container(
+                            height: 50,
+                            width: 100,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFFFD456),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: "More".text.bold.make(),
+                          ),
+                        )
                         //; }),
                       ],
                     ),

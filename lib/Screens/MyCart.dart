@@ -332,9 +332,14 @@ class _MyCartPageState extends State<MyCartPage> {
                                   ),
                                 )
                               : Center(
-                                  child: "No Data Available ".text.make().pOnly(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.2))
+                                  child: "No hay datos disponibles"
+                                      .text
+                                      .make()
+                                      .pOnly(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2))
                         ],
                       ).pOnly(
                           left: 0,
@@ -386,7 +391,7 @@ class _MyCartPageState extends State<MyCartPage> {
                                   : _scaffoldKey.currentState
                                       .showSnackBar(SnackBar(
                                       backgroundColor: kPrimaryColor,
-                                      content: Text('No Data In Cart'),
+                                      content: Text('Carrito vacio'),
                                       duration: Duration(seconds: 3),
                                     ));
                             },
