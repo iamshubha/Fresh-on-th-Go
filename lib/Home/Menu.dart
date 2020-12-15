@@ -290,10 +290,10 @@ class _MenuState extends State<Menu> {
             loader == true
                 ? Container(
                     height: MediaQuery.of(context).size.height * 0.544,
+                    width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int i) {
-                        // int ai;
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,7 +308,7 @@ class _MenuState extends State<Menu> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                            ).p(20),
+                            ).p(18),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.60,
                               child: Column(

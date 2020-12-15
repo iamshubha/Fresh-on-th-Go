@@ -60,6 +60,38 @@ class _MyCartPageState extends State<MyCartPage> {
     }
   }
 
+  postCheckout(List cartId, String total) async {
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        String url = "http://888travelthailand.com/farmers/apis/order/addorder";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {
+          "cart_id": cartId,
+          "tot_price": total.toString(),
+          "status": "1",
+          "remarks": "ordered...",
+          "created_by": uid.toString()
+        };
+        String jsonBody = json.encode(body);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var postData = jsonDecode(response.body);
+        print(data);
+        if (postData['status']) {
+          getCartData();
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -127,153 +159,196 @@ class _MyCartPageState extends State<MyCartPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // "ORDER SUMMERY".text.bold.make().pOnly(bottom: 20),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.45,
-                    // width: MediaQuery.of(context).size.width * 0.50,
-                    child: ListView.builder(
-                      itemCount: data['data'].length,
-                      itemBuilder: (BuildContext context, int i) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.15,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  data['data'][i]['image'],
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ).p(20),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.60,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  "${data['data'][i]['pname']}"
-                                      .text
-                                      .bold
-                                      .textStyle(GoogleFonts.openSans())
-                                      .size(8)
-                                      .make(),
-                                  "Regulador de platano $i"
-                                      .text
-                                      .textStyle(GoogleFonts.openSans())
-                                      .bold
-                                      .make()
-                                      .pOnly(top: 10),
-                                  // DropdownButtonHideUnderline(
-                                  //     child: DropdownButton(
-                                  //         // value: _selectedItem,
-                                  //         // items: _dropdownMenuItems,
-                                  //         onChanged: (value) {
-                                  //   // setState(() {
-                                  //   // _selectedItem = value;
-                                  //   // });
-                                  // })),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                  loader == true
+                      ? (data['status'] == true
+                          ? Container(
+                              height: MediaQuery.of(context).size.height * 0.45,
+                              // width: MediaQuery.of(context).size.width * 0.50,
+                              child: ListView.builder(
+                                itemCount: data['data'].length,
+                                itemBuilder: (BuildContext context, int i) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      "\$: ${data['data'][i]['price']}"
-                                          .text
-                                          .xl
-                                          .textStyle(GoogleFonts.openSans())
-                                          .make(),
                                       Container(
-                                        alignment: Alignment.center,
-                                        // color: Color(0xFFFFD456),
-                                        child: "qty: ${data['data'][i]['qty']}"
-                                            .text
-                                            .xl
-                                            .textStyle(GoogleFonts.openSans())
-                                            .make(),
-                                      ),
-                                      // Expanded(child: SizedBox()),
-                                      // Container(
-                                      //   decoration: BoxDecoration(
-                                      //       color: Colors.green,
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(8)),
-                                      //   child: "ADD"
-                                      //       .text
-                                      //       .white
-                                      //       .textStyle(GoogleFonts.openSans())
-                                      //       .size(10)
-                                      //       .make()
-                                      //       .p(8),
-                                      // ).pOnly(right: 10),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.15,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.25,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            data['data'][i]['image'],
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ).p(20),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.60,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            "${data['data'][i]['pname']}"
+                                                .text
+                                                .bold
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .size(8)
+                                                .make(),
+                                            "Regulador de platano $i"
+                                                .text
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .bold
+                                                .make()
+                                                .pOnly(top: 10),
+                                            // DropdownButtonHideUnderline(
+                                            //     child: DropdownButton(
+                                            //         // value: _selectedItem,
+                                            //         // items: _dropdownMenuItems,
+                                            //         onChanged: (value) {
+                                            //   // setState(() {
+                                            //   // _selectedItem = value;
+                                            //   // });
+                                            // })),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                "\$: ${data['data'][i]['price']}"
+                                                    .text
+                                                    .xl
+                                                    .textStyle(
+                                                        GoogleFonts.openSans())
+                                                    .make(),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  // color: Color(0xFFFFD456),
+                                                  child:
+                                                      "qty: ${data['data'][i]['qty']}"
+                                                          .text
+                                                          .xl
+                                                          .textStyle(GoogleFonts
+                                                              .openSans())
+                                                          .make(),
+                                                ),
+                                                // Expanded(child: SizedBox()),
+                                                // Container(
+                                                //   decoration: BoxDecoration(
+                                                //       color: Colors.green,
+                                                //       borderRadius:
+                                                //           BorderRadius.circular(8)),
+                                                //   child: "ADD"
+                                                //       .text
+                                                //       .white
+                                                //       .textStyle(GoogleFonts.openSans())
+                                                //       .size(10)
+                                                //       .make()
+                                                //       .p(8),
+                                                // ).pOnly(right: 10),
+                                              ],
+                                            )
+                                          ],
+                                          // ),
+                                        ),
+                                      ).pOnly(top: 30)
                                     ],
-                                  )
-                                ],
-                                // ),
+                                  );
+                                },
                               ),
-                            ).pOnly(top: 30)
-                          ],
-                        );
-                      },
-                    ),
-                  ),
+                            )
+                          : Center(
+                              child: "No Data Available ".text.make().pOnly(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.2)))
+                      : Center(child: CircularProgressIndicator()),
                 ],
               ).pOnly(left: 0, right: 0, top: 0), //.pOnly(left: 20, top: 20),
             ).pOnly(left: 10, right: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.09,
-                    color: Color(0xFF2DB573),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        "Total :"
-                            .text
-                            .textStyle(GoogleFonts.openSans())
-                            .color(Colors.grey[200])
-                            .bold
-                            .make(),
-                        "\$ ${data['total_price']}"
-                            .text
-                            .textStyle(GoogleFonts.openSans())
-                            .bold
-                            .white
-                            .xl2
-                            .make()
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => CheckOutPage()));
-                    },
-                    child: Container(
-                        height: MediaQuery.of(context).size.height * 0.09,
-                        color: Color(0xFFFFD553),
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            "PASAR POR \nLA CAJA"
-                                .text
-                                .textStyle(GoogleFonts.openSans())
-                                .bold
-                                .make(),
-                            Image.asset('assets/images/basket-ico.png')
-                          ],
-                        )),
-                  ),
-                )
-              ],
-            ).pOnly(left: 10, right: 10)
+            loader == true
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height * 0.09,
+                          color: Color(0xFF2DB573),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              "Total :"
+                                  .text
+                                  .textStyle(GoogleFonts.openSans())
+                                  .color(Colors.grey[200])
+                                  .bold
+                                  .make(),
+                              data['status'] == true
+                                  ? "\$ ${data['total_price']}"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .bold
+                                      .white
+                                      .xl2
+                                      .make()
+                                  : "\$ : 0.00"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .bold
+                                      .white
+                                      .xl2
+                                      .make()
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            data['status'] == true
+                                ? postCheckout(
+                                    data['cart_ids'], '${data['total_price']}')
+                                : _scaffoldKey.currentState
+                                    .showSnackBar(SnackBar(
+                                    backgroundColor: kPrimaryColor,
+                                    content: Text('No Data In Cart'),
+                                    duration: Duration(seconds: 3),
+                                  ));
+                            
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (_) => CheckOutPage()));
+                          },
+                          child: Container(
+                              height: MediaQuery.of(context).size.height * 0.09,
+                              color: Color(0xFFFFD553),
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  "PASAR POR \nLA CAJA"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .bold
+                                      .make(),
+                                  Image.asset('assets/images/basket-ico.png')
+                                ],
+                              )),
+                        ),
+                      )
+                    ],
+                  ).pOnly(left: 10, right: 10)
+                : Center(child: CircularProgressIndicator())
           ],
         ),
       ),

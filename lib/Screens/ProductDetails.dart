@@ -155,7 +155,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  width: MediaQuery.of(context).size.width * 0.75,
+                  width: MediaQuery.of(context).size.width * 0.85,
                   height: MediaQuery.of(context).size.height * 0.28,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,7 +247,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               : Center(child: CircularProgressIndicator()),
           loader == true
               ? Container(
-                  width: MediaQuery.of(context).size.width * 0.75,
+                  width: MediaQuery.of(context).size.width * 0.85,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -271,12 +271,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           loader == true
               ? Container(
                   // color: Colors.red,
-                  width: MediaQuery.of(context).size.width * 0.75,
-                  height: MediaQuery.of(context).size.height * 0.27,
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: MediaQuery.of(context).size.height * 0.3,
                   child: ListView.builder(
                     itemCount: predictData.length,
                     itemBuilder: (BuildContext context, int i) {
                       return Container(
+                        width: MediaQuery.of(context).size.width * 0.85,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -384,25 +385,25 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           // )
         ],
       ),
-      bottomNavigationBar: Container(
-        color: kPrimaryColor,
-        height: 55,
-        alignment: Alignment.center,
-        child:
-            //  Row(
-            //   children: [
-            "ir al carrito"
-                .text
-                .white
-                .textStyle(GoogleFonts.openSans())
-                .xl2
-                .bold
-                .uppercase
-                .make(),
-        // Image.asset('')//TODO:Image add here
-        //   ],
-        // ),
-      ),
+      // bottomNavigationBar: Container(
+      //   color: kPrimaryColor,
+      //   height: 55,
+      //   alignment: Alignment.center,
+      //   child:
+      //       //  Row(
+      //       //   children: [
+      //       "ir al carrito"
+      //           .text
+      //           .white
+      //           .textStyle(GoogleFonts.openSans())
+      //           .xl2
+      //           .bold
+      //           .uppercase
+      //           .make(),
+      //   // Image.asset('')//TODO:Image add here
+      //   //   ],
+      //   // ),
+      // ),
     );
   }
 
