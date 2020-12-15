@@ -149,233 +149,203 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   bottomRight: Radius.circular(20.0)),
             ),
           ).pOnly(bottom: 10),
-          loader == true
-              ? Container(
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  height: MediaQuery.of(context).size.height * 0.28,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        // width: MediaQuery.of(context).size.width,
-                        // margin: EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                          child: Image.network(productDetails['image'],
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                      // CarouselSlider(
-                      //   items: imageSliders,
-                      //   options: CarouselOptions(
-                      //       autoPlay: true,
-                      //       enlargeCenterPage: true,
-                      //       aspectRatio: 2.0,
-                      //       onPageChanged: (index, reason) {
-                      //         setState(() {
-                      //           _current = index;
-                      //         });
-                      //       }),
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: imgList.map((url) {
-                      //     int index = imgList.indexOf(url);
-                      //     return Container(
-                      //       width: 8.0,
-                      //       height: 8.0,
-                      //       margin:
-                      //           EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                      //       decoration: BoxDecoration(
-                      //         shape: BoxShape.circle,
-                      //         color: _current == index
-                      //             ? Color.fromRGBO(0, 0, 0, 0.9)
-                      //             : Color.fromRGBO(0, 0, 0, 0.4),
-                      //       ),
-                      //     );
-                      //   }).toList(),
-                      // ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
+          loader == true
+              ? Column(children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    height: MediaQuery.of(context).size.height * 0.28,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.20,
+                          // width: MediaQuery.of(context).size.width,
+                          // margin: EdgeInsets.all(5.0),
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                            child: Image.network(productDetails['image'],
+                                fit: BoxFit.cover),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                "${productDetails['name']}"
+                                    .text
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                "\$: ${productDetails['sell_price']}"
+                                    .text
+                                    .xl
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                a();
+                                // print();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: "AÑADIR AL CARRITO"
+                                    .text
+                                    .textStyle(GoogleFonts.openSans())
+                                    .bold
+                                    .white
+                                    .size(10)
+                                    .make()
+                                    .p(8),
+                              ).pOnly(right: 10),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ).pOnly(bottom: MediaQuery.of(context).size.height * 0.03),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        "Detalles"
+                            .text
+                            .textStyle(GoogleFonts.openSans())
+                            .bold
+                            .uppercase
+                            .make()
+                            .pOnly(bottom: 5),
+                        "${productDetails['description']}"
+                            .text
+                            .textStyle(GoogleFonts.openSans())
+                            .size(4)
+                            .letterSpacing(0)
+                            .make()
+                      ],
+                    ),
+                  ).pOnly(bottom: MediaQuery.of(context).size.height * 0.043),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: ListView.builder(
+                      itemCount: predictData.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              "${productDetails['name']}"
-                                  .text
-                                  .bold
-                                  .textStyle(GoogleFonts.openSans())
-                                  .make(),
-                              "\$: ${productDetails['sell_price']}"
-                                  .text
-                                  .xl
-                                  .bold
-                                  .textStyle(GoogleFonts.openSans())
-                                  .make(),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                width: MediaQuery.of(context).size.width * 0.1,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    predictData[i]['image'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ).p(10),
+                              Container(
+                                // width: MediaQuery.of(context).size.width * 0.60,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    "${predictData[i]['name']}"
+                                        .text
+                                        .bold
+                                        .textStyle(GoogleFonts.openSans())
+                                        .size(8)
+                                        .make(),
+                                    "Seleccionar Producto"
+                                        .text
+                                        .textStyle(GoogleFonts.openSans())
+                                        .bold
+                                        .make(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        "\$ : ${predictData[i]['sell_price']}"
+                                            .text
+                                            .xl
+                                            .bold
+                                            .make()
+                                            .pOnly(
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.07),
+                                        InkWell(
+                                          onTap: () => addToCart(
+                                              predictData[i]['pid'], "$qnt"),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: "ADD"
+                                                .text
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .white
+                                                .size(10)
+                                                .make()
+                                                .p(8),
+                                          ).pOnly(right: 10),
+                                        ),
+                                        Container(
+                                            alignment: Alignment.center,
+                                            color: Color(0xFFFFD456),
+                                            child: VxStepper(
+                                              inputBoxColor: Colors.white,
+                                              actionButtonColor:
+                                                  Colors.transparent,
+                                              onChange: (v) {
+                                                print(v);
+                                                setState(() => qnt = v);
+                                              },
+                                            )).pOnly(left: 0, right: 0)
+                                      ],
+                                    ).pOnly(bottom: 10)
+                                  ],
+                                  // ),
+                                ),
+                              ).pOnly(top: 30)
                             ],
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              a();
-                              // print();
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: "AÑADIR AL CARRITO"
-                                  .text
-                                  .textStyle(GoogleFonts.openSans())
-                                  .bold
-                                  .white
-                                  .size(10)
-                                  .make()
-                                  .p(8),
-                            ).pOnly(right: 10),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ).pOnly(bottom: MediaQuery.of(context).size.height * 0.03)
-              : Center(child: CircularProgressIndicator()),
-          loader == true
-              ? Container(
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      "Detalles"
-                          .text
-                          .textStyle(GoogleFonts.openSans())
-                          .bold
-                          .uppercase
-                          .make()
-                          .pOnly(bottom: 5),
-                      "${productDetails['description']}"
-                          .text
-                          .textStyle(GoogleFonts.openSans())
-                          .size(4)
-                          .letterSpacing(0)
-                          .make()
-                    ],
-                  ),
-                ).pOnly(bottom: MediaQuery.of(context).size.height * 0.043)
-              : Center(child: CircularProgressIndicator()),
-          loader == true
-              ? Container(
-                  // color: Colors.red,
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: ListView.builder(
-                    itemCount: predictData.length,
-                    itemBuilder: (BuildContext context, int i) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              width: MediaQuery.of(context).size.width * 0.1,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  predictData[i]['image'],
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ).p(10),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.60,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  "${predictData[i]['name']}"
-                                      .text
-                                      .bold
-                                      .textStyle(GoogleFonts.openSans())
-                                      .size(8)
-                                      .make(),
-                                  // "Regulador de platano $i"
-                                  //     .text
-                                  //     .textStyle(GoogleFonts.openSans())
-                                  //     .bold
-                                  //     .make(),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      "\$ : ${predictData[i]['sell_price']}"
-                                          .text
-                                          .xl
-                                          .bold
-                                          .make()
-                                          .pOnly(
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.07),
-                                      InkWell(
-                                        onTap: () => addToCart(
-                                            predictData[i]['pid'], "$qnt"),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: "ADD"
-                                              .text
-                                              .textStyle(GoogleFonts.openSans())
-                                              .white
-                                              .size(10)
-                                              .make()
-                                              .p(8),
-                                        ).pOnly(right: 10),
-                                      ),
-                                      Container(
-                                          alignment: Alignment.center,
-                                          color: Color(0xFFFFD456),
-                                          child: VxStepper(
-                                            inputBoxColor: Colors.white,
-                                            actionButtonColor:
-                                                Colors.transparent,
-                                            onChange: (v) {
-                                              print(v);
-                                              setState(() => qnt = v);
-                                            },
-                                          )).pOnly(left: 0, right: 5)
-                                    ],
-                                  )
-                                ],
-                                // ),
-                              ),
-                            ).pOnly(top: 30)
-                          ],
-                        ),
-                      ).pOnly(bottom: 10);
-                    },
-                  ),
+                        ).pOnly(bottom: 10);
+                      },
+                    ),
 
-                  // Column(
-                  //   children: [
+                    // Column(
+                    //   children: [
 
-                  //   ],
-                  // ),
-                )
-              : Center(child: CircularProgressIndicator()),
+                    //   ],
+                    // ),
+                  )
+                ])
+              : Center(child: CircularProgressIndicator().pOnly(top: 30)),
           // BottomAppBar(
           //   child: Container(
           //     height: 20,

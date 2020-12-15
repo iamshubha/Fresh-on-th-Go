@@ -310,7 +310,7 @@ class _MenuState extends State<Menu> {
                               ),
                             ).p(18),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.60,
+                              // width: MediaQuery.of(context).size.width * 0.,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -336,13 +336,14 @@ class _MenuState extends State<Menu> {
                                   //           });
                                   //         })),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       "\$: ${data[i]['cost_price']}"
                                           .text
                                           .textStyle(GoogleFonts.openSans())
                                           .xl
                                           .make(),
-                                      Expanded(child: SizedBox()),
                                       InkWell(
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -355,13 +356,13 @@ class _MenuState extends State<Menu> {
                                               .white
                                               .size(10)
                                               .make()
-                                              .p(8),
+                                              .p(4),
                                         ).pOnly(right: 10),
                                         onTap: () =>
                                             addToCart(data[i]['pid'], "$qnt"),
                                       ),
                                       Container(
-                                        alignment: Alignment.center,
+                                        // alignment: Alignment.,
                                         color: Color(0xFFFFD456),
                                         child: VxStepper(
                                           inputBoxColor: Colors.grey[350],
@@ -371,7 +372,7 @@ class _MenuState extends State<Menu> {
                                             setState(() => qnt = v);
                                           },
                                         ).pOnly(left: 5, right: 5),
-                                      )
+                                      ).pOnly(right:5)
                                     ],
                                   )
                                 ],

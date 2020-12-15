@@ -6,6 +6,7 @@ import 'package:fresh_on_the_go/Screens/LoginPage.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:fresh_on_the_go/Screens/OderList.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,10 +17,13 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool loader = false;
-  String uid = "1";
+  String uid;
   var data;
   getDataFromServer() async {
-    String url = "http://888travelthailand.com/farmers/apis/customer/get_details_by_id?id=$uid";
+    final _prefs = await SharedPreferences.getInstance();
+    uid = _prefs.getString('uid');
+    String url =
+        "http://888travelthailand.com/farmers/apis/customer/get_details_by_id?id=$uid";
     final response = await http.get(url);
     setState(() {
       data = jsonDecode(response.body);
@@ -41,6 +45,8 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
+        title: "User Profile".text.make(),
+        centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -60,6 +66,7 @@ class _ProfileState extends State<Profile> {
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
               child: Image.asset(
                 'assets/images/cart.png',
+                color: Colors.white,
                 fit: BoxFit.contain,
               ).p(10))
         ],
@@ -86,45 +93,45 @@ class _ProfileState extends State<Profile> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
+                            color: Colors.transparent,
                             height: MediaQuery.of(context).size.height * 0.18,
                             width: MediaQuery.of(context).size.width * 0.3,
                             // decoration: BoxDecoration(
                             //     color: Colors.yellow,
                             //     borderRadius: BorderRadius.circular(1000)),
-                            child: ClipOval(
-                                child: Image.network(
-                              '${data['data'][0]['profile_img']}',
+                            child: Image.asset(
+                              'usernameico.png',
                               fit: BoxFit.cover,
-                            )),
+                            ),
                           ).pOnly(bottom: 10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.06,
                           ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                "${data['data'][0]['name']}"
-                                    .text
-                                    .white
-                                    .xl
-                                    .extraBold
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make()
-                                    .pOnly(bottom: 6),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(Icons.location_on),
-                                    "${data['data'][0]['address']}"
-                                        .text
-                                        .textStyle(GoogleFonts.openSans())
-                                        .make()
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
+                          // Container(
+                          //   child: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       "${data['data'][0]['email']}"
+                          //           .text
+                          //           .white
+
+                          //           .extraBold
+                          //           .textStyle(GoogleFonts.openSans())
+                          //           .make()
+                          //           .pOnly(bottom: 6),
+                          //       Row(
+                          //         mainAxisAlignment: MainAxisAlignment.start,
+                          //         children: [
+                          //           Icon(Icons.location_on),
+                          //           "${data['data'][0]['address']}"
+                          //               .text
+                          //               .textStyle(GoogleFonts.openSans())
+                          //               .make()
+                          //         ],
+                          //       )
+                          //     ],
+                          //   ),
+                          // )
                         ],
                       ),
                       Divider(
@@ -136,21 +143,21 @@ class _ProfileState extends State<Profile> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          "155 Pedidos"
+                          "${data['data'][0]['email']}"
                               .text
                               .xl
                               .white
                               .extraBold
                               .textStyle(GoogleFonts.openSans())
                               .make(),
-                          Expanded(child: SizedBox()),
-                          "Editar Perfil"
-                              .text
-                              .xl
-                              .white
-                              .textStyle(GoogleFonts.openSans())
-                              .extraBold
-                              .make()
+                          // Expanded(child: SizedBox()),
+                          // "Editar Perfil"
+                          //     .text
+                          //     .xl
+                          //     .white
+                          //     .textStyle(GoogleFonts.openSans())
+                          //     .extraBold
+                          //     .make()
                         ],
                       ).pOnly(
                           left: MediaQuery.of(context).size.width * 0.15,
@@ -174,20 +181,23 @@ class _ProfileState extends State<Profile> {
                   onTap: () => Navigator.push(context,
                       MaterialPageRoute(builder: (_) => OrderListPage())),
                 ).pOnly(top: 10),
+                // ListTile(
+                //   leading: Image.asset('assets/images/account-details.png'),
+                //   title: "Detalles de Cuenta".text.make(),
+                // ).pOnly(top: 10),
+                // ListTile(
+                //   leading: Image.asset('assets/images/helpsupport.png'),
+                //   title: "Ayuda & Apoyo".text.make(),
+                // ).pOnly(top: 10),
                 ListTile(
-                  leading: Image.asset('assets/images/account-details.png'),
-                  title: "Detalles de Cuenta".text.make(),
-                ).pOnly(top: 10),
-                ListTile(
-                  leading: Image.asset('assets/images/helpsupport.png'),
-                  title: "Ayuda & Apoyo".text.make(),
-                ).pOnly(top: 10),
-                ListTile(
-                  leading: Image.asset('assets/images/logout.png'),
-                  title: "Carrar Sessión".text.make(),
-                  onTap: () => Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (_) => LoginPage())),
-                ).pOnly(top: 10),
+                    leading: Image.asset('assets/images/logout.png'),
+                    title: "Carrar Sessión".text.make(),
+                    onTap: () async {
+                      final _prefs = await SharedPreferences.getInstance();
+                      _prefs.clear();
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => LoginPage()));
+                    }).pOnly(top: 10),
               ],
             ),
           ).pOnly(
@@ -198,9 +208,9 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-    @override
-  void dispose() { 
+
+  @override
+  void dispose() {
     super.dispose();
   }
-
 }
