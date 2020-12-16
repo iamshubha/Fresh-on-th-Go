@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
+import 'package:fresh_on_the_go/Screens/ContactUs.dart';
 import 'package:fresh_on_the_go/Screens/LoginPage.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
 import 'package:fresh_on_the_go/Screens/OderList.dart';
@@ -103,7 +104,9 @@ class _ProfileState extends State<Profile> {
                               'usernameico.png',
                               fit: BoxFit.cover,
                             ),
-                          ).pOnly(bottom: 50,top:MediaQuery.of(context).size.height*0.071),
+                          ).pOnly(
+                              bottom: 50,
+                              top: MediaQuery.of(context).size.height * 0.071),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.06,
                           ),
@@ -185,10 +188,14 @@ class _ProfileState extends State<Profile> {
                 //   leading: Image.asset('assets/images/account-details.png'),
                 //   title: "Detalles de Cuenta".text.make(),
                 // ).pOnly(top: 10),
-                // ListTile(
-                //   leading: Image.asset('assets/images/helpsupport.png'),
-                //   title: "Ayuda & Apoyo".text.make(),
-                // ).pOnly(top: 10),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => ContactUsPage()));
+                  },
+                  leading: Image.asset('assets/images/helpsupport.png'),
+                  title: "Ayuda & Apoyo".text.make(),
+                ).pOnly(top: 10),
                 ListTile(
                     leading: Image.asset('assets/images/logout.png'),
                     title: "Carrar Sessión".text.make(),
