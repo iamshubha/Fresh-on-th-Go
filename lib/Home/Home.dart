@@ -1,4 +1,5 @@
 import 'package:fresh_on_the_go/Home/Menu.dart';
+import 'package:fresh_on_the_go/Screens/SearchPage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
@@ -63,13 +64,21 @@ class _HomeState extends State<Home> {
           },
         ),
         actions: [
+          IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 40,
+              ),
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => SearchPage()))),
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
               child: Image.asset(
                 'assets/images/cart.png',
                 fit: BoxFit.contain,
-              ).p(10))
+              ).p(10)),
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -91,28 +100,11 @@ class _HomeState extends State<Home> {
       ),
       drawer: CustomDrawer(),
       body: SingleChildScrollView(
+        // physics:
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              color: kPrimaryColor,
-              height: MediaQuery.of(context).size.height * 0.05,
-              child: Container(
-                // width: MediaQuery.of(context).size.width*0.80,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      hintText: "Buscar producto",
-                      border: InputBorder.none,
-                      prefixIcon: Image.asset('assets/images/search.png').p(8)),
-                ),
-              ).pOnly(
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  right: MediaQuery.of(context).size.width * 0.05),
-            ),
             Container(
               decoration: BoxDecoration(
                 color: kPrimaryColor,
@@ -173,7 +165,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ExpansionTileCard(
-                          baseColor: Colors.grey[800],
+                          baseColor: Colors.grey[300],
                           expandedColor: Colors.grey[200],
                           // key: cardB,
                           leading: ClipRRect(
@@ -344,9 +336,8 @@ class _HomeState extends State<Home> {
                           ],
                         ).p(20),
                         ExpansionTileCard(
-                          baseColor: Colors.grey[800],
-                          expandedColor: Colors.grey[200],
-                          // key: cardB,
+                          baseColor: Colors.grey[300],
+                          expandedColor: Colors.grey[200], // key: cardB,
                           leading: ClipRRect(
                               borderRadius: BorderRadius.circular(90),
                               child: Image.network(

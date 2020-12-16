@@ -270,20 +270,21 @@ class _MenuState extends State<Menu> {
                   Expanded(
                     child: SizedBox(),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFD456),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        "Filter".text.textStyle(GoogleFonts.openSans()).make(),
-                        Image.asset('assets/images/filter-bg.png')
-                      ],
-                    ).pOnly(left: 5, right: 2),
-                  )
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width * 0.2,
+                  //   decoration: BoxDecoration(
+                  //     color: Color(0xFFFFD456),
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //   ),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       "Filter".text.textStyle(GoogleFonts.openSans()).make(),
+                  //       Image.asset('assets/images/filter-bg.png')
+                  //     ],
+                  //   ).pOnly(left: 5, right: 2),
+                  // )
+                
                 ],
               ).pOnly(top: 10, bottom: 10, right: 20, left: 20),
             ),
