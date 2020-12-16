@@ -278,7 +278,8 @@ class _MyCartPageState extends State<MyCartPage> {
                                                             .openSans())
                                                         .make(),
                                                     IconButton(
-                                                      icon: Icon(Icons.add),
+                                                      icon: Image.asset(
+                                                          'assets/images/cart1.png'),
                                                       onPressed: () {
                                                         updateProductQty(
                                                             '${data['data'][i]['cart_id']}',
@@ -299,7 +300,10 @@ class _MyCartPageState extends State<MyCartPage> {
                                                               .make(),
                                                     ),
                                                     IconButton(
-                                                      icon: Icon(Icons.remove),
+                                                      icon: Image.asset(
+                                                        'assets/images/shopping-cart-minus.png',
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                       onPressed: () {
                                                         updateProductQty(
                                                             '${data['data'][i]['cart_id']}',

@@ -94,8 +94,8 @@ class _ProfileState extends State<Profile> {
                         children: [
                           Container(
                             color: Colors.transparent,
-                            height: MediaQuery.of(context).size.height * 0.18,
-                            width: MediaQuery.of(context).size.width * 0.3,
+                            // height: MediaQuery.of(context).size.height * 0.18,
+                            // width: MediaQuery.of(context).size.width * 0.3,
                             // decoration: BoxDecoration(
                             //     color: Colors.yellow,
                             //     borderRadius: BorderRadius.circular(1000)),
@@ -103,7 +103,7 @@ class _ProfileState extends State<Profile> {
                               'usernameico.png',
                               fit: BoxFit.cover,
                             ),
-                          ).pOnly(bottom: 10),
+                          ).pOnly(bottom: 50,top:MediaQuery.of(context).size.height*0.071),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.06,
                           ),

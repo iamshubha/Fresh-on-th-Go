@@ -47,7 +47,6 @@ class ForgetPasswordPage extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100.0),
                     ),
-                    // fillColor: Color(rgb(255,213,82)),
                     fillColor: Color(0xFFFFD552), //fromRGBO(255, 213, 82,0.0),
                     hintText: "Nombre de usuário",
                   ),

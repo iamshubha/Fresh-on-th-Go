@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     child: Column(
                       children: [
-                        "NUEVO USUARIO?" "      "
+                        "¿NUEVO USUARIO?" "      "
                             .text
                             .textStyle(GoogleFonts.oswald())
                             .bold

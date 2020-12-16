@@ -304,7 +304,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 color: Colors.green,
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
-                                            child: "ADD"
+                                            child: "añadir"
                                                 .text
                                                 .textStyle(
                                                     GoogleFonts.openSans())

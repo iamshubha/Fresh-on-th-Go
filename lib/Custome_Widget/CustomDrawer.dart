@@ -28,13 +28,13 @@ class CustomDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    "Nombre de usuario"
+                    "Nombre de Usuário"
                         .text
                         .bold
                         .size(10)
                         .textStyle(GoogleFonts.openSans())
                         .make(),
-                    "Género masculino"
+                    "Título: Sr. Sra, Srta"
                         .text
                         .size(10)
                         .textStyle(GoogleFonts.openSans())
@@ -74,14 +74,13 @@ class CustomDrawer extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    "proxima ranura de enterega"
+                    "Próxima Fecha de Enterega"
                         .text
                         .size(1)
                         .textStyle(GoogleFonts.openSans())
                         .bold
-                        .uppercase
                         .make(),
-                    "Sabado. 12de dicilmbre de"
+                    "Sabado, 12de diciembre de"
                         .text
                         .white
                         .textStyle(GoogleFonts.openSans())
