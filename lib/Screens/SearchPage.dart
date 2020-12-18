@@ -63,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
   getDataFromServer() async {
     setState(() => loader = false);
     var response = await http.get(
-        "http://888travelthailand.com/farmers/apis/product/getallcategories");
+        "http://888travelthailand.com/farmers/apis/product/searchallproduct");
 
     setState(() {
       final data2 = jsonDecode(response.body);
@@ -197,7 +197,7 @@ class _SearchPageState extends State<SearchPage> {
                                     .textStyle(GoogleFonts.openSans())
                                     .size(8)
                                     .make(),
-                                "${data[i]['Catagory']}"
+                                "${data[i]['category']}"
                                     .text
                                     .textStyle(GoogleFonts.openSans())
                                     .bold

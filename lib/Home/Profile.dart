@@ -85,8 +85,10 @@ class _ProfileState extends State<Profile> {
                   bottomLeft: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0)),
             ),
-            child: loader == true
-                ? Column(
+            child:
+             loader == true
+                ?
+                 Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

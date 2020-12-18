@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MyCartPage extends StatefulWidget {
   @override
@@ -117,11 +118,14 @@ class _MyCartPageState extends State<MyCartPage> {
         var postData = jsonDecode(response.body);
         print(data);
         if (postData['status']) {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            backgroundColor: kPrimaryColor,
-            content: Text('Order Placed'),
-            duration: Duration(seconds: 3),
-          ));
+          Fluttertoast.showToast(
+              msg: "Your order  is placed successfully",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor:kPrimaryColor,
+              textColor: Colors.white,
+              fontSize: 16.0);
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => HomePage()));
         }

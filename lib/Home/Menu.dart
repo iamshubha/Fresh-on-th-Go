@@ -70,6 +70,7 @@ class _MenuState extends State<Menu> {
 
     setState(() {
       var getResponse = jsonDecode(response.body);
+      print(getResponse); 
       data = getResponse['data'];
       loader = true;
     });
@@ -321,7 +322,7 @@ class _MenuState extends State<Menu> {
                                       .textStyle(GoogleFonts.openSans())
                                       .size(8)
                                       .make(),
-                                  "${data[i]['Catagory']}"
+                                  "${data[i]['category']}"
                                       .text
                                       .textStyle(GoogleFonts.openSans())
                                       .bold

@@ -174,7 +174,7 @@ class _HomeState extends State<Home> {
                                 '${data[0]['c_img']}',
                                 fit: BoxFit.cover,
                               )),
-                          title: '${data[0]['cname']}'
+                          title: '${data[0]['category']}'
                               .text
                               .size(14)
                               .textStyle(GoogleFonts.openSans())
@@ -344,7 +344,7 @@ class _HomeState extends State<Home> {
                                 '${data[1]['c_img']}',
                                 fit: BoxFit.cover,
                               )),
-                          title: '${data[1]['cname']}'
+                          title: '${data[1]['category']}'
                               .text
                               .size(14)
                               .textStyle(GoogleFonts.openSans())

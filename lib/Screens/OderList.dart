@@ -82,8 +82,8 @@ class OrderListPage extends StatelessWidget {
                                 .white
                                 .bold
                                 .uppercase
-                                .make().pOnly(left:5,right:5)
-                                ,
+                                .make()
+                                .pOnly(left: 5, right: 5),
                           ),
                           Row(
                             children: [
