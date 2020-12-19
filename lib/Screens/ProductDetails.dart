@@ -193,7 +193,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               ],
                             ),
                             GestureDetector(
-                              onTap: ()=>addToCart(productDetails['pid'],"1"),
+                              onTap: () =>
+                                  addToCart(productDetails['pid'], "1"),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Colors.green,
@@ -250,18 +251,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.1,
-                                width: MediaQuery.of(context).size.width * 0.1,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    predictData[i]['image'],
-                                    fit: BoxFit.cover,
+                              InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => ProductDetailsPage(
+                                            cid: predictData[i]['cid'],
+                                            pid: predictData[i]['pid']))),
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      predictData[i]['image'],
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                              ).p(10),
+                                ).p(10),
+                              ),
                               Container(
                                 // width: MediaQuery.of(context).size.width * 0.60,
                                 child: Column(
