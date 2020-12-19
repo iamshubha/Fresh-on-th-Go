@@ -89,12 +89,12 @@ class _ProfileState extends State<Profile> {
              loader == true
                 ?
                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
                           Container(
                             color: Colors.transparent,
                             // height: MediaQuery.of(context).size.height * 0.18,
@@ -108,37 +108,13 @@ class _ProfileState extends State<Profile> {
                             ),
                           ).pOnly(
                               bottom: 50,
-                              top: MediaQuery.of(context).size.height * 0.071),
+                              top: MediaQuery.of(context).size.height * 0.051),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.06,
                           ),
-                          // Container(
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       "${data['data'][0]['email']}"
-                          //           .text
-                          //           .white
-
-                          //           .extraBold
-                          //           .textStyle(GoogleFonts.openSans())
-                          //           .make()
-                          //           .pOnly(bottom: 6),
-                          //       Row(
-                          //         mainAxisAlignment: MainAxisAlignment.start,
-                          //         children: [
-                          //           Icon(Icons.location_on),
-                          //           "${data['data'][0]['address']}"
-                          //               .text
-                          //               .textStyle(GoogleFonts.openSans())
-                          //               .make()
-                          //         ],
-                          //       )
-                          //     ],
-                          //   ),
-                          // )
-                        ],
-                      ),
+                        
+                      //   ],
+                      // ),
                       Divider(
                         color: Colors.white,
                         thickness: 1.7,
