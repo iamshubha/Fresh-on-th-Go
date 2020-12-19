@@ -16,7 +16,7 @@ class OrderListPage extends StatefulWidget {
 
 class _OrderListPageState extends State<OrderListPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  var data;
+  var data = [];
   String uid;
   bool loader = false;
   getOrderData() async {
@@ -114,48 +114,57 @@ class _OrderListPageState extends State<OrderListPage> {
                     loader == true
                         ? Container(
                             height: MediaQuery.of(context).size.height * 0.42,
-                            child: ListView.builder(
-                              itemCount: data.length,
-                              itemBuilder: (_, i) {
-                                return Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.06,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFF5F5F5),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      "${data[i]['oid']}".text.make(),
-                                      Container(
+                            child: data.length !=0
+                                ? ListView.builder(
+                                    itemCount: data.length,
+                                    itemBuilder: (_, i) {
+                                      return Container(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.04,
-                                        alignment: Alignment.center,
+                                                0.06,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: kPrimaryColor,
-                                        ),
-                                        child: "${data[i]['status']}"
-                                            .text
-                                            .white
-                                            .bold
-                                            .uppercase
-                                            .make()
-                                            .pOnly(left: 5, right: 5),
-                                      ),
-                                      "${data[i]['order_dt']}"
-                                          .text
-                                          .size(1)
-                                          .bold
-                                          .make()
-                                    ],
-                                  ).pOnly(left: 16, right: 16),
-                                ).pOnly(top: 5);
-                              },
-                            ),
+                                            color: Color(0xFFF5F5F5),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            "${data[i]['oid']}".text.make(),
+                                            Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.04,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: kPrimaryColor,
+                                              ),
+                                              child: "${data[i]['status']}"
+                                                  .text
+                                                  .white
+                                                  .bold
+                                                  .uppercase
+                                                  .make()
+                                                  .pOnly(left: 5, right: 5),
+                                            ),
+                                            "${data[i]['order_dt']}"
+                                                .text
+                                                .size(1)
+                                                .bold
+                                                .make()
+                                          ],
+                                        ).pOnly(left: 16, right: 16),
+                                      ).pOnly(top: 5);
+                                    },
+                                  )
+                                : Center(
+                                    child: "No Order Available"
+                                        .text
+                                        .uppercase
+                                        .make()),
                           )
                         : Center(child: CircularProgressIndicator()),
                     // Container(
