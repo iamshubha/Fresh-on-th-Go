@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:fresh_on_the_go/Screens/MyCart.dart';
+import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -70,7 +71,7 @@ class _MenuState extends State<Menu> {
 
     setState(() {
       var getResponse = jsonDecode(response.body);
-      print(getResponse); 
+      print(getResponse);
       data = getResponse['data'];
       loader = true;
     });
@@ -285,7 +286,6 @@ class _MenuState extends State<Menu> {
                   //     ],
                   //   ).pOnly(left: 5, right: 2),
                   // )
-                
                 ],
               ).pOnly(top: 10, bottom: 10, right: 20, left: 20),
             ),
@@ -300,17 +300,22 @@ class _MenuState extends State<Menu> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: MediaQuery.of(context).size.height * 0.15,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  "${data[i]['image']}",
-                                  fit: BoxFit.cover,
+                            InkWell(
+                              onTap: () => ProductDetailsPage(
+                                  cid: data[i]['cid'], pid: data[i]['pid']),
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.15,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    "${data[i]['image']}",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ).p(18),
+                              ).p(18),
+                            ),
                             Container(
                               // width: MediaQuery.of(context).size.width * 0.,
                               child: Column(
@@ -359,8 +364,7 @@ class _MenuState extends State<Menu> {
                                               .size(10)
                                               .make()
                                               .p(4),
-                                        ).pOnly(right: 10
-                                        ),
+                                        ).pOnly(right: 10),
                                         onTap: () =>
                                             addToCart(data[i]['pid'], "$qnt"),
                                       ),
@@ -375,7 +379,7 @@ class _MenuState extends State<Menu> {
                                             setState(() => qnt = v);
                                           },
                                         ).pOnly(left: 5, right: 5),
-                                      ).pOnly(right:5)
+                                      ).pOnly(right: 5)
                                     ],
                                   )
                                 ],

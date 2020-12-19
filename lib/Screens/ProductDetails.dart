@@ -193,10 +193,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               ],
                             ),
                             GestureDetector(
-                              onTap: () {
-                                a();
-                                // print();
-                              },
+                              onTap: ()=>addToCart(productDetails['pid'],"1"),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Colors.green,
