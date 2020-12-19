@@ -1,10 +1,58 @@
+import 'dart:convert';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
 import 'package:fresh_on_the_go/Custome_Widget/const.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
-class OrderListPage extends StatelessWidget {
+class OrderListPage extends StatefulWidget {
+  @override
+  _OrderListPageState createState() => _OrderListPageState();
+}
+
+class _OrderListPageState extends State<OrderListPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  var data;
+  String uid;
+  bool loader = false;
+  getOrderData() async {
+    final _prefs = await SharedPreferences.getInstance();
+    uid = _prefs.getString('uid');
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        String url =
+            "http://888travelthailand.com/farmers/apis/customer/order_got_for_customer?uid=$uid";
+        final response = await http.get(url);
+        var rsp = jsonDecode(response.body);
+        if (rsp['status']) {
+          setState(() {
+            data = rsp['data'];
+            loader = true;
+          });
+        } else {
+          setState(() => loader = true);
+        }
+      }
+    } catch (e) {}
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrderData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,128 +105,137 @@ class OrderListPage extends StatelessWidget {
                         children: [
                           "order id".text.uppercase.make(),
                           "Oreder status".text.uppercase.make(),
-                          "action".text.uppercase.make()
+                          "Status Date".text.uppercase.make()
                         ],
                       ).pOnly(left: 10, right: 10),
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          "#2525".text.make(),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            alignment: Alignment.center,
+                      height: MediaQuery.of(context).size.height * 0.42,
+                      child: ListView.builder(
+                        itemCount: data.length,
+                        itemBuilder: (_, i) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.06,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: kPrimaryColor,
-                            ),
-                            child: "Deilverd"
-                                .text
-                                .white
-                                .bold
-                                .uppercase
-                                .make()
-                                .pOnly(left: 5, right: 5),
-                          ),
-                          Row(
-                            children: [
-                              Image.asset('assets/images/cross-ico.png')
-                            ],
-                          )
-                        ],
-                      ).pOnly(left: 16, right: 16),
-                    ).pOnly(top: 5),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFFEF4D7),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          "#2525".text.make(),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Color(0xFFFBD552),
-                            ),
-                            child:
-                                "Pending".text.white.bold.uppercase.make().p(6),
-                          ),
-                          Row(
-                            children: [
-                              Image.asset('assets/images/cross-ico.png')
-                            ],
-                          )
-                        ],
-                      ).pOnly(left: 16, right: 16),
-                    ).pOnly(top: 5),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          "#2525".text.make(),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: kPrimaryColor,
-                            ),
-                            child: "Deilverd"
-                                .text
-                                .white
-                                .bold
-                                .uppercase
-                                .make()
-                                .p(6),
-                          ),
-                          Row(
-                            children: [
-                              Image.asset('assets/images/cross-ico.png')
-                            ],
-                          )
-                        ],
-                      ).pOnly(left: 16, right: 16),
-                    ).pOnly(top: 5),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFFEF4D7),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          "#2525".text.make(),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Color(0xFFFBD552),
-                            ),
-                            child:
-                                "Pending".text.white.bold.uppercase.make().p(6),
-                          ),
-                          Row(
-                            children: [
-                              Image.asset('assets/images/cross-ico.png')
-                            ],
-                          )
-                        ],
-                      ).pOnly(left: 16, right: 16),
-                    ).pOnly(top: 5),
+                                color: Color(0xFFF5F5F5),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                "${data[i]['oid']}".text.make(),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.04,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: kPrimaryColor,
+                                  ),
+                                  child: "${data[i]['status']}"
+                                      .text
+                                      .white
+                                      .bold
+                                      .uppercase
+                                      .make()
+                                      .pOnly(left: 5, right: 5),
+                                ),
+                                "${data[i]['order_dt']}"
+                                    .text
+                                    .size(1)
+                                    .bold
+                                    .make()
+                              ],
+                            ).pOnly(left: 16, right: 16),
+                          ).pOnly(top: 5);
+                        },
+                      ),
+                    ),
+                    // Container(
+                    //   height: MediaQuery.of(context).size.height * 0.06,
+                    //   decoration: BoxDecoration(
+                    //       color: Color(0xFFFEF4D7),
+                    //       borderRadius: BorderRadius.circular(10)),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       "#2525".text.make(),
+                    //       Container(
+                    //         height: MediaQuery.of(context).size.height * 0.04,
+                    //         alignment: Alignment.center,
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(8),
+                    //           color: Color(0xFFFBD552),
+                    //         ),
+                    //         child:
+                    //             "Pending".text.white.bold.uppercase.make().p(6),
+                    //       ),
+                    //       Row(
+                    //         children: [
+                    //           Image.asset('assets/images/cross-ico.png')
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ).pOnly(left: 16, right: 16),
+                    // ).pOnly(top: 5),
+                    // Container(
+                    //   height: MediaQuery.of(context).size.height * 0.06,
+                    //   decoration: BoxDecoration(
+                    //       color: Color(0xFFF5F5F5),
+                    //       borderRadius: BorderRadius.circular(10)),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       "#2525".text.make(),
+                    //       Container(
+                    //         height: MediaQuery.of(context).size.height * 0.04,
+                    //         alignment: Alignment.center,
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(8),
+                    //           color: kPrimaryColor,
+                    //         ),
+                    //         child: "Deilverd"
+                    //             .text
+                    //             .white
+                    //             .bold
+                    //             .uppercase
+                    //             .make()
+                    //             .p(6),
+                    //       ),
+                    //       Row(
+                    //         children: [
+                    //           Image.asset('assets/images/cross-ico.png')
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ).pOnly(left: 16, right: 16),
+                    // ).pOnly(top: 5),
+                    // Container(
+                    //   height: MediaQuery.of(context).size.height * 0.06,
+                    //   decoration: BoxDecoration(
+                    //       color: Color(0xFFFEF4D7),
+                    //       borderRadius: BorderRadius.circular(10)),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       "#2525".text.make(),
+                    //       Container(
+                    //         height: MediaQuery.of(context).size.height * 0.04,
+                    //         alignment: Alignment.center,
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(8),
+                    //           color: Color(0xFFFBD552),
+                    //         ),
+                    //         child:
+                    //             "Pending".text.white.bold.uppercase.make().p(6),
+                    //       ),
+                    //       Row(
+                    //         children: [
+                    //           Image.asset('assets/images/cross-ico.png')
+                    //         ],
+                    //       )
+                    //     ],
+                    //   ).pOnly(left: 16, right: 16),
+                    // ).pOnly(top: 5),
                   ],
                 ).pOnly(
                     left: 10, right: 10, top: 20), //.pOnly(left: 20, top: 20),
