@@ -301,8 +301,12 @@ class _MenuState extends State<Menu> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             InkWell(
-                              onTap: () => ProductDetailsPage(
-                                  cid: data[i]['cid'], pid: data[i]['pid']),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => ProductDetailsPage(
+                                          cid: data[i]['cid'],
+                                          pid: data[i]['pid']))),
                               child: Container(
                                 height:
                                     MediaQuery.of(context).size.height * 0.15,
