@@ -39,6 +39,8 @@ class _OrderListPageState extends State<OrderListPage> {
           setState(() {
             data = rsp['data'];
             loader = true;
+            print(url);
+            print(data);
           });
         } else {
           setState(() => loader = true);
@@ -109,47 +111,53 @@ class _OrderListPageState extends State<OrderListPage> {
                         ],
                       ).pOnly(left: 10, right: 10),
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.42,
-                      child: ListView.builder(
-                        itemCount: data.length,
-                        itemBuilder: (_, i) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            decoration: BoxDecoration(
-                                color: Color(0xFFF5F5F5),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                "${data[i]['oid']}".text.make(),
-                                Container(
+                    loader == true
+                        ? Container(
+                            height: MediaQuery.of(context).size.height * 0.42,
+                            child: ListView.builder(
+                              itemCount: data.length,
+                              itemBuilder: (_, i) {
+                                return Container(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.04,
-                                  alignment: Alignment.center,
+                                      MediaQuery.of(context).size.height * 0.06,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: kPrimaryColor,
-                                  ),
-                                  child: "${data[i]['status']}"
-                                      .text
-                                      .white
-                                      .bold
-                                      .uppercase
-                                      .make()
-                                      .pOnly(left: 5, right: 5),
-                                ),
-                                "${data[i]['order_dt']}"
-                                    .text
-                                    .size(1)
-                                    .bold
-                                    .make()
-                              ],
-                            ).pOnly(left: 16, right: 16),
-                          ).pOnly(top: 5);
-                        },
-                      ),
-                    ),
+                                      color: Color(0xFFF5F5F5),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      "${data[i]['oid']}".text.make(),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.04,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: kPrimaryColor,
+                                        ),
+                                        child: "${data[i]['status']}"
+                                            .text
+                                            .white
+                                            .bold
+                                            .uppercase
+                                            .make()
+                                            .pOnly(left: 5, right: 5),
+                                      ),
+                                      "${data[i]['order_dt']}"
+                                          .text
+                                          .size(1)
+                                          .bold
+                                          .make()
+                                    ],
+                                  ).pOnly(left: 16, right: 16),
+                                ).pOnly(top: 5);
+                              },
+                            ),
+                          )
+                        : Center(child: CircularProgressIndicator()),
                     // Container(
                     //   height: MediaQuery.of(context).size.height * 0.06,
                     //   decoration: BoxDecoration(
