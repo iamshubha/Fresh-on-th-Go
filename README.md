@@ -1,5 +1,5 @@
 
-# fresh_on_the_go
+# FreshOnTheGo
 
 A new Flutter application.
 

@@ -1,9 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Custome_Widget/CustomDrawer.dart';
-import 'package:fresh_on_the_go/Custome_Widget/const.dart';
-import 'package:fresh_on_the_go/Screens/MyCart.dart';
-import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
+import 'package:FreshOnTheGo/Custome_Widget/CustomDrawer.dart';
+import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:FreshOnTheGo/Screens/MyCart.dart';
+import 'package:FreshOnTheGo/Screens/ProductDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';

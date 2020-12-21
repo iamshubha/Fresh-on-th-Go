@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Custome_Widget/const.dart';
-import 'package:fresh_on_the_go/Screens/HomePage.dart';
-import 'package:fresh_on_the_go/Screens/LoginPage.dart';
+import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:FreshOnTheGo/Screens/HomePage.dart';
+import 'package:FreshOnTheGo/Screens/LoginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';

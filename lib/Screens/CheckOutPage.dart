@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Custome_Widget/banner.dart';
-import 'package:fresh_on_the_go/Custome_Widget/const.dart';
-import 'package:fresh_on_the_go/Screens/CheckOutPayment.dart';
+import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
+import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:FreshOnTheGo/Screens/CheckOutPayment.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 

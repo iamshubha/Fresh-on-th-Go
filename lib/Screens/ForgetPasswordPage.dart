@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Screens/HomePage.dart';
+import 'package:FreshOnTheGo/Screens/HomePage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ForgetPasswordPage extends StatelessWidget {

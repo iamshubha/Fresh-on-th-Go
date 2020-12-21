@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:fresh_on_the_go/Home/Menu.dart';
-import 'package:fresh_on_the_go/Home/Home.dart';
-import 'package:fresh_on_the_go/Home/Profile.dart';
+import 'package:FreshOnTheGo/Home/Menu.dart';
+import 'package:FreshOnTheGo/Home/Home.dart';
+import 'package:FreshOnTheGo/Home/Profile.dart';
 
 class HomePage extends StatefulWidget {
   @override

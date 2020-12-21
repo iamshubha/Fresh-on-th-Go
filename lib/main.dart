@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fresh_on_the_go/Home/Profile.dart';
-import 'package:fresh_on_the_go/Screens/HomePage.dart';
-import 'package:fresh_on_the_go/Screens/MyCart.dart';
-import 'package:fresh_on_the_go/Screens/ProductDetails.dart';
-import 'package:fresh_on_the_go/Screens/StartPage.dart';
+import 'package:FreshOnTheGo/Home/Profile.dart';
+import 'package:FreshOnTheGo/Screens/HomePage.dart';
+import 'package:FreshOnTheGo/Screens/MyCart.dart';
+import 'package:FreshOnTheGo/Screens/ProductDetails.dart';
+import 'package:FreshOnTheGo/Screens/StartPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

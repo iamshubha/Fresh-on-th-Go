@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_on_the_go/Custome_Widget/const.dart';
-import 'package:fresh_on_the_go/Screens/LoginPage.dart';
-import 'package:fresh_on_the_go/Screens/OtpPage.dart';
+import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:FreshOnTheGo/Screens/LoginPage.dart';
+import 'package:FreshOnTheGo/Screens/OtpPage.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
