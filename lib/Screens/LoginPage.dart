@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Nombre de usuário",
+                    hintText: "Email usuário",  
                   ),
                 ),
                 SizedBox(
@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Nombre de usuário",
+                    hintText: "contraseña",
                   ),
                 ),
                 SizedBox(

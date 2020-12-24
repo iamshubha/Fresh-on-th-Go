@@ -131,7 +131,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Colocar su email",
+                    hintText: "Email usuário",
                   ),
                 ),
                 SizedBox(
