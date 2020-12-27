@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:FreshOnTheGo/Screens/OrderPages/OrderDetailsPage.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
@@ -114,50 +115,59 @@ class _OrderListPageState extends State<OrderListPage> {
                     loader == true
                         ? Container(
                             height: MediaQuery.of(context).size.height * 0.42,
-                            child: data.length !=0
+                            child: data.length != 0
                                 ? ListView.builder(
                                     itemCount: data.length,
                                     itemBuilder: (_, i) {
-                                      return Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.06,
-                                        decoration: BoxDecoration(
-                                            color: Color(0xFFF5F5F5),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            "${data[i]['oid']}".text.make(),
-                                            Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.04,
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                color: kPrimaryColor,
+                                      return InkWell(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    OrderDetailsPage(
+                                                        oid: data[i]['oid']))),
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.06,
+                                          decoration: BoxDecoration(
+                                              color: Color(0xFFF5F5F5),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              "${data[i]['oid']}".text.make(),
+                                              Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.04,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  color: kPrimaryColor,
+                                                ),
+                                                child: "${data[i]['status']}"
+                                                    .text
+                                                    .white
+                                                    .bold
+                                                    .uppercase
+                                                    .make()
+                                                    .pOnly(left: 5, right: 5),
                                               ),
-                                              child: "${data[i]['status']}"
+                                              "${data[i]['order_dt']}"
                                                   .text
-                                                  .white
+                                                  .size(1)
                                                   .bold
-                                                  .uppercase
                                                   .make()
-                                                  .pOnly(left: 5, right: 5),
-                                            ),
-                                            "${data[i]['order_dt']}"
-                                                .text
-                                                .size(1)
-                                                .bold
-                                                .make()
-                                          ],
-                                        ).pOnly(left: 16, right: 16),
-                                      ).pOnly(top: 5);
+                                            ],
+                                          ).pOnly(left: 16, right: 16),
+                                        ).pOnly(top: 5),
+                                      );
                                     },
                                   )
                                 : Center(
