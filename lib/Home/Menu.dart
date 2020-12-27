@@ -1,3 +1,4 @@
+import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/CustomDrawer.dart';
@@ -99,11 +100,13 @@ class _MenuState extends State<Menu> {
         var data = jsonDecode(response.body);
         print(data);
         if (data['status']) {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            backgroundColor: kPrimaryColor,
-            content: Text('${data['message']}'),
-            duration: Duration(seconds: 3),
-          ));
+          setState(() {
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+              backgroundColor: kPrimaryColor,
+              content: Text('${data['message']}'),
+              duration: Duration(seconds: 3),
+            ));
+          });
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
@@ -161,10 +164,7 @@ class _MenuState extends State<Menu> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: Image.asset(
-                'assets/images/cart.png',
-                fit: BoxFit.contain,
-              ).p(10))
+              child: CartIcon().p(10))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,

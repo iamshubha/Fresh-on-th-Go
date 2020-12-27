@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/CustomDrawer.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
@@ -65,11 +66,7 @@ class _ProfileState extends State<Profile> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: Image.asset(
-                'assets/images/cart.png',
-                color: Colors.white,
-                fit: BoxFit.contain,
-              ).p(10))
+              child: CartIcon().p(10))
         ],
       ),
       body: Column(

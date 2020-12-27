@@ -1,3 +1,4 @@
+import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
 import 'package:FreshOnTheGo/Home/Menu.dart';
 import 'package:FreshOnTheGo/Screens/SearchPage.dart';
 import 'package:http/http.dart' as http;
@@ -75,10 +76,7 @@ class _HomeState extends State<Home> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: Image.asset(
-                'assets/images/cart.png',
-                fit: BoxFit.contain,
-              ).p(10)),
+              child: CartIcon().p(10)),
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -1,3 +1,4 @@
+import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
@@ -22,7 +23,7 @@ class CheckOutPage extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        actions: [Image.asset('assets/images/cart.png')],
+        actions: [CartIcon().p(10)],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

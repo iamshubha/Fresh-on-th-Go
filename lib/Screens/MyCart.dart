@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
@@ -167,7 +168,7 @@ class _MyCartPageState extends State<MyCartPage> {
           InkWell(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: Image.asset('assets/images/cart.png'))
+              child: CartIcon().p(10))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
