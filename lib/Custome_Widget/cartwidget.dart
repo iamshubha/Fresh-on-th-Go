@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
 import 'package:badges/badges.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';

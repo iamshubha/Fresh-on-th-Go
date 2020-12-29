@@ -39,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
                         .size(10)
                         .textStyle(GoogleFonts.openSans())
                         .make(),
-                    "Direcclòn : lorem Ipsum"
+                    "Direcclón : lorem Ipsum"
                         .text
                         .size(10)
                         .textStyle(GoogleFonts.openSans())
@@ -74,13 +74,13 @@ class CustomDrawer extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    "Próxima Fecha de Enterega"
+                    "Próxima Fecha de Entrega"
                         .text
                         .size(1)
                         .textStyle(GoogleFonts.openSans())
                         .bold
                         .make(),
-                    "Sabado, 12de diciembre de"
+                    "Sabado, 12 de diciembre de"
                         .text
                         .white
                         .textStyle(GoogleFonts.openSans())

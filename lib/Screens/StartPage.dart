@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Screens/LoginPage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+// import 'dart:convert';
 
 class StartPage extends StatelessWidget {
   // uu() async{

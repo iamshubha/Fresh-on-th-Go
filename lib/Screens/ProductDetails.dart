@@ -377,7 +377,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       //           .bold
       //           .uppercase
       //           .make(),
-      //   // Image.asset('')//TODO:Image add here
+      //   // Image.asset('')
       //   //   ],
       //   // ),
       // ),

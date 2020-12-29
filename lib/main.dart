@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:FreshOnTheGo/Home/Profile.dart';
+// import 'package:FreshOnTheGo/Home/Profile.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
-import 'package:FreshOnTheGo/Screens/MyCart.dart';
-import 'package:FreshOnTheGo/Screens/ProductDetails.dart';
+// import 'package:FreshOnTheGo/Screens/MyCart.dart';
+// import 'package:FreshOnTheGo/Screens/ProductDetails.dart';
 import 'package:FreshOnTheGo/Screens/StartPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

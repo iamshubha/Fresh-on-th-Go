@@ -1,11 +1,70 @@
-import 'package:flutter/material.dart';
-import 'package:FreshOnTheGo/Screens/HomePage.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'dart:convert';
 
-class ForgetPasswordPage extends StatelessWidget {
+import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
+
+class ForgetPasswordPage extends StatefulWidget {
+  @override
+  _ForgetPasswordPageState createState() => _ForgetPasswordPageState();
+}
+
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _forgetEditingController = TextEditingController();
+  postEmail() async {
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        String url =
+            "http://888travelthailand.com/farmers/apis/customer/send_forgot_pass_token_cust_web";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {
+          'email': _forgetEditingController.text.toString()
+        };
+        String jsonBody = json.encode(body);
+        final rsp = await http.post(url, body: jsonBody, headers: headers);
+        var data = jsonDecode(rsp.body);
+        if (data['status']) {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text(data['message']),
+          ));
+          Navigator.pop(context);
+        } else {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: kPrimaryColor,
+            content: Text(data['message']),
+          ));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void initState() {
+    postEmail();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Container(
@@ -24,8 +83,10 @@ class ForgetPasswordPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 TextFormField(
+                  controller: _forgetEditingController,
                   decoration: InputDecoration(
                     filled: true,
+
                     suffixIcon: Image.asset(
                       'usernameico.png',
                       width: 10,
@@ -61,7 +122,7 @@ class ForgetPasswordPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.41,
                   height: MediaQuery.of(context).size.height * 0.06,
                   child: InkWell(
-                    onTap: () => Navigator.of(context).pop(),
+                    onTap: () => postEmail(),
                     child: Image.asset(
                       'assets/getstartedbtn.png',
                       fit: BoxFit.cover,

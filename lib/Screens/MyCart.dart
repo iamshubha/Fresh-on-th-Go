@@ -4,7 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
-import 'package:FreshOnTheGo/Screens/CheckOutPage.dart';
+// import 'package:FreshOnTheGo/Screens/CheckOutPage.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -413,7 +413,7 @@ class _MyCartPageState extends State<MyCartPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    "PASAR POR \nLA CAJA"
+                                    "PAGAR POR \nLA CAJA"
                                         .text
                                         .textStyle(GoogleFonts.openSans())
                                         .bold
