@@ -51,13 +51,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     }
   }
 
-  void initState() {
-    postEmail();
-    super.initState();
-  }
-
   @override
   void dispose() {
+    _forgetEditingController.dispose();
     super.dispose();
   }
 
