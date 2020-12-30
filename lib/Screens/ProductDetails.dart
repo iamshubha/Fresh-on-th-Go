@@ -47,6 +47,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         var data = jsonDecode(response.body);
         print(data);
         if (data['status']) {
+          getIconVal();
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text('${data['message']}'),
@@ -89,8 +90,29 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       setState(() {
         productDetails = data1['data'][0];
         predictData = data2['data'];
+        getIconVal();
         loader = true;
       });
+    }
+  }
+
+  int iconval = 0;
+  getIconVal() async {
+    final _prefs = await SharedPreferences.getInstance();
+    final uid = _prefs.getString('uid');
+    try {
+      String url =
+          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+      final response = await http.get(url);
+      var rsp = jsonDecode(response.body);
+      if (rsp['status']) {
+        setState(() {
+          iconval = rsp['data'].length;
+          print(url);
+        });
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -121,7 +143,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           InkWell(
                   onTap: () => Navigator.push(
                       context, MaterialPageRoute(builder: (_) => MyCartPage())),
-                  child: CartIcon().p(10))
+                  child: CartIcon(val: iconval).p(10))
               .p(5)
         ],
         title: Column(

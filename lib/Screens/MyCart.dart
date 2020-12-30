@@ -22,6 +22,7 @@ class _MyCartPageState extends State<MyCartPage> {
   String uid;
   var data;
   bool loader = true;
+  bool _payloader = true;
   getCartData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     uid = _prefs.getString('uid');
@@ -105,6 +106,7 @@ class _MyCartPageState extends State<MyCartPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
+        setState(() => _payloader = false);
         String url = "http://888travelthailand.com/farmers/apis/order/addorder";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
@@ -117,14 +119,15 @@ class _MyCartPageState extends State<MyCartPage> {
         String jsonBody = json.encode(body);
         final response = await http.post(url, body: jsonBody, headers: headers);
         var postData = jsonDecode(response.body);
-        print(data);
+        print(postData);
         if (postData['status']) {
+          setState(() => _payloader = true);
           Fluttertoast.showToast(
-              msg: "Your order  is placed successfully",
+              msg: postData['message'],
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
-              backgroundColor:kPrimaryColor,
+              backgroundColor: kPrimaryColor,
               textColor: Colors.white,
               fontSize: 16.0);
           Navigator.pushReplacement(
@@ -164,12 +167,12 @@ class _MyCartPageState extends State<MyCartPage> {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        actions: [
-          InkWell(
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIcon().p(10))
-        ],
+        // actions: [
+        //   InkWell(
+        //       onTap: () => Navigator.push(
+        //           context, MaterialPageRoute(builder: (_) => MyCartPage())),
+        //       child: CartIcon().p(10))
+        // ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,18 +412,22 @@ class _MyCartPageState extends State<MyCartPage> {
                                     MediaQuery.of(context).size.height * 0.09,
                                 color: Color(0xFFFFD553),
                                 alignment: Alignment.center,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    "PAGAR POR \nLA CAJA"
-                                        .text
-                                        .textStyle(GoogleFonts.openSans())
-                                        .bold
-                                        .make(),
-                                    Image.asset('assets/images/basket-ico.png')
-                                  ],
-                                )),
+                                child: _payloader == true
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          "PAGAR POR \nLA CAJA"
+                                              .text
+                                              .textStyle(GoogleFonts.openSans())
+                                              .bold
+                                              .make(),
+                                          Image.asset(
+                                              'assets/images/basket-ico.png')
+                                        ],
+                                      )
+                                    : Center(
+                                        child: CircularProgressIndicator())),
                           ),
                         )
                       ],

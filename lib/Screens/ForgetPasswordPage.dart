@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,11 +33,16 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         String jsonBody = json.encode(body);
         final rsp = await http.post(url, body: jsonBody, headers: headers);
         var data = jsonDecode(rsp.body);
+        print(data);
         if (data['status']) {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            backgroundColor: kPrimaryColor,
-            content: Text(data['message']),
-          ));
+          Fluttertoast.showToast(
+              msg: data['message'],
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 3,
+              backgroundColor: kPrimaryColor,
+              textColor: Colors.white,
+              fontSize: 16.0);
           Navigator.pop(context);
         } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
+import 'package:FreshOnTheGo/utils/CounterProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/CustomDrawer.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
@@ -21,6 +22,7 @@ class _ProfileState extends State<Profile> {
   bool loader = false;
   String uid;
   var data;
+  // CounterProvider _counterProvider = CounterProvider();
   getDataFromServer() async {
     final _prefs = await SharedPreferences.getInstance();
     uid = _prefs.getString('uid');
@@ -34,9 +36,31 @@ class _ProfileState extends State<Profile> {
     print(data);
   }
 
+  int iconval = 0;
+  getIconVal() async {
+    final _prefs = await SharedPreferences.getInstance();
+    final uid = _prefs.getString('uid');
+    try {
+      String url =
+          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+      final response = await http.get(url);
+      var rsp = jsonDecode(response.body);
+      if (rsp['status']) {
+        setState(() {
+          iconval = rsp['data'].length;
+          print(url);
+          print(data);
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    getIconVal();
     getDataFromServer();
   }
 
@@ -66,7 +90,7 @@ class _ProfileState extends State<Profile> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIcon().p(10))
+              child: CartIcon(val:iconval).p(10))
         ],
       ),
       body: Column(
@@ -82,34 +106,32 @@ class _ProfileState extends State<Profile> {
                   bottomLeft: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0)),
             ),
-            child:
-             loader == true
-                ?
-                 Column(
+            child: loader == true
+                ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.center,
                       //   children: [
-                          Container(
-                            color: Colors.transparent,
-                            // height: MediaQuery.of(context).size.height * 0.18,
-                            // width: MediaQuery.of(context).size.width * 0.3,
-                            // decoration: BoxDecoration(
-                            //     color: Colors.yellow,
-                            //     borderRadius: BorderRadius.circular(1000)),
-                            child: Image.asset(
-                              'usernameico.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ).pOnly(
-                              bottom: 50,
-                              top: MediaQuery.of(context).size.height * 0.051),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.06,
-                          ),
-                        
+                      Container(
+                        color: Colors.transparent,
+                        // height: MediaQuery.of(context).size.height * 0.18,
+                        // width: MediaQuery.of(context).size.width * 0.3,
+                        // decoration: BoxDecoration(
+                        //     color: Colors.yellow,
+                        //     borderRadius: BorderRadius.circular(1000)),
+                        child: Image.asset(
+                          'usernameico.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ).pOnly(
+                          bottom: 50,
+                          top: MediaQuery.of(context).size.height * 0.051),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.06,
+                      ),
+
                       //   ],
                       // ),
                       Divider(

@@ -74,6 +74,8 @@ class _MenuState extends State<Menu> {
       var getResponse = jsonDecode(response.body);
       print(getResponse);
       data = getResponse['data'];
+
+      getIconVal();
       loader = true;
     });
   }
@@ -101,6 +103,7 @@ class _MenuState extends State<Menu> {
         print(data);
         if (data['status']) {
           setState(() {
+            getIconVal();
             _scaffoldKey.currentState.showSnackBar(SnackBar(
               backgroundColor: kPrimaryColor,
               content: Text('${data['message']}'),
@@ -120,10 +123,32 @@ class _MenuState extends State<Menu> {
     }
   }
 
+  int iconval = 0;
+  getIconVal() async {
+    final _prefs = await SharedPreferences.getInstance();
+    final uid = _prefs.getString('uid');
+    try {
+      String url =
+          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+      final response = await http.get(url);
+      var rsp = jsonDecode(response.body);
+      if (rsp['status']) {
+        setState(() {
+          iconval = rsp['data'].length;
+          print(url);
+          print(data);
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
     _selectedItem = _dropdownMenuItems[0].value;
+    getIconVal();
     getDataFromServer();
   }
 
@@ -164,7 +189,7 @@ class _MenuState extends State<Menu> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIcon().p(10))
+              child: CartIcon(val: iconval).p(10))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,

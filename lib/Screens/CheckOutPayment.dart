@@ -24,7 +24,7 @@ class CheckOutPaymentPage extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        actions: [CartIcon().p(12)],
+        // actions: [CartIcon().p(12)],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
