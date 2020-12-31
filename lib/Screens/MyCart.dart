@@ -417,7 +417,7 @@ class _MyCartPageState extends State<MyCartPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          "PAGAR POR \nLA CAJA"
+                                          "PAGAR"
                                               .text
                                               .textStyle(GoogleFonts.openSans())
                                               .bold

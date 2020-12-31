@@ -535,7 +535,7 @@ class _HomeState extends State<Home> {
                             decoration: BoxDecoration(
                                 color: Color(0xFFFFD456),
                                 borderRadius: BorderRadius.circular(30)),
-                            child: "More".text.bold.make(),
+                            child: "Más".text.bold.make(),
                           ),
                         )
                         //; }),
