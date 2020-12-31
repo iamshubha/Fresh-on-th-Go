@@ -65,7 +65,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         centerTitle: true,
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        title: "Order Details"
+        title: "Detalles del pedido"
             .text
             .uppercase
             .bold

@@ -1,8 +1,41 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class BannerWidget extends StatelessWidget {
+class BannerWidget extends StatefulWidget {
+  @override
+  _BannerWidgetState createState() => _BannerWidgetState();
+}
+
+class _BannerWidgetState extends State<BannerWidget> {
+  bool loader = false;
+  // String uid;
+  var data;
+  // CounterProvider _counterProvider = CounterProvider();
+  getDataFromServer() async {
+    final _prefs = await SharedPreferences.getInstance();
+    String uid = _prefs.getString('uid');
+    String url =
+        "http://888travelthailand.com/farmers/apis/customer/get_details_by_id?id=$uid";
+    final response = await http.get(url);
+    setState(() {
+      data = jsonDecode(response.body);
+      if (data['status']) {
+        loader = true;
+      }
+    });
+    print(data);
+  }
+
+  @override
+  void initState() {
+    getDataFromServer();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,22 +53,31 @@ class BannerWidget extends StatelessWidget {
                 fit: BoxFit.cover,
               )).p(8),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                "ENTREGA EN".text.bold.textStyle(GoogleFonts.openSans()).size(2).make(),
-                "P ROXIMA RANURA DE ENTERGA EL RIEMPO DE ENTEREGA"
-                    .text.textStyle(GoogleFonts.openSans())
-                    .bold
-                    .size(4)
-                    .make(),
-                Text(
-                  "SABADO, 12 DE DICIEMBRE DE 2020",
-                  style: GoogleFonts.openSans(),//GoogleFonts.openSansTextTheme(),
-                ).text.size(7).make(),
-              ],
-            ),
+            child: loader == true
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      "Detalles del Pedido ${data['data'][0]['name']}"
+                          .text
+                          .bold
+                          .textStyle(GoogleFonts.openSans())
+                          .size(2)
+                          .make(),
+                      "Dirección ${data['data'][0]['address']}"
+                          .text
+                          .textStyle(GoogleFonts.openSans())
+                          .bold
+                          .size(4)
+                          .make(),
+                      // Text(
+                      //   "SABADO, 12 DE DICIEMBRE DE 2020",
+                      //   style:
+                      //       GoogleFonts.openSans(), //GoogleFonts.openSansTextTheme(),
+                      // ).text.size(7).make(),
+                    ],
+                  )
+                : Center(child: CircularProgressIndicator()),
           ),
           Container(
                   height: 60,

@@ -63,7 +63,7 @@ class _OrderListPageState extends State<OrderListPage> {
         centerTitle: true,
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        title: "Order List"
+        title: "Lista Pedido"
             .text
             .uppercase
             .bold
@@ -106,9 +106,9 @@ class _OrderListPageState extends State<OrderListPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          "order id".text.uppercase.make(),
-                          "Oreder status".text.uppercase.make(),
-                          "Status Date".text.uppercase.make()
+                          "".text.uppercase.make(),
+                          "Estado del Pedido".text.uppercase.make(),
+                          "Fecha actual".text.uppercase.make()
                         ],
                       ).pOnly(left: 10, right: 10),
                     ),
