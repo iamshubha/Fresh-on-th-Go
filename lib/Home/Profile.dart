@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
-import 'package:FreshOnTheGo/utils/CounterProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/CustomDrawer.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
@@ -71,7 +70,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        title: "User Profile".text.make(),
+        title: "Perfil de Usuário".text.make(),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -195,7 +194,7 @@ class _ProfileState extends State<Profile> {
                 ).pOnly(top: 10),
                 ListTile(
                     leading: Image.asset('assets/images/logout.png'),
-                    title: "Carrar Sessión".text.make(),
+                    title: "Cerrar Sessión".text.make(),
                     onTap: () async {
                       final _prefs = await SharedPreferences.getInstance();
                       _prefs.clear();

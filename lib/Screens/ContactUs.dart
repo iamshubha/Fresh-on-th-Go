@@ -8,7 +8,14 @@ class ContactUsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: "".text.xl2.extraBold.letterSpacing(2).uppercase.make(),
+        title: "Get in Touch"
+            .text
+            .white
+            .xl3
+            .extraBold
+            .letterSpacing(2)
+            .uppercase
+            .make(),
         leading: InkWell(
           child: Image.asset(
             'assets/images/back-ico.png',
@@ -24,21 +31,14 @@ class ContactUsPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            child: Column(
-              children: [
-                "Get in Touch"
-                    .text
-                    .white
-                    .xl3
-                    .extraBold
-                    .letterSpacing(2)
-                    .uppercase
-                    .make(),
+            child: 
+            // Column(
+            //   children: [
                 "Always within yourreach".text.bold.white.make(),
-              ],
-            ),
+            //   ],
+            // ),
             alignment: Alignment.topCenter,
-            height: MediaQuery.of(context).size.height * 0.12,
+            height: MediaQuery.of(context).size.height * 0.031,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: kPrimaryColor,
@@ -46,10 +46,10 @@ class ContactUsPage extends StatelessWidget {
                   bottomLeft: Radius.circular(20.0),
                   bottomRight: Radius.circular(20.0)),
             ),
-          ).pOnly(bottom: 10),
+          ).pOnly(bottom: 5),
           Container(
             width: MediaQuery.of(context).size.width * 0.90,
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: MediaQuery.of(context).size.height * 0.79,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),
@@ -63,7 +63,7 @@ class ContactUsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.19,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         child: Column(
                           children: [
                             Image.asset('assets/images/contact-map.png')
@@ -86,7 +86,7 @@ class ContactUsPage extends StatelessWidget {
                         ).pOnly(top: MediaQuery.of(context).size.height * 0.02),
                       ).pOnly(top: MediaQuery.of(context).size.height * 0.01),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.19,
+                      height: MediaQuery.of(context).size.height * 0.25,
                         child: Column(
                           children: [
                             Image.asset('assets/images/contact-mail.png')
@@ -113,7 +113,7 @@ class ContactUsPage extends StatelessWidget {
                         ).pOnly(top: MediaQuery.of(context).size.height * 0.02),
                       ).pOnly(top: MediaQuery.of(context).size.height * 0.01),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.19,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         child: Column(
                           children: [
                             Image.asset('assets/images/contact-time.png')
