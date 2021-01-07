@@ -134,7 +134,7 @@ class _MenuState extends State<Menu> {
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
         setState(() {
-          iconval = rsp['data'].length;
+          iconval = rsp['total_qty'];
           print(url);
           print(data);
         });

@@ -46,7 +46,7 @@ class _ProfileState extends State<Profile> {
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
         setState(() {
-          iconval = rsp['data'].length;
+          iconval = rsp['total_qty'];
           print(url);
           print(data);
         });

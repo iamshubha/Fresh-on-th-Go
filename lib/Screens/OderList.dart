@@ -65,7 +65,7 @@ class _OrderListPageState extends State<OrderListPage> {
         elevation: 0,
         title: "Lista Pedido"
             .text
-            .uppercase
+            .capitalize
             .bold
             .textStyle(GoogleFonts.openSans())
             .make(),

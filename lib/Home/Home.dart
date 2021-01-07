@@ -51,7 +51,8 @@ class _HomeState extends State<Home> {
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
         setState(() {
-          iconval = rsp['data'].length;
+          iconval = rsp['total_qty'];
+          print("==================");
           print(url);
           print(data);
         });

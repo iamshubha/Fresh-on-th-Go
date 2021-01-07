@@ -107,7 +107,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
         setState(() {
-          iconval = rsp['data'].length;
+          iconval = rsp['total_qty'];
           print(url);
         });
       }
@@ -143,7 +143,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           InkWell(
                   onTap: () => Navigator.push(
                       context, MaterialPageRoute(builder: (_) => MyCartPage())),
-                  child: CartIcon(val: iconval).p(10))
+                  child: CartIcon(val: iconval).p(3.09))
               .p(5)
         ],
         title: Column(
@@ -333,7 +333,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 color: Colors.green,
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
-                                            child: "añadir"
+                                            child: "Añadir"
                                                 .text
                                                 .textStyle(
                                                     GoogleFonts.openSans())
