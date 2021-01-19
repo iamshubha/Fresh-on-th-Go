@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+/**
+ * 
+ * [3:31 PM, 1/19/2021] +91 98303 28321: Get in touch = 
+[3:31 PM, 1/19/2021] +91 98303 28321: Always within your reach = 
+[3:31 PM, 1/19/2021] +91 98303 28321: Open Map = 
+ */
 class ContactUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: "Get in Touch"
+        title: "contáctenos"
             .text
             .white
             .xl3
@@ -31,10 +36,10 @@ class ContactUsPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            child: 
-            // Column(
-            //   children: [
-                "Always within yourreach".text.bold.white.make(),
+            child:
+                // Column(
+                //   children: [
+                "Siempre a su alcance".text.bold.white.make(),
             //   ],
             // ),
             alignment: Alignment.topCenter,
@@ -68,43 +73,40 @@ class ContactUsPage extends StatelessWidget {
                           children: [
                             Image.asset('assets/images/contact-map.png')
                                 .pOnly(bottom: 15),
-                            "267 julien motorway"
+                            "Caribbean Produce Exchange"
                                 .text
                                 .uppercase
                                 .black
                                 .bold
-                                .make(),
-                            "ipsum lorem. partugal"
-                                .text
-                                .uppercase
-                                .black
-                                .bold
-                                .make()
-                                .pOnly(bottom: 10),
-                            "Open Map".text.bold.color(kPrimaryColor).make()
+                                .make().pOnly(bottom:10),
+                            Container(
+                              width: MediaQuery.of(context).size.width*0.80,
+                              child: "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
+                                  .text.center
+                                  .uppercase
+                                  .black
+                                  .bold
+                                  .make()
+                                  .pOnly(bottom: 10),
+                            ),
+                            "Abrir el Mapa".text.bold.color(kPrimaryColor).make()
                           ],
                         ).pOnly(top: MediaQuery.of(context).size.height * 0.02),
                       ).pOnly(top: MediaQuery.of(context).size.height * 0.01),
                       Container(
-                      height: MediaQuery.of(context).size.height * 0.25,
+                        height: MediaQuery.of(context).size.height * 0.2,
                         child: Column(
                           children: [
                             Image.asset('assets/images/contact-mail.png')
                                 .pOnly(bottom: 15),
-                            "+00 12121212121212"
+                            "787-793-0750"
                                 .text
                                 .uppercase
                                 .black
                                 .bold
                                 .make(),
-                            "+00 1111111111111111"
-                                .text
-                                .uppercase
-                                .black
-                                .bold
-                                .make()
-                                .pOnly(bottom: 10),
-                            "abc@gmail.com"
+                            
+                            "ainfo@mercadosagricolaspr.com"
                                 .text
                                 .bold
                                 .color(kPrimaryColor)
@@ -115,24 +117,32 @@ class ContactUsPage extends StatelessWidget {
                       Container(
                         height: MediaQuery.of(context).size.height * 0.25,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset('assets/images/contact-time.png')
                                 .pOnly(bottom: 15),
-                            "Monday to friday".text.uppercase.black.bold.make(),
-                            "9am - 5pm".text.uppercase.black.bold.make(),
-                            "saturday - sunday"
-                                .text
-                                .uppercase
-                                .black
-                                .bold
-                                .make(),
-                            "9am - 12pm"
-                                .text
-                                .uppercase
-                                .black
-                                .bold
-                                .make()
-                                .pOnly(bottom: 10),
+                            Container(
+                              child: "Lunes a Viernes de\n 8:30am – 5:30pm / Sábados 9am -12pm"
+                                  .text
+                                  .uppercase.center
+                                  .bold
+                                  .make(),
+                            ),
+                            // "9am - 5pm".text.uppercase.black.bold.make(),
+                            // "saturday - sunday"
+                            //     .text
+                            //     .uppercase
+                            //     .black
+                            //     .bold
+                            //     .make(),
+                            // "9am - 12pm"
+                            //     .text
+                            //     .uppercase
+                            //     .black
+                            //     .bold
+                            //     .make()
+                            //     .pOnly(bottom: 10),
                           ],
                         ).pOnly(top: MediaQuery.of(context).size.height * 0.02),
                       ).pOnly(top: MediaQuery.of(context).size.height * 0.01),
@@ -147,3 +157,11 @@ class ContactUsPage extends StatelessWidget {
     );
   }
 }
+
+/*
+Email: info@mercadosagricolaspr.com
+Compañía: 
+Dirección: 
+Teléfono: 
+Horario: Lunes a Viernes de 8:30am – 5:30pm / Sábados 9am -12pm
+*/
