@@ -89,6 +89,7 @@ class _SearchPageState extends State<SearchPage> {
             "http://888travelthailand.com/farmers/apis/product/searchproductbynames?pname=$word";
         final response = await http.get(url);
         var rsp = jsonDecode(response.body);
+        print(rsp);
         setState(() {
           data = rsp['data'];
           loader = true;
