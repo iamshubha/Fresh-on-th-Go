@@ -35,7 +35,6 @@ class _HomeState extends State<Home> {
     setState(() {
       var getResponse = jsonDecode(response.body);
       data = getResponse['data'];
-
       loader = true;
     });
   }
@@ -579,12 +578,12 @@ class _HomeState extends State<Home> {
                                 ),
                                 InkWell(
                                   onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[2]['cdata'][1]['cid'],
-                                              pid: data[2]['cdata'][1]
-                                                  ['pid']))),
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => ProductDetailsPage(
+                                            cid: data[2]['cdata'][1]['cid'],
+                                            pid: data[2]['cdata'][1]['pid'])),
+                                  ),
                                   child: Container(
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(

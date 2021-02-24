@@ -106,7 +106,7 @@ class ContactUsPage extends StatelessWidget {
                                 .bold
                                 .make(),
                             
-                            "ainfo@mercadosagricolaspr.com"
+                            "info@mercadosagricolaspr.com"
                                 .text
                                 .bold
                                 .color(kPrimaryColor)
