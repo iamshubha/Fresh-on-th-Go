@@ -143,7 +143,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           InkWell(
                   onTap: () => Navigator.push(
                       context, MaterialPageRoute(builder: (_) => MyCartPage())),
-                  child: CartIcon(val: iconval).p(3.09))
+                  child: CartIconHome().p(3.09))
               .p(5)
         ],
         title: Column(

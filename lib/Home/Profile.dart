@@ -89,7 +89,7 @@ class _ProfileState extends State<Profile> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIcon(val:iconval).p(10))
+              child: CartIconHome().p(10))
         ],
       ),
       body: Column(

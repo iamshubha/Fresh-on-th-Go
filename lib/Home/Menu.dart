@@ -189,7 +189,7 @@ class _MenuState extends State<Menu> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIcon(val: iconval).p(10))
+              child: CartIconHome().p(10))
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,

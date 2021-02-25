@@ -99,7 +99,7 @@ class _HomeState extends State<Home> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIcon(val: iconval).p(10)), //TODO:send data of total
+              child: CartIconHome().p(10)), //TODO:send data of total
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
