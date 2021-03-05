@@ -33,7 +33,7 @@ class _OrderListPageState extends State<OrderListPage> {
         ));
       } else {
         String url =
-            "http://888travelthailand.com/farmers/apis/customer/order_got_for_customer?uid=$uid";
+            "http://farmerappportal.cynotecksandbox.com/apis/customer/order_got_for_customer?uid=$uid";
         final response = await http.get(url);
         var rsp = jsonDecode(response.body);
         if (rsp['status']) {

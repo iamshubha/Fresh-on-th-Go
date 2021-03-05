@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
+import 'package:FreshOnTheGo/Screens/CheckOutPage.dart';
+import 'package:FreshOnTheGo/Screens/CheckOutPayment.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
@@ -37,7 +39,7 @@ class _MyCartPageState extends State<MyCartPage> {
         ));
       } else {
         String url =
-            "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+            "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
         var response = await http.get(url);
         var rsp = jsonDecode(response.body);
         setState(() {
@@ -75,7 +77,7 @@ class _MyCartPageState extends State<MyCartPage> {
         ));
       } else {
         String url =
-            "http://888travelthailand.com/farmers/apis/order/updatecartbyid";
+            "http://farmerappportal.cynotecksandbox.com/apis/order/updatecartbyid";
         Map<String, dynamic> body = {
           "cart_id": "$cartId",
           "qty": "1",
@@ -98,42 +100,46 @@ class _MyCartPageState extends State<MyCartPage> {
 
   postCheckout(List cartId, String total) async {
     try {
-      var network = await Connectivity().checkConnectivity();
-      print(network.index);
-      if (network.index == 2) {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: kPrimaryColor,
-          content: Text('Please Check Your Internet Connection'),
-        ));
-      } else {
-        setState(() => _payloader = false);
-        String url = "http://888travelthailand.com/farmers/apis/order/addorder";
-        final headers = {'Content-Type': 'application/json'};
-        Map<String, dynamic> body = {
-          "cart_id": cartId,
-          "tot_price": total.toString(),
-          "status": "1",
-          "remarks": "ordered...",
-          "created_by": uid.toString()
-        };
-        String jsonBody = json.encode(body);
-        final response = await http.post(url, body: jsonBody, headers: headers);
-        var postData = jsonDecode(response.body);
-        print(postData);
-        if (postData['status']) {
-          setState(() => _payloader = true);
-          Fluttertoast.showToast(
-              msg: postData['message'],
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: kPrimaryColor,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomePage()));
-        }
-      }
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>CheckOutPaymentPage()));
+      //TODO:function work here...
+      // var network = await Connectivity().checkConnectivity();
+      // print(network.index);
+      // if (network.index == 2) {
+      //   _scaffoldKey.currentState.showSnackBar(SnackBar(
+      //     backgroundColor: kPrimaryColor,
+      //     content: Text('Please Check Your Internet Connection'),
+      //   ));
+      // } else {
+      //   setState(() => _payloader = false);
+      //   String url = "http://farmerappportal.cynotecksandbox.com/apis/order/addorder";
+      //   final headers = {'Content-Type': 'application/json'};
+      //   Map<String, dynamic> body = {
+      //     "cart_id": cartId,
+      //     "tot_price": total.toString(),
+      //     "status": "1",
+      //     "remarks": "ordered...",
+      //     "created_by": uid.toString(),
+      //     //TODO:add key here
+      //     // preferred_delivery_address
+      //   };
+      //   String jsonBody = json.encode(body);
+      //   final response = await http.post(url, body: jsonBody, headers: headers);
+      //   var postData = jsonDecode(response.body);
+      //   print(postData);
+      //   if (postData['status']) {
+      //     setState(() => _payloader = true);
+      //     Fluttertoast.showToast(
+      //         msg: postData['message'],
+      //         toastLength: Toast.LENGTH_SHORT,
+      //         gravity: ToastGravity.BOTTOM,
+      //         timeInSecForIosWeb: 1,
+      //         backgroundColor: kPrimaryColor,
+      //         textColor: Colors.white,
+      //         fontSize: 16.0);
+      //     Navigator.pushReplacement(
+      //         context, MaterialPageRoute(builder: (_) => HomePage()));
+      //   }
+      // }
     } catch (e) {
       print(e);
     }
@@ -178,6 +184,7 @@ class _MyCartPageState extends State<MyCartPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Mi Carrito".text.make(),
+            
             // "Baishnab para Santipur Nadia".text.size(10).make(),
           ],
         ),

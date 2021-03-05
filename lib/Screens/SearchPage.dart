@@ -30,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "http://888travelthailand.com/farmers/apis/order/addcart";
+        String url = "http://farmerappportal.cynotecksandbox.com/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "pid": "$pid",
@@ -63,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
   getDataFromServer() async {
     setState(() => loader = false);
     var response = await http.get(
-        "http://888travelthailand.com/farmers/apis/product/searchallproduct");
+        "http://farmerappportal.cynotecksandbox.com/apis/product/searchallproduct");
 
     setState(() {
       final data2 = jsonDecode(response.body);
@@ -86,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
       } else {
         setState(() => loader = false);
         String url =
-            "http://888travelthailand.com/farmers/apis/product/searchproductbynames?pname=$word";
+            "http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbynames?pname=$word";
         final response = await http.get(url);
         var rsp = jsonDecode(response.body);
         print(rsp);

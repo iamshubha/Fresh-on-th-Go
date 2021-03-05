@@ -35,7 +35,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "http://888travelthailand.com/farmers/apis/order/addcart";
+        String url =
+            "http://farmerappportal.cynotecksandbox.com/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "pid": "$pid",
@@ -78,9 +79,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         loader = false;
       });
       var productDescriptionse = http.get(
-          'http://888travelthailand.com/farmers/apis/product/searchproductbyid?pid=${widget.pid}');
+        "http://farmerappportal.cynotecksandbox.com/apis/product/get_all_product_by_name?pname=apple",
+        // 'http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbyid?pid=${widget.pid}'
+      );
+
       var predictDataResponse = http.get(
-          'http://888travelthailand.com/farmers/apis/product/searchproductbycatagory?cid=${widget.cid}');
+          'http://farmerappportal.cynotecksandbox.com/apis/product/get_all_product_by_name?pname=apple'
+          // 'http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbycatagory?cid=${widget.cid}'
+          );
       var responseData =
           await Future.wait([productDescriptionse, predictDataResponse]);
       final data1 = jsonDecode(responseData[0].body);
@@ -102,7 +108,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+          "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
@@ -214,23 +220,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     .make(),
                               ],
                             ),
-                            GestureDetector(
-                              onTap: () =>
-                                  addToCart(productDetails['pid'], "1"),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: "AÑADIR AL CARRITO"
-                                    .text
-                                    .textStyle(GoogleFonts.openSans())
-                                    .bold
-                                    .white
-                                    .size(10)
-                                    .make()
-                                    .p(8),
-                              ).pOnly(right: 10),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () =>
+                            //       addToCart(productDetails['pid'], "1"),
+                            //   child: Container(
+                            //     decoration: BoxDecoration(
+                            //         color: Colors.green,
+                            //         borderRadius: BorderRadius.circular(8)),
+                            //     child: "AÑADIR AL CARRITO"
+                            //         .text
+                            //         .textStyle(GoogleFonts.openSans())
+                            //         .bold
+                            //         .white
+                            //         .size(10)
+                            //         .make()
+                            //         .p(8),
+                            //   ).pOnly(right: 10),
+                            // ),
                           ],
                         )
                       ],
@@ -293,7 +299,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     ),
                                   ),
                                 ).p(10),
-                              ),
+                              ).pOnly(right:10),
                               Container(
                                 // width: MediaQuery.of(context).size.width * 0.60,
                                 child: Column(
@@ -301,6 +307,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     "${predictData[i]['name']}"
+                                        .text
+                                        .bold
+                                        .textStyle(GoogleFonts.openSans())
+                                        .size(8)
+                                        .make(),
+                                    "${predictData[i]['farmerName']}"
                                         .text
                                         .bold
                                         .textStyle(GoogleFonts.openSans())
@@ -315,16 +327,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        "\$ : ${predictData[i]['sell_price']}"
-                                            .text
-                                            .xl
-                                            .bold
-                                            .make()
-                                            .pOnly(
-                                                right: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.07),
+                                        // "\$ : ${predictData[i]['sell_price']}"
+                                        //     .text
+                                        //     .xl
+                                        //     .bold
+                                        //     .make()
+                                        //     .pOnly(
+                                        //         right: MediaQuery.of(context)
+                                        //                 .size
+                                        //                 .width *
+                                        //             0.07),
                                         InkWell(
                                           onTap: () => addToCart(
                                               predictData[i]['pid'], "$qnt"),
@@ -343,6 +355,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 .p(8),
                                           ).pOnly(right: 10),
                                         ),
+                                        
+                                        
                                         Container(
                                             alignment: Alignment.center,
                                             color: Color(0xFFFFD456),

@@ -43,9 +43,9 @@ class _MenuState extends State<Menu> {
       uid = _prefs.getString('uid');
     });
     var url = http.get(
-        "http://888travelthailand.com/farmers/apis/product/searchallproduct");
+        "http://farmerappportal.cynotecksandbox.com/apis/product/searchallproduct");
     var urlForCat = http.get(
-        "http://888travelthailand.com/farmers/apis/product/getallcategories");
+        "http://farmerappportal.cynotecksandbox.com/apis/product/getallcategories");
     var response = await Future.wait([url, urlForCat]);
     setState(() {
       final data1 = jsonDecode(response[0].body);
@@ -68,7 +68,7 @@ class _MenuState extends State<Menu> {
       loader = false;
     });
     var response = await http.get(
-        "http://888travelthailand.com/farmers/apis/product/searchproductbycatagory?cid=$cid");
+        "http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbycatagory?cid=$cid");
 
     setState(() {
       var getResponse = jsonDecode(response.body);
@@ -90,7 +90,8 @@ class _MenuState extends State<Menu> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "http://888travelthailand.com/farmers/apis/order/addcart";
+        String url =
+            "http://farmerappportal.cynotecksandbox.com/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "pid": "$pid",
@@ -129,7 +130,7 @@ class _MenuState extends State<Menu> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+          "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
@@ -355,60 +356,53 @@ class _MenuState extends State<Menu> {
                                       .text
                                       .textStyle(GoogleFonts.openSans())
                                       .size(8)
-                                      .make(),
+                                      .make().pOnly(bottom:5),
                                   "${data[i]['category']}"
                                       .text
                                       .textStyle(GoogleFonts.openSans())
                                       .bold
                                       .make()
-                                      .pOnly(bottom: 20),
-                                  // DropdownButtonHideUnderline(
-                                  //     child: DropdownButton(
-                                  //         value: _selectedItem,
-                                  //         items: _dropdownMenuItems,
-                                  //         onChanged: (value) {
-                                  //           setState(() {
-                                  //             // _selectedItem = value;
-                                  //           });
-                                  //         })),
+                                      .pOnly(bottom: 5),
+
+                                  
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      "\$: ${data[i]['cost_price']}"
+                                      "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
                                           .text
                                           .textStyle(GoogleFonts.openSans())
                                           .xl
                                           .make(),
-                                      InkWell(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: "AÑADIR"
-                                              .text
-                                              .textStyle(GoogleFonts.openSans())
-                                              .white
-                                              .size(10)
-                                              .make()
-                                              .p(4),
-                                        ).pOnly(right: 10),
-                                        onTap: () =>
-                                            addToCart(data[i]['pid'], "$qnt"),
-                                      ),
-                                      Container(
-                                        // alignment: Alignment.,
-                                        color: Color(0xFFFFD456),
-                                        child: VxStepper(
-                                          inputBoxColor: Colors.grey[350],
-                                          actionButtonColor: Colors.transparent,
-                                          onChange: (v) {
-                                            print(v);
-                                            setState(() => qnt = v);
-                                          },
-                                        ).pOnly(left: 5, right: 5),
-                                      ).pOnly(right: 5)
+                                      // InkWell(
+                                      //   child: Container(
+                                      //     decoration: BoxDecoration(
+                                      //         color: Colors.green,
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(8)),
+                                      //     child: "AÑADIR"
+                                      //         .text
+                                      //         .textStyle(GoogleFonts.openSans())
+                                      //         .white
+                                      //         .size(10)
+                                      //         .make()
+                                      //         .p(4),
+                                      //   ).pOnly(right: 10),
+                                      //   onTap: () =>
+                                      //       addToCart(data[i]['pid'], "$qnt"),
+                                      // ),
+                                      // Container(
+                                      //   // alignment: Alignment.,
+                                      //   color: Color(0xFFFFD456),
+                                      //   child: VxStepper(
+                                      //     inputBoxColor: Colors.grey[350],
+                                      //     actionButtonColor: Colors.transparent,
+                                      //     onChange: (v) {
+                                      //       print(v);
+                                      //       setState(() => qnt = v);
+                                      //     },
+                                      //   ).pOnly(left: 5, right: 5),
+                                      // ).pOnly(right: 5)
                                     ],
                                   )
                                 ],

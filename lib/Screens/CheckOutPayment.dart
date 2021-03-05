@@ -6,8 +6,16 @@ import 'package:FreshOnTheGo/Custome_Widget/paymentContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class CheckOutPaymentPage extends StatelessWidget {
+class CheckOutPaymentPage extends StatefulWidget {
+  @override
+  _CheckOutPaymentPageState createState() => _CheckOutPaymentPageState();
+}
+
+class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   final bool _selectionMethod = true;
+
+  bool _time = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +83,7 @@ class CheckOutPaymentPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             BannerWidget(),
+              BannerWidget(),
               SizedBox(
                 height: 10,
               ),
@@ -91,29 +99,51 @@ class CheckOutPaymentPage extends StatelessWidget {
                     Container(
                       height: MediaQuery.of(context).size.height * 0.4,
                       // width: MediaQuery.of(context).size.width * 0.50,
-                      child: ListView(
-                        children: [
-                          PaymentContainer(
-                            setColor: kPrimaryColor,
-                            isSelect: _selectionMethod,
-                            string: "Billetera upi",
-                          ),
-                          PaymentContainer(
-                            setColor: kPrimaryColor,
-                            isSelect: !_selectionMethod,
-                            string: "Banca neta",
-                          ),
-                          // PaymentContainer(
-                          //   setColor: kPrimaryColor,
-                          //   isSelect: !_selectionMethod,
-                          //   string: "Tarjeta de crédito / débito / cajero automático",
-                          // ),
-                          PaymentContainer(
-                            setColor: kPrimaryColor,
-                            isSelect: !_selectionMethod,
-                            string: "Contra reembolso",
-                          ),
-                        ],
+                      child: ListView.builder(
+                        itemBuilder: (_, i) {
+                          return InkWell(
+                            onTap: () {
+                              // setState(() {
+                              if (_time == true) {
+                                setState(() {
+                                  _time = false;
+                                });
+                              } else {
+                                setState(() {
+                                  _time = true;
+                                });
+                              }
+                              // });
+                            },
+                            child: PaymentContainer(
+                              setColor: kPrimaryColor,
+                              isSelect: _time,
+                              string: "$i",
+                            ),
+                          );
+                        },
+                        // children: [
+                        //   PaymentContainer(
+                        //     setColor: kPrimaryColor,
+                        //     isSelect: _selectionMethod,
+                        //     string: "Billetera upi",
+                        //   ),
+                        //   PaymentContainer(
+                        //     setColor: kPrimaryColor,
+                        //     isSelect: !_selectionMethod,
+                        //     string: "Banca neta",
+                        //   ),
+                        //   // PaymentContainer(
+                        //   //   setColor: kPrimaryColor,
+                        //   //   isSelect: !_selectionMethod,
+                        //   //   string: "Tarjeta de crédito / débito / cajero automático",
+                        //   // ),
+                        //   PaymentContainer(
+                        //     setColor: kPrimaryColor,
+                        //     isSelect: !_selectionMethod,
+                        //     string: "Contra reembolso",
+                        //   ),
+                        // ],
                       ),
                     ),
                   ],
@@ -158,8 +188,19 @@ class CheckOutPaymentPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        "Total :".text.color(Colors.grey[200]).textStyle(GoogleFonts.openSans()).bold.make(),
-                        "\$ 200".text.bold.white.textStyle(GoogleFonts.openSans()).xl2.make()
+                        "Total :"
+                            .text
+                            .color(Colors.grey[200])
+                            .textStyle(GoogleFonts.openSans())
+                            .bold
+                            .make(),
+                        "\$ 200"
+                            .text
+                            .bold
+                            .white
+                            .textStyle(GoogleFonts.openSans())
+                            .xl2
+                            .make()
                       ],
                     )),
               ),
@@ -168,7 +209,11 @@ class CheckOutPaymentPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.07,
                     color: Color(0xFFFFD553),
                     alignment: Alignment.center,
-                    child: "PAY NOW".text.bold.textStyle(GoogleFonts.openSans()).make()),
+                    child: "PAY NOW"
+                        .text
+                        .bold
+                        .textStyle(GoogleFonts.openSans())
+                        .make()),
               )
             ],
           )

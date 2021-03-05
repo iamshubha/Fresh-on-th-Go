@@ -26,7 +26,7 @@ class _ProfileState extends State<Profile> {
     final _prefs = await SharedPreferences.getInstance();
     uid = _prefs.getString('uid');
     String url =
-        "http://888travelthailand.com/farmers/apis/customer/get_details_by_id?id=$uid";
+        "http://farmerappportal.cynotecksandbox.com/apis/customer/get_details_by_id?id=$uid";
     final response = await http.get(url);
     setState(() {
       data = jsonDecode(response.body);
@@ -41,7 +41,7 @@ class _ProfileState extends State<Profile> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+          "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {

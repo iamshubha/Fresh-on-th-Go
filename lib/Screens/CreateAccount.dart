@@ -37,7 +37,7 @@ class _CreateAccountState extends State<CreateAccount> {
       } else {
         if (_formKey.currentState.validate()) {
           String url =
-              "http://888travelthailand.com/farmers/apis/customer/register";
+              "http://farmerappportal.cynotecksandbox.com/apis/customer/register";
           final headers = {'Content-Type': 'application/json'};
 
           Map<String, dynamic> body = {

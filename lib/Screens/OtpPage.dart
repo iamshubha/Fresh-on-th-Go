@@ -27,7 +27,7 @@ class _OtpPageState extends State<OtpPage> {
       ));
     } else {
       String url =
-          "http://888travelthailand.com/farmers/apis/customer/upd_usr_after_otp";
+          "http://farmerappportal.cynotecksandbox.com/apis/customer/upd_usr_after_otp";
       final headers = {'Content-Type': 'application/json', 'Charset': 'utf-8'};
       Map<String, dynamic> body = {
         "user_type": "3",
