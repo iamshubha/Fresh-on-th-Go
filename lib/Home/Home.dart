@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
       loader = false;
     });
     var response = await http.get(
-        "http://888travelthailand.com/farmers/apis/product/searchproductbycatagory_6prod?limit=6");
+        "https://www.mercadosagricolaspr.com/farmers/apis/product/searchproductbycatagory_6prod?limit=6");
     setState(() {
       var getResponse = jsonDecode(response.body);
       data = getResponse['data'];
@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+          "https://www.mercadosagricolaspr.com/farmers/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {

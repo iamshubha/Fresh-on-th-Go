@@ -43,9 +43,9 @@ class _MenuState extends State<Menu> {
       uid = _prefs.getString('uid');
     });
     var url = http.get(
-        "http://888travelthailand.com/farmers/apis/product/searchallproduct");
+        "https://www.mercadosagricolaspr.com/farmers/apis/product/searchallproduct");
     var urlForCat = http.get(
-        "http://888travelthailand.com/farmers/apis/product/getallcategories");
+        "https://www.mercadosagricolaspr.com/farmers/apis/product/getallcategories");
     var response = await Future.wait([url, urlForCat]);
     setState(() {
       final data1 = jsonDecode(response[0].body);
@@ -68,7 +68,7 @@ class _MenuState extends State<Menu> {
       loader = false;
     });
     var response = await http.get(
-        "http://888travelthailand.com/farmers/apis/product/searchproductbycatagory?cid=$cid");
+        "https://www.mercadosagricolaspr.com/farmers/apis/product/searchproductbycatagory?cid=$cid");
 
     setState(() {
       var getResponse = jsonDecode(response.body);
@@ -90,7 +90,7 @@ class _MenuState extends State<Menu> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "http://888travelthailand.com/farmers/apis/order/addcart";
+        String url = "https://www.mercadosagricolaspr.com/farmers/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "pid": "$pid",
@@ -129,7 +129,7 @@ class _MenuState extends State<Menu> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+          "https://www.mercadosagricolaspr.com/farmers/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {

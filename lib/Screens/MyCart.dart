@@ -37,7 +37,7 @@ class _MyCartPageState extends State<MyCartPage> {
         ));
       } else {
         String url =
-            "http://888travelthailand.com/farmers/apis/order/showcart_byuid?uid=$uid";
+            "https://www.mercadosagricolaspr.com/farmers/apis/order/showcart_byuid?uid=$uid";
         var response = await http.get(url);
         var rsp = jsonDecode(response.body);
         setState(() {
@@ -75,7 +75,7 @@ class _MyCartPageState extends State<MyCartPage> {
         ));
       } else {
         String url =
-            "http://888travelthailand.com/farmers/apis/order/updatecartbyid";
+            "https://www.mercadosagricolaspr.com/farmers/apis/order/updatecartbyid";
         Map<String, dynamic> body = {
           "cart_id": "$cartId",
           "qty": "1",
@@ -107,7 +107,7 @@ class _MyCartPageState extends State<MyCartPage> {
         ));
       } else {
         setState(() => _payloader = false);
-        String url = "http://888travelthailand.com/farmers/apis/order/addorder";
+        String url = "https://www.mercadosagricolaspr.com/farmers/apis/order/addorder";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "cart_id": cartId,
