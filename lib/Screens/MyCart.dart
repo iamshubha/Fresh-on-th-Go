@@ -100,7 +100,8 @@ class _MyCartPageState extends State<MyCartPage> {
 
   postCheckout(List cartId, String total) async {
     try {
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>CheckOutPaymentPage()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => CheckOutPaymentPage()));
       //TODO:function work here...
       // var network = await Connectivity().checkConnectivity();
       // print(network.index);
@@ -184,7 +185,7 @@ class _MyCartPageState extends State<MyCartPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             "Mi Carrito".text.make(),
-            
+
             // "Baishnab para Santipur Nadia".text.size(10).make(),
           ],
         ),

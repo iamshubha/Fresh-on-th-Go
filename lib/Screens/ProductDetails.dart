@@ -299,7 +299,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     ),
                                   ),
                                 ).p(10),
-                              ).pOnly(right:10),
+                              ).pOnly(right: 10),
                               Container(
                                 // width: MediaQuery.of(context).size.width * 0.60,
                                 child: Column(
@@ -355,8 +355,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 .p(8),
                                           ).pOnly(right: 10),
                                         ),
-                                        
-                                        
+
                                         Container(
                                             alignment: Alignment.center,
                                             color: Color(0xFFFFD456),

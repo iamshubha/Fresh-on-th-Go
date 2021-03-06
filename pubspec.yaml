@@ -31,8 +31,10 @@ dependencies:
   expansion_tile_card: ^1.1.0
   fluttertoast: ^7.1.6
   google_fonts: ^1.1.1
+  group_radio_button: ^1.0.1
   http: ^0.12.2
   provider: ^4.3.3
+  rflutter_alert: ^1.1.0
   shared_preferences: ^0.5.12+4
   velocity_x: ^1.0.1
 
