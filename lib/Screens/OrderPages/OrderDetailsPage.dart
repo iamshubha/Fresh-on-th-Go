@@ -37,7 +37,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           loader = false;
         });
         String url =
-            'http://farmerappportal.cynotecksandbox.com/apis/customer/customer_order_dets?oid=${widget.oid}&uid=$uid';
+            'https://mercadosagricolaspr.com/farmer-new/apis/customer/customer_order_dets?oid=${widget.oid}&uid=$uid';
 
         final resp = await http.get(url);
         var response = jsonDecode(resp.body);

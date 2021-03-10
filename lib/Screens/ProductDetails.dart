@@ -36,7 +36,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ));
       } else {
         String url =
-            "http://farmerappportal.cynotecksandbox.com/apis/order/addcart";
+            "https://mercadosagricolaspr.com/farmer-new/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "pid": "$pid",
@@ -79,13 +79,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         loader = false;
       });
       var productDescriptionse = http.get(
-        "http://farmerappportal.cynotecksandbox.com/apis/product/get_all_product_by_name?pname=apple",
-        // 'http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbyid?pid=${widget.pid}'
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=apple",
+        // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbyid?pid=${widget.pid}'
       );
 
       var predictDataResponse = http.get(
-          'http://farmerappportal.cynotecksandbox.com/apis/product/get_all_product_by_name?pname=apple'
-          // 'http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbycatagory?cid=${widget.cid}'
+          'https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=apple'
+          // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=${widget.cid}'
           );
       var responseData =
           await Future.wait([productDescriptionse, predictDataResponse]);
@@ -108,7 +108,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
+          "https://mercadosagricolaspr.com/farmer-new/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {

@@ -31,7 +31,8 @@ class _LoginPageState extends State<LoginPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "http://farmerappportal.cynotecksandbox.com/apis/customer/login";
+        String url =
+            "https://mercadosagricolaspr.com/farmer-new/apis/customer/login";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "user_type": "3",
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Email usuário",  
+                    hintText: "Email usuário",
                   ),
                 ),
                 SizedBox(

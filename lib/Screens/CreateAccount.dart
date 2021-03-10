@@ -37,7 +37,7 @@ class _CreateAccountState extends State<CreateAccount> {
       } else {
         if (_formKey.currentState.validate()) {
           String url =
-              "http://farmerappportal.cynotecksandbox.com/apis/customer/register";
+              "https://mercadosagricolaspr.com/farmer-new/apis/customer/register";
           final headers = {'Content-Type': 'application/json'};
 
           Map<String, dynamic> body = {
@@ -149,7 +149,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   SizedBox(
                     height: 10,
                   ),
-                   TextFormField(
+                  TextFormField(
                     validator: (value) => value.length >= 2
                         ? null
                         : "Por favor ingrese su direccion",
@@ -184,7 +184,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   SizedBox(
                     height: 10,
                   ),
-
                   TextFormField(
                     validator: (value) => EmailValidator.validate(value)
                         ? null

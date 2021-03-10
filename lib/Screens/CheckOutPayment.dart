@@ -42,7 +42,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         ));
       } else {
         String url =
-            "http://farmerappportal.cynotecksandbox.com/apis/store_addresses/get_customer_delivery_options?uid=$uid";
+            "https://mercadosagricolaspr.com/farmer-new/apis/store_addresses/get_customer_delivery_options?uid=$uid";
         var response = await http.get(url);
         var rsp = jsonDecode(response.body);
 

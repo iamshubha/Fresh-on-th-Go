@@ -34,7 +34,7 @@ class _MenuState extends State<Menu> {
   List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
   ListItem _selectedItem;
   var getDataForAllCategory;
-  var data;
+  List data;
   bool loader = false;
   String uid;
   getDataFromServer() async {
@@ -43,9 +43,9 @@ class _MenuState extends State<Menu> {
       uid = _prefs.getString('uid');
     });
     var url = http.get(
-        "http://farmerappportal.cynotecksandbox.com/apis/product/searchallproduct");
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/searchallproduct");
     var urlForCat = http.get(
-        "http://farmerappportal.cynotecksandbox.com/apis/product/getallcategories");
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/getallcategories");
     var response = await Future.wait([url, urlForCat]);
     setState(() {
       final data1 = jsonDecode(response[0].body);
@@ -68,13 +68,18 @@ class _MenuState extends State<Menu> {
       loader = false;
     });
     var response = await http.get(
-        "http://farmerappportal.cynotecksandbox.com/apis/product/searchproductbycatagory?cid=$cid");
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=$cid");
 
     setState(() {
       var getResponse = jsonDecode(response.body);
+      if (getResponse["status"]) {
+        data = getResponse['data'];
+      } else {
+        data = [];
+      }
       print(getResponse);
-      data = getResponse['data'];
 
+      print("List data data");
       getIconVal();
       loader = true;
     });
@@ -91,7 +96,7 @@ class _MenuState extends State<Menu> {
         ));
       } else {
         String url =
-            "http://farmerappportal.cynotecksandbox.com/apis/order/addcart";
+            "https://mercadosagricolaspr.com/farmer-new/apis/order/addcart";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "pid": "$pid",
@@ -130,7 +135,7 @@ class _MenuState extends State<Menu> {
     final uid = _prefs.getString('uid');
     try {
       String url =
-          "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
+          "https://mercadosagricolaspr.com/farmer-new/apis/order/showcart_byuid?uid=$uid";
       final response = await http.get(url);
       var rsp = jsonDecode(response.body);
       if (rsp['status']) {
@@ -285,7 +290,7 @@ class _MenuState extends State<Menu> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   loader == true
-                      ? Text("${data.length} Artículos")
+                      ? Text("${data.length != null ? data.length : 0} Artículos") //${data.length != null ? data.length : 0}
                           .text
                           .textStyle(GoogleFonts.openSans())
                           .white
@@ -319,100 +324,108 @@ class _MenuState extends State<Menu> {
                 ? Container(
                     height: MediaQuery.of(context).size.height * 0.544,
                     width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (BuildContext context, int i) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => ProductDetailsPage(
-                                          cid: data[i]['cid'],
-                                          pid: data[i]['pid']))),
-                              child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.15,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    "${data[i]['image']}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ).p(18),
-                            ),
-                            Container(
-                              // width: MediaQuery.of(context).size.width * 0.,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                    child: data.length != null
+                        ? ListView.builder(
+                            itemCount: data.length,
+                            itemBuilder: (BuildContext context, int i) {
+                              return Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  "${data[i]['name']}"
-                                      .text
-                                      .textStyle(GoogleFonts.openSans())
-                                      .size(8)
-                                      .make().pOnly(bottom:5),
-                                  "${data[i]['category']}"
-                                      .text
-                                      .textStyle(GoogleFonts.openSans())
-                                      .bold
-                                      .make()
-                                      .pOnly(bottom: 5),
-
-                                  
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
-                                          .text
-                                          .textStyle(GoogleFonts.openSans())
-                                          .xl
-                                          .make(),
-                                      // InkWell(
-                                      //   child: Container(
-                                      //     decoration: BoxDecoration(
-                                      //         color: Colors.green,
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(8)),
-                                      //     child: "AÑADIR"
-                                      //         .text
-                                      //         .textStyle(GoogleFonts.openSans())
-                                      //         .white
-                                      //         .size(10)
-                                      //         .make()
-                                      //         .p(4),
-                                      //   ).pOnly(right: 10),
-                                      //   onTap: () =>
-                                      //       addToCart(data[i]['pid'], "$qnt"),
+                                  InkWell(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => ProductDetailsPage(
+                                                cid: data[i]['cid'],
+                                                pid: data[i]['pid']))),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.15,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          "${data[i]['image']}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ).p(18),
+                                  ),
+                                  Container(
+                                    // width: MediaQuery.of(context).size.width * 0.,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        "${data[i]['name']}"
+                                            .text
+                                            .textStyle(GoogleFonts.openSans())
+                                            .size(8)
+                                            .make()
+                                            .pOnly(bottom: 5),
+                                        "${data[i]['category']}"
+                                            .text
+                                            .textStyle(GoogleFonts.openSans())
+                                            .bold
+                                            .make()
+                                            .pOnly(bottom: 5),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
+                                                .text
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .xl
+                                                .make(),
+                                            // InkWell(
+                                            //   child: Container(
+                                            //     decoration: BoxDecoration(
+                                            //         color: Colors.green,
+                                            //         borderRadius:
+                                            //             BorderRadius.circular(8)),
+                                            //     child: "AÑADIR"
+                                            //         .text
+                                            //         .textStyle(GoogleFonts.openSans())
+                                            //         .white
+                                            //         .size(10)
+                                            //         .make()
+                                            //         .p(4),
+                                            //   ).pOnly(right: 10),
+                                            //   onTap: () =>
+                                            //       addToCart(data[i]['pid'], "$qnt"),
+                                            // ),
+                                            // Container(
+                                            //   // alignment: Alignment.,
+                                            //   color: Color(0xFFFFD456),
+                                            //   child: VxStepper(
+                                            //     inputBoxColor: Colors.grey[350],
+                                            //     actionButtonColor: Colors.transparent,
+                                            //     onChange: (v) {
+                                            //       print(v);
+                                            //       setState(() => qnt = v);
+                                            //     },
+                                            //   ).pOnly(left: 5, right: 5),
+                                            // ).pOnly(right: 5)
+                                          ],
+                                        )
+                                      ],
                                       // ),
-                                      // Container(
-                                      //   // alignment: Alignment.,
-                                      //   color: Color(0xFFFFD456),
-                                      //   child: VxStepper(
-                                      //     inputBoxColor: Colors.grey[350],
-                                      //     actionButtonColor: Colors.transparent,
-                                      //     onChange: (v) {
-                                      //       print(v);
-                                      //       setState(() => qnt = v);
-                                      //     },
-                                      //   ).pOnly(left: 5, right: 5),
-                                      // ).pOnly(right: 5)
-                                    ],
-                                  )
+                                    ),
+                                  ).pOnly(top: 30)
                                 ],
-                                // ),
-                              ),
-                            ).pOnly(top: 30)
-                          ],
-                        );
-                      },
-                    ),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: "No Data".text.make(),
+                          ),
                   )
                 : Center(child: CircularProgressIndicator()),
           ],

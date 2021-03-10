@@ -27,7 +27,7 @@ class _OtpPageState extends State<OtpPage> {
       ));
     } else {
       String url =
-          "http://farmerappportal.cynotecksandbox.com/apis/customer/upd_usr_after_otp";
+          "https://mercadosagricolaspr.com/farmer-new/apis/customer/upd_usr_after_otp";
       final headers = {'Content-Type': 'application/json', 'Charset': 'utf-8'};
       Map<String, dynamic> body = {
         "user_type": "3",
@@ -37,7 +37,7 @@ class _OtpPageState extends State<OtpPage> {
       print(body);
       String jsonBody = jsonEncode(body);
       print(jsonBody);
-      var response = await http.post(url, body: jsonBody,headers: headers);
+      var response = await http.post(url, body: jsonBody, headers: headers);
       var data = jsonDecode(response.body);
       print(data);
       print(response);
@@ -51,11 +51,9 @@ class _OtpPageState extends State<OtpPage> {
             context, MaterialPageRoute(builder: (_) => LoginPage()));
       } else {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: kPrimaryColor,
-          content: Text(data['message']),
-           duration: Duration(seconds: 3)
-        ));
-
+            backgroundColor: kPrimaryColor,
+            content: Text(data['message']),
+            duration: Duration(seconds: 3)));
       }
     }
   }

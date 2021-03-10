@@ -13,10 +13,10 @@
 //     final uid = _prefs.getString('uid');
 //     try {
 //       String url =
-//           "http://farmerappportal.cynotecksandbox.com/apis/order/showcart_byuid?uid=$uid";
+//           "https://mercadosagricolaspr.com/farmer-new/apis/order/showcart_byuid?uid=$uid";
 //       final response = await http.get(url);
 //       var rsp = jsonDecode(response.body);
-      
+
 //       if (rsp['status']) {
 //          data = rsp['data'].length;
 //         print(url);

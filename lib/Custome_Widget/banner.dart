@@ -19,7 +19,7 @@ class _BannerWidgetState extends State<BannerWidget> {
     final _prefs = await SharedPreferences.getInstance();
     String uid = _prefs.getString('uid');
     String url =
-        "http://farmerappportal.cynotecksandbox.com/apis/customer/get_details_by_id?id=$uid";
+        "https://mercadosagricolaspr.com/farmer-new/apis/customer/get_details_by_id?id=$uid";
     final response = await http.get(url);
     setState(() {
       data = jsonDecode(response.body);

@@ -25,7 +25,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         ));
       } else {
         String url =
-            "http://farmerappportal.cynotecksandbox.com/apis/customer/send_forgot_pass_token_cust_web";
+            "https://mercadosagricolaspr.com/farmer-new/apis/customer/send_forgot_pass_token_cust_web";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           'email': _forgetEditingController.text.toString()
