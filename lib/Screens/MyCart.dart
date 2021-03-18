@@ -100,8 +100,16 @@ class _MyCartPageState extends State<MyCartPage> {
 
   postCheckout(List cartId, String total) async {
     try {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => CheckOutPaymentPage()));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (_) => CheckOutPaymentPage(
+                  totalPrice: data['total_price'],
+                  totalqty: data['total_qty'],
+                  cartids: data['cart_ids'],
+                  totalrec: data['total_rec'])));
+      // total_price: 110, total_qty: 2, cart_ids: [335], total_rec: 1
+
       //TODO:function work here...
       // var network = await Connectivity().checkConnectivity();
       // print(network.index);

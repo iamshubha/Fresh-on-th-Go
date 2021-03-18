@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:FreshOnTheGo/Screens/HomePage.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
@@ -11,6 +12,14 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
 class CheckOutPaymentPage extends StatefulWidget {
+  final totalPrice;
+  final totalqty;
+  final cartids;
+  final totalrec;
+
+  const CheckOutPaymentPage(
+      {Key key, this.totalPrice, this.totalqty, this.cartids, this.totalrec})
+      : super(key: key);
   @override
   _CheckOutPaymentPageState createState() => _CheckOutPaymentPageState();
 }
@@ -27,13 +36,17 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   bool loader = true;
   String _selectedAddress;
   String _initialLocationVal = 'Click Here For Location';
+  String uid;
   // List<String> _status = ["Pending", "Released", "Blocked"];
   getTimeAddress() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final uid = _prefs.getString('uid');
+    final network = await Connectivity().checkConnectivity();
     try {
-      setState(() => loader = false);
-      var network = await Connectivity().checkConnectivity();
+      setState(() {
+        loader = false;
+        uid = _prefs.getString('uid');
+      });
+
       print(network.index);
       if (network.index == 2) {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -113,9 +126,65 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         )).show();
   }
 
+  postCheckout({List cartId, String total}) async {
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        setState(() => loader = false);
+        String url =
+            "https://mercadosagricolaspr.com/farmer-new/apis/order/addorder";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {
+          "cart_id": cartId,
+          "tot_price": total.toString(),
+          "status": "1",
+          "remarks": "ordered...",
+          "created_by": uid.toString(),
+          "delivery_address": _initialLocationVal != 'Click Here For Location'
+              ? ''
+              : _initialLocationVal,
+          "delivery_time": _initialLocationVal != 'Click Here For Location'
+              ? _verticalGroupValue
+              : ''
+        };
+        String jsonBody = json.encode(body);
+        print(jsonBody);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var postData = jsonDecode(response.body);
+        print(postData);
+        if (postData['status']) {
+          setState(() => loader = true);
+          context.showToast(
+              msg: postData['message'], bgColor: kPrimaryColor, textSize: 16);
+          // Fluttertoast.showToast(
+          //     msg: postData['message'],
+          //     toastLength: Toast.LENGTH_SHORT,
+          //     gravity: ToastGravity.BOTTOM,
+          //     timeInSecForIosWeb: 1,
+          //     backgroundColor: kPrimaryColor,
+          //     textColor: Colors.white,
+          //     fontSize: 16.0);
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => HomePage()));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     getTimeAddress();
+    Future.microtask(
+        () => {print(widget.cartids + "" + widget.totalPrice.runtimeType)});
+
     super.initState();
   }
 
@@ -296,7 +365,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                       .textStyle(GoogleFonts.openSans())
                                       .bold
                                       .make(),
-                                  "\$ 200"
+                                  "\$ ${widget.totalPrice}"
                                       .text
                                       .bold
                                       .white
@@ -307,15 +376,28 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                               )),
                         ),
                         Expanded(
-                          child: Container(
-                              height: MediaQuery.of(context).size.height * 0.08,
-                              color: Color(0xFFFFD553),
-                              alignment: Alignment.center,
-                              child: "PAY NOW"
-                                  .text
-                                  .bold
-                                  .textStyle(GoogleFonts.openSans())
-                                  .make()),
+                          child: InkWell(
+                            onTap: () {
+                              print(widget.totalPrice.runtimeType);
+                              print(_initialLocationVal +
+                                  'Click Here For Location' +
+                                  _verticalGroupValue);
+                              postCheckout(
+                                  cartId: widget.cartids,
+                                  total: widget.totalPrice.toString());
+                              print(_initialLocationVal);
+                            },
+                            child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.08,
+                                color: Color(0xFFFFD553),
+                                alignment: Alignment.center,
+                                child: "PAY NOW"
+                                    .text
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make()),
+                          ),
                         )
                       ],
                     )

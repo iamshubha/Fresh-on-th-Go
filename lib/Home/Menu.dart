@@ -52,9 +52,11 @@ class _MenuState extends State<Menu> {
       final data2 = jsonDecode(response[1].body);
       print(data2);
       print(data1);
+      print("--------------------------");
       data = data1['data'];
       getDataForAllCategory = data2['data'];
       loader = true;
+      print("--------------------------$data");
     });
     print("${data.length} " +
         "shubha" +
@@ -337,8 +339,9 @@ class _MenuState extends State<Menu> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) => ProductDetailsPage(
-                                                cid: data[i]['cid'],
-                                                pid: data[i]['pid']))),
+                                                cid: data[i]
+                                                    ['category'], //category
+                                                pid: data[i]['name']))),
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *

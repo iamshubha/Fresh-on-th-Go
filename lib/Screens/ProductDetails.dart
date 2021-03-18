@@ -79,12 +79,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         loader = false;
       });
       var productDescriptionse = http.get(
-        "https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=apple",
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=${widget.pid}",
         // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbyid?pid=${widget.pid}'
       );
 
       var predictDataResponse = http.get(
-          'https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=apple'
+          'https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=${widget.pid}'
           // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=${widget.cid}'
           );
       var responseData =

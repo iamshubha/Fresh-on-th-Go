@@ -37,11 +37,6 @@ class _BannerWidgetState extends State<BannerWidget> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xFFFFD553),
