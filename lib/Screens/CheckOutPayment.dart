@@ -210,7 +210,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              "Checkout".text.make(),
+              "Revisa".text.uppercase.make(),
               // "Baishnab para Santipur Nadia".text.size(10).make(),
             ],
           ),
@@ -243,7 +243,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                               height: 45,
                               color: tabbar ? kPrimaryColor : Color(0xFFB0E0CA),
                               alignment: Alignment.center,
-                              child: "DELEVERY TO HOME"
+                              child: "Entrega a domicilio"
                                   .text
                                   .textStyle(GoogleFonts.openSans())
                                   .bold
@@ -263,7 +263,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                           child: Container(
                               color: tabbar ? Color(0xFFB0E0CA) : kPrimaryColor,
                               height: 45,
-                              child: "pick form carribian"
+                              child: "elegir del caribe"
                                   .text
                                   .uppercase
                                   .textStyle(GoogleFonts.openSans())
@@ -392,8 +392,9 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                     MediaQuery.of(context).size.height * 0.08,
                                 color: Color(0xFFFFD553),
                                 alignment: Alignment.center,
-                                child: "PAY NOW"
+                                child: "Pagar ahora"
                                     .text
+                                    .uppercase
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make()),

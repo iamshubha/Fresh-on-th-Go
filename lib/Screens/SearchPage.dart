@@ -1,3 +1,4 @@
+import 'package:FreshOnTheGo/Screens/ProductDetails.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
@@ -12,7 +13,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  var data;
+  List data = [];
   int qnt;
   String uid;
   bool loader = true;
@@ -90,11 +91,19 @@ class _SearchPageState extends State<SearchPage> {
             "https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbynames?pname=$word";
         final response = await http.get(url);
         var rsp = jsonDecode(response.body);
+        print(response.body);
         print(rsp);
-        setState(() {
-          data = rsp['data'];
-          loader = true;
-        });
+        if (rsp['status']) {
+          setState(() {
+            data = rsp['data'];
+            loader = true;
+          });
+        } else {
+          setState(() {
+            loader = true;
+          });
+        }
+
         print(data);
       }
     } catch (e) {
@@ -173,92 +182,97 @@ class _SearchPageState extends State<SearchPage> {
                   child: ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (BuildContext context, int i) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.15,
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                "${data[i]['image']}",
-                                fit: BoxFit.cover,
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ProductDetailsPage(
+                                      cid: data[i]['category'], //category
+                                      pid: data[i]['name']
+                                      //TODO:Work here
+                                      // cid: data[i]/
+                                      )));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.15,
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  "${data[i]['image']}",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                          ).p(18),
-                          Container(
-                            // width: MediaQuery.of(context).size.width * 0.,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                "${data[i]['name']}"
-                                    .text
-                                    .textStyle(GoogleFonts.openSans())
-                                    .size(8)
-                                    .make(),
-                                "${data[i]['category']}"
-                                    .text
-                                    .textStyle(GoogleFonts.openSans())
-                                    .bold
-                                    .make()
-                                    .pOnly(bottom: 20),
-                                // DropdownButtonHideUnderline(
-                                //     child: DropdownButton(
-                                //         value: _selectedItem,
-                                //         items: _dropdownMenuItems,
-                                //         onChanged: (value) {
-                                //           setState(() {
-                                //             // _selectedItem = value;
-                                //           });
-                                //         })),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    "\$: ${data[i]['sell_price']}"
-                                        .text
-                                        .textStyle(GoogleFonts.openSans())
-                                        .xl
-                                        .make(),
-                                    InkWell(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: "AÑADIR"
-                                            .text
-                                            .textStyle(GoogleFonts.openSans())
-                                            .white
-                                            .size(10)
-                                            .make()
-                                            .p(4),
-                                      ).pOnly(right: 10),
-                                      onTap: () =>
-                                          addToCart(data[i]['pid'], "$qnt"),
-                                    ),
-                                    Container(
-                                      // alignment: Alignment.,
-                                      color: Color(0xFFFFD456),
-                                      child: VxStepper(
-                                        inputBoxColor: Colors.grey[350],
-                                        actionButtonColor: Colors.transparent,
-                                        onChange: (v) {
-                                          print(v);
-                                          setState(() => qnt = v);
-                                        },
-                                      ).pOnly(left: 5, right: 5),
-                                    ).pOnly(right: 5)
-                                  ],
-                                )
-                              ],
-                              // ),
-                            ),
-                          ).pOnly(top: 30)
-                        ],
+                            ).p(18),
+                            SizedBox(width: 40),
+                            Container(
+                              // width: MediaQuery.of(context).size.width * 0.,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  "${data[i]['name']}"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .size(8)
+                                      .make(),
+                                  "${data[i]['category']}"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .bold
+                                      .make()
+                                      .pOnly(bottom: 20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      "\$: ${data[i]['sell_price']}"
+                                          .text
+                                          .textStyle(GoogleFonts.openSans())
+                                          .xl
+                                          .make(),
+                                      // InkWell(
+                                      //   child: Container(
+                                      //     decoration: BoxDecoration(
+                                      //         color: Colors.green,
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(8)),
+                                      //     child: "AÑADIR"
+                                      //         .text
+                                      //         .textStyle(GoogleFonts.openSans())
+                                      //         .white
+                                      //         .size(10)
+                                      //         .make()
+                                      //         .p(4),
+                                      //   ).pOnly(right: 10),
+                                      //   onTap: () =>
+                                      //       addToCart(data[i]['pid'], "$qnt"),
+                                      // ),
+                                      // Container(
+                                      //   // alignment: Alignment.,
+                                      //   color: Color(0xFFFFD456),
+                                      //   child: VxStepper(
+                                      //     inputBoxColor: Colors.grey[350],
+                                      //     actionButtonColor: Colors.transparent,
+                                      //     onChange: (v) {
+                                      //       print(v);
+                                      //       setState(() => qnt = v);
+                                      //     },
+                                      //   ).pOnly(left: 5, right: 5),
+                                      // ).pOnly(right: 5)
+                                    ],
+                                  )
+                                ],
+                                // ),
+                              ),
+                            ).pOnly(top: 30)
+                          ],
+                        ),
                       );
                     },
                   ))

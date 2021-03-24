@@ -35,6 +35,8 @@ class _HomeState extends State<Home> {
     setState(() {
       var getResponse = jsonDecode(response.body);
       data = getResponse['data'];
+      print("==================================================");
+      print(data);
       loader = true;
     });
   }
@@ -237,10 +239,12 @@ class _HomeState extends State<Home> {
                                               MaterialPageRoute(
                                                   builder: (_) =>
                                                       ProductDetailsPage(
-                                                          cid: data[i]['cdata']
-                                                              [gi]['cid'],
+                                                          //TODO:Work here
+                                                          cid: data[i]
+                                                              [' category'],
+                                                          // [gi]['cid'],
                                                           pid: data[i]['cdata']
-                                                              [gi]['pid']))),
+                                                              [gi]['name']))),
                                           child: Container(
                                               margin: EdgeInsets.all(20),
                                               decoration: BoxDecoration(
