@@ -31,7 +31,8 @@ class _LoginPageState extends State<LoginPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "https://www.mercadosagricolaspr.com/farmers/apis/customer/login";
+        String url =
+            "https://www.mercadosagricolaspr.com/farmers/apis/customer/login";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "user_type": "3",
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(100.0),
                     ),
                     fillColor: Color(0xFFFFD552),
-                    hintText: "Email usuário",  
+                    hintText: "Email usuário",
                   ),
                 ),
                 SizedBox(
@@ -181,7 +182,11 @@ class _LoginPageState extends State<LoginPage> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: InkWell(
-                        onTap: () => loginFunction(),
+                        onTap: () {
+                          // Focus.of(context).unfocus();
+                          FocusScope.of(context).unfocus();
+                          loginFunction();
+                        },
                         child: Image.asset('assets/getstartedbtn.png'),
                       ),
                     ),
