@@ -33,10 +33,12 @@ dependencies:
   google_fonts: ^1.1.1
   group_radio_button: ^1.0.1
   http: ^0.12.2
+  http_auth: ^1.0.0
   provider: ^4.3.3
   rflutter_alert: ^1.1.0
   shared_preferences: ^0.5.12+4
   velocity_x: ^1.0.1
+  webview_flutter: ^2.0.2
 
 dev_dependencies:
   flutter_test:

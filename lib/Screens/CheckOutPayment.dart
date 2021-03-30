@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:FreshOnTheGo/PayPal/PaymentViewPage.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -127,6 +128,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   }
 
   postCheckout({List cartId, String total}) async {
+    Navigator.pop(context);
     try {
       var network = await Connectivity().checkConnectivity();
       print(network.index);
@@ -142,6 +144,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "cart_id": cartId,
+          "payment_id": "COD ",
           "tot_price": total.toString(),
           "status": "1",
           "remarks": "ordered...",
@@ -153,7 +156,68 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
               ? _verticalGroupValue
               : ''
         };
+        print(body);
         String jsonBody = json.encode(body);
+        print(
+            "===========================================================================================");
+        print(jsonBody);
+        final response = await http.post(url, body: jsonBody, headers: headers);
+        var postData = jsonDecode(response.body);
+        print(postData);
+        if (postData['status']) {
+          setState(() => loader = true);
+          context.showToast(
+              msg: postData['message'], bgColor: kPrimaryColor, textSize: 16);
+          // Fluttertoast.showToast(
+          //     msg: postData['message'],
+          //     toastLength: Toast.LENGTH_SHORT,
+          //     gravity: ToastGravity.BOTTOM,
+          //     timeInSecForIosWeb: 1,
+          //     backgroundColor: kPrimaryColor,
+          //     textColor: Colors.white,
+          //     fontSize: 16.0);
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => HomePage()));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  postCheckoutonline({List cartId, String total, String paymentId}) async {
+    Navigator.pop(context);
+    try {
+      var network = await Connectivity().checkConnectivity();
+      print(network.index);
+      if (network.index == 2) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: kPrimaryColor,
+          content: Text('Please Check Your Internet Connection'),
+        ));
+      } else {
+        setState(() => loader = false);
+        String url =
+            "https://mercadosagricolaspr.com/farmer-new/apis/order/addorder";
+        final headers = {'Content-Type': 'application/json'};
+        Map<String, dynamic> body = {
+          "cart_id": cartId,
+          "payment_id": "COD ",
+          "tot_price": total.toString(),
+          "status": "1",
+          "remarks": "ordered...",
+          "created_by": uid.toString(),
+          "delivery_address": _initialLocationVal != 'Click Here For Location'
+              ? ''
+              : _initialLocationVal,
+          "delivery_time": _initialLocationVal != 'Click Here For Location'
+              ? _verticalGroupValue
+              : ''
+        };
+        print(body);
+        String jsonBody = json.encode(body);
+        print(
+            "===========================================================================================");
         print(jsonBody);
         final response = await http.post(url, body: jsonBody, headers: headers);
         var postData = jsonDecode(response.body);
@@ -382,9 +446,11 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                               print(_initialLocationVal +
                                   'Click Here For Location' +
                                   _verticalGroupValue);
-                              postCheckout(
-                                  cartId: widget.cartids,
-                                  total: widget.totalPrice.toString());
+
+                              showAlertDialog(context);
+                              // postCheckout(
+                              //     cartId: widget.cartids,
+                              //     total: widget.totalPrice.toString());
                               print(_initialLocationVal);
                             },
                             child: Container(
@@ -406,6 +472,56 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                 ),
               )
             : Center(child: CircularProgressIndicator()));
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("Cash On Delivey"),
+      onPressed: () {
+        postCheckout(
+            cartId: widget.cartids, total: widget.totalPrice.toString());
+      },
+    );
+    Widget pod = TextButton(
+      child: Text("Pay Online"),
+      onPressed: () {
+        // make PayPal payment
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => PaypalPayment(
+              quantity: widget.cartids,
+              totalAmmount: widget.totalPrice.toString(),
+              onFinish: (number) async {
+                postCheckoutonline(
+                    cartId: widget.cartids,
+                    total: widget.totalPrice.toString(),
+                    paymentId: number.toString());
+                // payment done
+                print('order id: ' + number);
+                print(
+                    "___________________________________________________________________________________________________________________");
+              },
+            ),
+          ),
+        );
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Select Payment Method"),
+      actions: [okButton, pod],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
 
