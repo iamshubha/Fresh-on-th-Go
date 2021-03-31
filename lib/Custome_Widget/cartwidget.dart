@@ -60,7 +60,7 @@ class _CartIconHomeState extends State<CartIconHome> {
 
   @override
   void initState() {
-    timer = Timer.periodic(Duration(seconds: 2), (Timer t) => getIconVal());
+    // timer = Timer.periodic(Duration(seconds: 2), (Timer t) => getIconVal());
     super.initState();
   }
 

@@ -305,6 +305,8 @@ class _MyCartPageState extends State<MyCartPage> {
                                                       icon: Image.asset(
                                                           'assets/images/cart1.png'),
                                                       onPressed: () {
+                                                        setState(() =>
+                                                            loader = false);
                                                         updateProductQty(
                                                             '${data['data'][i]['cart_id']}',
                                                             "+");
@@ -329,6 +331,8 @@ class _MyCartPageState extends State<MyCartPage> {
                                                         fit: BoxFit.cover,
                                                       ),
                                                       onPressed: () {
+                                                        setState(() =>
+                                                            loader = false);
                                                         updateProductQty(
                                                             '${data['data'][i]['cart_id']}',
                                                             "-");

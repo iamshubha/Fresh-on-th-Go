@@ -49,7 +49,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         var data = jsonDecode(response.body);
         print(data);
         if (data['status']) {
-          getIconVal();
+          setState(() {
+            loader = true;
+          });
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text('${data['message']}'),
@@ -374,9 +376,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 //                 .width *
                                                 //             0.07),
                                                 InkWell(
-                                                  onTap: () => addToCart(
-                                                      predictData[i]['pid'],
-                                                      "$qnt"),
+                                                  onTap: () {
+                                                    //TODO:fdhdfjdg
+                                                    setState(() {
+                                                      loader = false;
+                                                    });
+                                                    addToCart(
+                                                        predictData[i]['pid'],
+                                                        "$qnt");
+                                                  },
                                                   child: Container(
                                                     decoration: BoxDecoration(
                                                         color: Colors.green,

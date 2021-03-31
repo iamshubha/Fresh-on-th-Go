@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:FreshOnTheGo/PayPal/PaymentViewPage.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/banner.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
@@ -32,12 +33,13 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   String _singleValue = "Text alignment right";
   List _timeList = [];
   String _verticalGroupValue;
-  bool tabbar = true;
-  List _delvAddress = [];
+  bool tabbar = false;
+  List<DeliveryAddress> _delvAddress = [];
   bool loader = true;
   String _selectedAddress;
   String _initialLocationVal = 'Click Here For Location';
   String uid;
+  int delvDicider = 0;
   // List<String> _status = ["Pending", "Released", "Blocked"];
   getTimeAddress() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -59,6 +61,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
             "https://mercadosagricolaspr.com/farmer-new/apis/store_addresses/get_customer_delivery_options?uid=$uid";
         var response = await http.get(url);
         var rsp = jsonDecode(response.body);
+        print(rsp);
 
         if (response.statusCode == 200) {
           print(rsp);
@@ -71,9 +74,11 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
               print(element.keys == 'Caribbean' ? "shubha" : 'kk');
               setState(() {
                 if (element.keys.toList()[0] == 'Caribbean') {
-                  _delvAddress.add(element['Caribbean']);
+                  _delvAddress
+                      .add(DeliveryAddress(add: element['Caribbean'], i: 0));
                 } else if (element.keys.toList()[0] == 'Oficina') {
-                  _delvAddress.add(element['Oficina']);
+                  _delvAddress
+                      .add(DeliveryAddress(add: element['Oficina'], i: 1));
                 }
               });
             });
@@ -108,12 +113,16 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                   InkWell(
                           onTap: () {
                             setState(() {
-                              _initialLocationVal = _delvAddress[i];
-                              _selectedAddress = _delvAddress[i];
+                              _initialLocationVal = _delvAddress[i].add;
+                              _selectedAddress = _delvAddress[i].add;
+                              // delvDicider = ;
+                              if (_delvAddress[i].i == 1) {
+                                tabbar = true;
+                              }
                             });
                             Navigator.of(ctx).pop();
                           },
-                          child: "${_delvAddress[i]}".text.make())
+                          child: "${_delvAddress[i].add}".text.make())
                       .p(10),
                   Divider(
                     color: Colors.green,
@@ -127,7 +136,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         )).show();
   }
 
-  postCheckout({List cartId, String total}) async {
+  postCheckoutCod({List cartId, String total}) async {
     Navigator.pop(context);
     try {
       var network = await Connectivity().checkConnectivity();
@@ -149,12 +158,8 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           "status": "1",
           "remarks": "ordered...",
           "created_by": uid.toString(),
-          "delivery_address": _initialLocationVal != 'Click Here For Location'
-              ? ''
-              : _initialLocationVal,
-          "delivery_time": _initialLocationVal != 'Click Here For Location'
-              ? _verticalGroupValue
-              : ''
+          "delivery_address": _selectedAddress,
+          "delivery_time": ''
         };
         print(body);
         String jsonBody = json.encode(body);
@@ -207,12 +212,8 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           "status": "1",
           "remarks": "ordered...",
           "created_by": uid.toString(),
-          "delivery_address": _initialLocationVal != 'Click Here For Location'
-              ? ''
-              : _initialLocationVal,
-          "delivery_time": _initialLocationVal != 'Click Here For Location'
-              ? _verticalGroupValue
-              : ''
+          "delivery_address": _initialLocationVal,
+          "delivery_time": _verticalGroupValue
         };
         print(body);
         String jsonBody = json.encode(body);
@@ -300,6 +301,26 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                         InkWell(
                           onTap: () {
                             setState(() {
+                              tabbar = false;
+                            });
+                          },
+                          child: Container(
+                              color: tabbar ? Color(0xFFB0E0CA) : kPrimaryColor,
+                              height: 45,
+                              child: "elegir del caribe"
+                                  .text
+                                  .uppercase
+                                  .textStyle(GoogleFonts.openSans())
+                                  .bold
+                                  .white
+                                  .letterSpacing(-0.2)
+                                  .makeCentered()
+                                  .p(10)),
+                        ),
+                        SizedBox(width: 25),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
                               tabbar = true;
                             });
                           },
@@ -317,26 +338,6 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                   .make()
                                   .p(10)),
                         ),
-                        SizedBox(width: 25),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              tabbar = false;
-                            });
-                          },
-                          child: Container(
-                              color: tabbar ? Color(0xFFB0E0CA) : kPrimaryColor,
-                              height: 45,
-                              child: "elegir del caribe"
-                                  .text
-                                  .uppercase
-                                  .textStyle(GoogleFonts.openSans())
-                                  .bold
-                                  .white
-                                  .letterSpacing(-0.2)
-                                  .makeCentered()
-                                  .p(10)),
-                        )
                       ],
                     ).pOnly(bottom: 15),
                     Column(
@@ -347,182 +348,308 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                           height: 10,
                         ),
                         tabbar
-                            ? Container(
-                                color: Colors.white,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.489,
-                                // width: MediaQuery.of(context).size.width,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    "RESUMEN DEL PEDIDO"
-                                        .text
-                                        .bold
-                                        .make()
-                                        .pOnly(bottom: 20),
-                                    Container(
+                            ? Column(
+                                children: [
+                                  Container(
+                                    color: Colors.white,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.489,
+                                    // width: MediaQuery.of(context).size.width,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        "RESUMEN DEL PEDIDO"
+                                            .text
+                                            .bold
+                                            .make()
+                                            .pOnly(bottom: 20),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.4,
+                                          // width: MediaQuery.of(context).size.width * 0.50,
+                                          child: RadioGroup<dynamic>.builder(
+                                            groupValue: _verticalGroupValue,
+                                            onChanged: (value) => setState(() {
+                                              _verticalGroupValue = value;
+                                            }),
+                                            items: _timeList,
+                                            itemBuilder: (item) =>
+                                                RadioButtonBuilder(
+                                              item,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ).pOnly(
+                                        left: 20,
+                                        right: 20,
+                                        top: 20), //.pOnly(left: 20, top: 20),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.08,
+                                            color: Color(0xFF2DB573),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                "Total :"
+                                                    .text
+                                                    .color(Colors.grey[200])
+                                                    .textStyle(
+                                                        GoogleFonts.openSans())
+                                                    .bold
+                                                    .make(),
+                                                "\$ ${widget.totalPrice}"
+                                                    .text
+                                                    .bold
+                                                    .white
+                                                    .textStyle(
+                                                        GoogleFonts.openSans())
+                                                    .xl2
+                                                    .make()
+                                              ],
+                                            )),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            print(
+                                                widget.totalPrice.runtimeType);
+                                            print(_initialLocationVal +
+                                                'Click Here For Location' +
+                                                _verticalGroupValue);
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        PaypalPayment(
+                                                  quantity: widget.cartids,
+                                                  totalAmmount: widget
+                                                      .totalPrice
+                                                      .toString(),
+                                                  onFinish: (number) async {
+                                                    postCheckoutonline(
+                                                        cartId: widget.cartids,
+                                                        total: widget.totalPrice
+                                                            .toString(),
+                                                        paymentId:
+                                                            number.toString());
+                                                    // payment done
+                                                    print(
+                                                        'order id: ' + number);
+                                                    print(
+                                                        "___________________________________________________________________________________________________________________");
+                                                  },
+                                                ),
+                                              ),
+                                            );
+
+                                            // showAlertDialog(context);
+                                            // postCheckout(
+                                            //     cartId: widget.cartids,
+                                            //     total: widget.totalPrice.toString());
+                                            print(_initialLocationVal);
+                                          },
+                                          child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              color: Color(0xFFFFD553),
+                                              alignment: Alignment.center,
+                                              child: "Pagar ahora"
+                                                  .text
+                                                  .uppercase
+                                                  .bold
+                                                  .textStyle(
+                                                      GoogleFonts.openSans())
+                                                  .make()),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    color: Colors.white,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.489,
+                                    child: Center(
+                                        child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.4,
-                                      // width: MediaQuery.of(context).size.width * 0.50,
-                                      child: RadioGroup<dynamic>.builder(
-                                        groupValue: _verticalGroupValue,
-                                        onChanged: (value) => setState(() {
-                                          _verticalGroupValue = value;
-                                        }),
-                                        items: _timeList,
-                                        itemBuilder: (item) =>
-                                            RadioButtonBuilder(
-                                          item,
+                                              0.08,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.850,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFFFD552),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(30))),
+                                      child: ListTile(
+                                        onTap: () => _showPopUp(ctx: context),
+                                        title: _initialLocationVal.text.bold
+                                            .make(),
+                                        trailing: Icon(
+                                          Icons.location_on_outlined,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ).pOnly(
-                                    left: 20,
-                                    right: 20,
-                                    top: 20), //.pOnly(left: 20, top: 20),
-                              )
-                            : Container(
-                                color: Colors.white,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.489,
-                                child: Center(
-                                    child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.08,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.850,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFFFD552),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30))),
-                                  child: ListTile(
-                                    onTap: () => _showPopUp(ctx: context),
-                                    title: _initialLocationVal.text.bold.make(),
-                                    trailing: Icon(
-                                      Icons.location_on_outlined,
-                                      color: Colors.black,
-                                    ),
+                                    )),
                                   ),
-                                )),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.08,
+                                            color: Color(0xFF2DB573),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                "Total :"
+                                                    .text
+                                                    .color(Colors.grey[200])
+                                                    .textStyle(
+                                                        GoogleFonts.openSans())
+                                                    .bold
+                                                    .make(),
+                                                "\$ ${widget.totalPrice}"
+                                                    .text
+                                                    .bold
+                                                    .white
+                                                    .textStyle(
+                                                        GoogleFonts.openSans())
+                                                    .xl2
+                                                    .make()
+                                              ],
+                                            )),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            print(
+                                                widget.totalPrice.runtimeType);
+                                            print(_initialLocationVal +
+                                                'Click Here For Location' +
+                                                _verticalGroupValue);
+
+                                            // showAlertDialog(context);
+                                            // postCheckout(
+                                            //     cartId: widget.cartids,
+                                            //     total: widget.totalPrice.toString());
+                                            print(_initialLocationVal);
+                                            postCheckoutCod(
+                                                cartId: widget.cartids,
+                                                total: widget.totalPrice
+                                                    .toString());
+                                          },
+                                          child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.08,
+                                              color: Color(0xFFFFD553),
+                                              alignment: Alignment.center,
+                                              child: "Pagar ahora"
+                                                  .text
+                                                  .uppercase
+                                                  .bold
+                                                  .textStyle(
+                                                      GoogleFonts.openSans())
+                                                  .make()),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               )
                       ],
                     ).pOnly(left: 10, right: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                              alignment: Alignment.center,
-                              height: MediaQuery.of(context).size.height * 0.08,
-                              color: Color(0xFF2DB573),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  "Total :"
-                                      .text
-                                      .color(Colors.grey[200])
-                                      .textStyle(GoogleFonts.openSans())
-                                      .bold
-                                      .make(),
-                                  "\$ ${widget.totalPrice}"
-                                      .text
-                                      .bold
-                                      .white
-                                      .textStyle(GoogleFonts.openSans())
-                                      .xl2
-                                      .make()
-                                ],
-                              )),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              print(widget.totalPrice.runtimeType);
-                              print(_initialLocationVal +
-                                  'Click Here For Location' +
-                                  _verticalGroupValue);
-
-                              showAlertDialog(context);
-                              // postCheckout(
-                              //     cartId: widget.cartids,
-                              //     total: widget.totalPrice.toString());
-                              print(_initialLocationVal);
-                            },
-                            child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.08,
-                                color: Color(0xFFFFD553),
-                                alignment: Alignment.center,
-                                child: "Pagar ahora"
-                                    .text
-                                    .uppercase
-                                    .bold
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make()),
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
               )
             : Center(child: CircularProgressIndicator()));
   }
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = TextButton(
-      child: Text("Cash On Delivey"),
-      onPressed: () {
-        postCheckout(
-            cartId: widget.cartids, total: widget.totalPrice.toString());
-      },
-    );
-    Widget pod = TextButton(
-      child: Text("Pay Online"),
-      onPressed: () {
-        // make PayPal payment
+  // showAlertDialog(BuildContext context) {
+  //   // set up the button
+  //   Widget okButton = TextButton(
+  //     child: Text("Cash On Delivey"),
+  //     onPressed: () {
+  //       postCheckout(
+  //           cartId: widget.cartids, total: widget.totalPrice.toString());
+  //     },
+  //   );
+  //   Widget pod = TextButton(
+  //     child: Text("Pay Online"),
+  //     onPressed: () {
+  //       // make PayPal payment
 
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => PaypalPayment(
-              quantity: widget.cartids,
-              totalAmmount: widget.totalPrice.toString(),
-              onFinish: (number) async {
-                postCheckoutonline(
-                    cartId: widget.cartids,
-                    total: widget.totalPrice.toString(),
-                    paymentId: number.toString());
-                // payment done
-                print('order id: ' + number);
-                print(
-                    "___________________________________________________________________________________________________________________");
-              },
-            ),
-          ),
-        );
-      },
-    );
+  //       Navigator.of(context).push(
+  //         MaterialPageRoute(
+  //           builder: (BuildContext context) => PaypalPayment(
+  //             quantity: widget.cartids,
+  //             totalAmmount: widget.totalPrice.toString(),
+  //             onFinish: (number) async {
+  //               postCheckoutonline(
+  //                   cartId: widget.cartids,
+  //                   total: widget.totalPrice.toString(),
+  //                   paymentId: number.toString());
+  //               // payment done
+  //               print('order id: ' + number);
+  //               print(
+  //                   "___________________________________________________________________________________________________________________");
+  //             },
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
 
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Select Payment Method"),
-      actions: [okButton, pod],
-    );
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text("Select Payment Method"),
+  //     actions: [okButton, pod],
+  //   );
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
+
+}
+
+class DeliveryAddress {
+  String add;
+  int i;
+  DeliveryAddress({@required this.add, @required this.i});
 }
 
 // Row(
