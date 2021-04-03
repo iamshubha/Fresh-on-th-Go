@@ -155,7 +155,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           "cart_id": cartId,
           "payment_id": "COD ",
           "tot_price": total.toString(),
-          "status": "1",
+          "status": "0",
           "remarks": "ordered...",
           "created_by": uid.toString(),
           "delivery_address": _selectedAddress,
