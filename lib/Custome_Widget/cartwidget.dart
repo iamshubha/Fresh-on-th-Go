@@ -50,6 +50,10 @@ class _CartIconHomeState extends State<CartIconHome> {
           print("==================");
           print(url);
         });
+      } else {
+        setState(() {
+          iconval = 0;
+        });
       }
     } catch (e) {
       print(e);
@@ -60,7 +64,7 @@ class _CartIconHomeState extends State<CartIconHome> {
 
   @override
   void initState() {
-    timer = Timer.periodic(Duration(seconds: 2), (Timer t) => getIconVal());
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => getIconVal());
     super.initState();
   }
 

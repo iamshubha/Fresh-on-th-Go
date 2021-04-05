@@ -22,7 +22,8 @@ class _HomeState extends State<Home> {
   final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
   final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
   bool loader = true;
-  var data;
+
+  List data;
   String uid;
   getCartData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -221,7 +222,8 @@ class _HomeState extends State<Home> {
                                       // padding: EdgeInsets.only(
                                       //     left: 20, right: 20),
                                       //itemCount: 3,
-                                      itemCount: data[i].length,
+                                      itemCount: data[i]['cdata'].length,
+
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 3
@@ -233,18 +235,23 @@ class _HomeState extends State<Home> {
                                               //crossAxisCount: 3,
                                               ),
                                       itemBuilder: (_, gi) {
+                                        print(data[i]);
                                         return InkWell(
                                           onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      ProductDetailsPage(
-                                                          //TODO:Work here
-                                                          cid: data[i]
-                                                              [' category'],
-                                                          // [gi]['cid'],
-                                                          pid: data[i]['cdata']
-                                                              [gi]['name']))),
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => ProductPage(
+                                                  cid: data[i]['cdata'][gi]
+                                                      ['cid']),
+                                            ),
+                                            // ProductDetailsPage(
+                                            //     //TODO:Work here
+                                            //     cid: data[i]
+                                            //         [' category'],
+                                            //     // [gi]['cid'],
+                                            //     pid: data[i]['cdata']
+                                            //         [gi]['name']),
+                                          ),
                                           child: Container(
                                               margin: EdgeInsets.all(20),
                                               decoration: BoxDecoration(
@@ -267,192 +274,6 @@ class _HomeState extends State<Home> {
                                       },
                                     ),
                                   ),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   crossAxisAlignment:
-                                  //       CrossAxisAlignment.start,
-                                  //   children: [
-                                  //     GestureDetector(
-                                  //       onTap: () => Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (_) =>
-                                  //                   ProductDetailsPage(
-                                  //                     cid: data[i]['cdata'][0]
-                                  //                         ['cid'],
-                                  //                     pid: data[0]['cdata'][0]
-                                  //                         ['pid'],
-                                  //                   ))),
-                                  //       child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //               borderRadius:
-                                  //                   BorderRadius.all(
-                                  //                       Radius.circular(10))),
-                                  //           height: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .height *
-                                  //               0.10,
-                                  //           width: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .width *
-                                  //               0.25,
-                                  //           child: Image.network(
-                                  //             data[0]['cdata'][0]['image'],
-                                  //             fit: BoxFit.cover,
-                                  //           )).pOnly(left: 10),
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () => Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (_) =>
-                                  //                   ProductDetailsPage(
-                                  //                       cid: data[0]['cdata']
-                                  //                           [1]['cid'],
-                                  //                       pid: data[0]['cdata']
-                                  //                           [1]['pid']))),
-                                  //       child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //               borderRadius:
-                                  //                   BorderRadius.all(
-                                  //                       Radius.circular(10))),
-                                  //           height: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .height *
-                                  //               0.10,
-                                  //           width: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .width *
-                                  //               0.25,
-                                  //           child: Image.network(
-                                  //             data[0]['cdata'][1]['image'],
-                                  //             fit: BoxFit.cover,
-                                  //           )),
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () => Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (_) =>
-                                  //                   ProductDetailsPage(
-                                  //                       cid: data[0]['cdata']
-                                  //                           [2]['cid'],
-                                  //                       pid: data[0]['cdata']
-                                  //                           [2]['pid']))),
-                                  //       child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //               borderRadius:
-                                  //                   BorderRadius.all(
-                                  //                       Radius.circular(10))),
-                                  //           height: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .height *
-                                  //               0.10,
-                                  //           width: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .width *
-                                  //               0.25,
-                                  //           child: Image.network(
-                                  //             data[0]['cdata'][2]['image'],
-                                  //             fit: BoxFit.cover,
-                                  //           )).pOnly(right: 10),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  // Divider(),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   crossAxisAlignment:
-                                  //       CrossAxisAlignment.start,
-                                  //   children: [
-                                  //     InkWell(
-                                  //       onTap: () => Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (_) =>
-                                  //                   ProductDetailsPage(
-                                  //                       cid: data[0]['cdata']
-                                  //                           [3]['cid'],
-                                  //                       pid: data[0]['cdata']
-                                  //                           [3]['pid']))),
-                                  //       child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //               borderRadius:
-                                  //                   BorderRadius.all(
-                                  //                       Radius.circular(10))),
-                                  //           height: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .height *
-                                  //               0.10,
-                                  //           width: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .width *
-                                  //               0.25,
-                                  //           child: Image.network(
-                                  //             data[0]['cdata'][3]['image'],
-                                  //             fit: BoxFit.cover,
-                                  //           )).pOnly(left: 10),
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () => Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (_) =>
-                                  //                   ProductDetailsPage(
-                                  //                       cid: data[0]['cdata']
-                                  //                           [4]['cid'],
-                                  //                       pid: data[0]['cdata']
-                                  //                           [4]['pid']))),
-                                  //       child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //               borderRadius:
-                                  //                   BorderRadius.all(
-                                  //                       Radius.circular(10))),
-                                  //           height: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .height *
-                                  //               0.10,
-                                  //           width: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .width *
-                                  //               0.25,
-                                  //           child: Image.network(
-                                  //             data[0]['cdata'][4]['image'],
-                                  //             fit: BoxFit.cover,
-                                  //           )),
-                                  //     ),
-                                  //     InkWell(
-                                  //       onTap: () => Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (_) =>
-                                  //                   ProductDetailsPage(
-                                  //                       cid: data[0]['cdata']
-                                  //                           [5]['cid'],
-                                  //                       pid: data[0]['cdata']
-                                  //                           [5]['pid']))),
-                                  //       child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //               borderRadius:
-                                  //                   BorderRadius.all(
-                                  //                       Radius.circular(10))),
-                                  //           height: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .height *
-                                  //               0.10,
-                                  //           width: MediaQuery.of(context)
-                                  //                   .size
-                                  //                   .width *
-                                  //               0.25,
-                                  //           child: Image.network(
-                                  //             data[0]['cdata'][5]['image'],
-                                  //             fit: BoxFit.cover,
-                                  //           )).pOnly(right: 10),
-                                  //     ),
-                                  //   ],
-                                  // ).pOnly(bottom: 10),
                                 ],
                               ).p(20);
                             },
@@ -467,9 +288,175 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+class ProductPage extends StatefulWidget {
+  final String cid;
+  ProductPage({this.cid});
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  bool loader = true;
+  List data = [];
+  fetchDataWithCatType() async {
+    setState(() {
+      loader = false;
+    });
+
+    var response = await http.get(
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=${widget.cid}");
+    print(
+        "https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=${widget.cid}");
+    setState(() {
+      var getResponse = jsonDecode(response.body);
+      if (getResponse["status"]) {
+        data = getResponse['data'];
+      } else {
+        data = [];
+      }
+      print(getResponse);
+      loader = true;
+    });
+  }
+
+  @override
+  void initState() {
+    fetchDataWithCatType();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        leading: InkWell(
+          child: Image.asset(
+            'assets/images/back-ico.png',
+            // height: 4,
+            // width: 4,
+          ).p(5),
+          onTap: () => Navigator.pop(context),
+        ),
+        // leading: Builder(
+        //   builder: (BuildContext context) {
+        //     return IconButton(
+        //       icon: Image.asset(
+        //         'assets/images/menu.png',
+        //       ).p(5),
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //       tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        //     );
+        //   },
+        // ),
+        actions: [
+          GestureDetector(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
+              child: CartIconHome().p(10))
+        ],
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            "LUGAR DE ENTERGA"
+                .text
+                .size(10)
+                .textStyle(GoogleFonts.openSans())
+                .make(),
+            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL"
+                .text
+                .size(3)
+                .textStyle(GoogleFonts.openSans())
+                .make(),
+          ],
+        ),
+        // leading: Icon(Icons.ac_unit),
+      ),
+      body: loader == true
+          ? Container(
+              height: MediaQuery.of(context).size.height * 0.544,
+              width: MediaQuery.of(context).size.width,
+              child: data.length != null
+                  ? ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => ProductDetailsPage(
+                                          cid: data[i]['category'], //category
+                                          pid: data[i]['name']))),
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.15,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    "${data[i]['image']}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ).p(18),
+                            ),
+                            Container(
+                              // width: MediaQuery.of(context).size.width * 0.,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  "${data[i]['name']}"
+                                      .text
+                                      .textStyle(GoogleFonts.openSans())
+                                      .size(8)
+                                      .make()
+                                      .pOnly(bottom: 5),
+                                  // "${data[i]['category']}"
+                                  //     .text
+                                  //     .textStyle(GoogleFonts.openSans())
+                                  //     .bold
+                                  //     .make()
+                                  //     .pOnly(bottom: 5),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
+                                          .text
+                                          .textStyle(GoogleFonts.openSans())
+                                          .xl
+                                          .make(),
+                                    ],
+                                  )
+                                ],
+                                // ),
+                              ),
+                            ).pOnly(top: 30)
+                          ],
+                        );
+                      },
+                    )
+                  : Center(
+                      child: "No Data".text.make(),
+                    ),
+            )
+          : Center(child: CircularProgressIndicator()),
+    );
+  }
 }

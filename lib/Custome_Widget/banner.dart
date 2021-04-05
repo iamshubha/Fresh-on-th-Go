@@ -91,4 +91,9 @@ class _BannerWidgetState extends State<BannerWidget> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }
