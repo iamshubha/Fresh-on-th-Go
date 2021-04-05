@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:FreshOnTheGo/PayPal/PaymentViewPage.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
+import 'package:FreshOnTheGo/main.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +138,6 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   }
 
   postCheckoutCod({List cartId, String total}) async {
-    Navigator.pop(context);
     try {
       var network = await Connectivity().checkConnectivity();
       print(network.index);
@@ -173,6 +173,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           setState(() => loader = true);
           context.showToast(
               msg: postData['message'], bgColor: kPrimaryColor, textSize: 16);
+          await Future.delayed(Duration(seconds: 2));
           // Fluttertoast.showToast(
           //     msg: postData['message'],
           //     toastLength: Toast.LENGTH_SHORT,
@@ -181,8 +182,12 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           //     backgroundColor: kPrimaryColor,
           //     textColor: Colors.white,
           //     fontSize: 16.0);
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomePage()));
+          ///TODO:[Fuck here]
+          Navigator.pushAndRemoveUntil(context,
+              MaterialPageRoute(builder: (_) => Dicider()), (route) => false);
+
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (_) => HomePage()));
         }
       }
     } catch (e) {

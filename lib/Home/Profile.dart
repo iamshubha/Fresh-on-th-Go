@@ -212,8 +212,8 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }

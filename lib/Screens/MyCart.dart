@@ -54,6 +54,7 @@ class _MyCartPageState extends State<MyCartPage> {
             duration: Duration(seconds: 3),
           ));
         } else {
+          setState(() {});
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text('${data['message']}'),
@@ -89,9 +90,13 @@ class _MyCartPageState extends State<MyCartPage> {
         var data = jsonDecode(response.body);
         print(data);
         if (data['status']) {
-          print(data['message']);
-          getCartData();
-        } else {}
+          setState(() {
+            print(data['message']);
+            getCartData();
+          });
+        } else {
+          print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        }
       }
     } catch (e) {
       print(e);
@@ -160,10 +165,10 @@ class _MyCartPageState extends State<MyCartPage> {
     getCartData();
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

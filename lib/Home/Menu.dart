@@ -87,49 +87,49 @@ class _MenuState extends State<Menu> {
     });
   }
 
-  addToCart(String pid, String qty) async {
-    try {
-      var network = await Connectivity().checkConnectivity();
-      print(network.index);
-      if (network.index == 2) {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: kPrimaryColor,
-          content: Text('Please Check Your Internet Connection'),
-        ));
-      } else {
-        String url =
-            "https://mercadosagricolaspr.com/farmer-new/apis/order/addcart";
-        final headers = {'Content-Type': 'application/json'};
-        Map<String, dynamic> body = {
-          "pid": "$pid",
-          "qty": "$qty",
-          "uid": "$uid"
-        };
-        String jsonBody = json.encode(body);
-        final response = await http.post(url, body: jsonBody, headers: headers);
-        var data = jsonDecode(response.body);
-        print(data);
-        if (data['status']) {
-          setState(() {
-            getIconVal();
-            _scaffoldKey.currentState.showSnackBar(SnackBar(
-              backgroundColor: kPrimaryColor,
-              content: Text('${data['message']}'),
-              duration: Duration(seconds: 3),
-            ));
-          });
-        } else {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            backgroundColor: kPrimaryColor,
-            content: Text('${data['message']}'),
-            duration: Duration(seconds: 3),
-          ));
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // addToCart(String pid, String qty) async {
+  //   try {
+  //     var network = await Connectivity().checkConnectivity();
+  //     print(network.index);
+  //     if (network.index == 2) {
+  //       _scaffoldKey.currentState.showSnackBar(SnackBar(
+  //         backgroundColor: kPrimaryColor,
+  //         content: Text('Please Check Your Internet Connection'),
+  //       ));
+  //     } else {
+  //       String url =
+  //           "https://mercadosagricolaspr.com/farmer-new/apis/order/addcart";
+  //       final headers = {'Content-Type': 'application/json'};
+  //       Map<String, dynamic> body = {
+  //         "pid": "$pid",
+  //         "qty": "$qty",
+  //         "uid": "$uid"
+  //       };
+  //       String jsonBody = json.encode(body);
+  //       final response = await http.post(url, body: jsonBody, headers: headers);
+  //       var data = jsonDecode(response.body);
+  //       print(data);
+  //       if (data['status']) {
+  //         setState(() {
+  //           getIconVal();
+  //           _scaffoldKey.currentState.showSnackBar(SnackBar(
+  //             backgroundColor: kPrimaryColor,
+  //             content: Text('${data['message']}'),
+  //             duration: Duration(seconds: 3),
+  //           ));
+  //         });
+  //       } else {
+  //         _scaffoldKey.currentState.showSnackBar(SnackBar(
+  //           backgroundColor: kPrimaryColor,
+  //           content: Text('${data['message']}'),
+  //           duration: Duration(seconds: 3),
+  //         ));
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   int iconval = 0;
   getIconVal() async {

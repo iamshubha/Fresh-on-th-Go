@@ -51,7 +51,7 @@ class _CreateAccountState extends State<CreateAccount> {
           final response =
               await http.post(url, body: jsonBody, headers: headers);
           var data = jsonDecode(response.body);
-          print(data);
+          print(data['status'].runtimeType);
           if (data['status']) {
             _scaffoldKey.currentState.showSnackBar(SnackBar(
               backgroundColor: kPrimaryColor,
@@ -63,11 +63,10 @@ class _CreateAccountState extends State<CreateAccount> {
                 MaterialPageRoute(
                     builder: (_) => OtpPage(_userEditingController.text)));
           } else {
-            _scaffoldKey.currentState.showSnackBar(SnackBar(
-              backgroundColor: kPrimaryColor,
-              content: Text(data['message']),
-              duration: Duration(seconds: 3),
-            ));
+            context.showToast(
+                msg: data['message'],
+                bgColor: kPrimaryColor,
+                textColor: Colors.white);
           }
         }
       }
@@ -291,7 +290,10 @@ class _CreateAccountState extends State<CreateAccount> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.40,
                         child: InkWell(
-                          onTap: createUserPostRequest,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            createUserPostRequest();
+                          },
                           // () => Navigator.pushReplacement(context,
                           //     MaterialPageRoute(builder: (_) => LoginPage())),
                           child: Image.asset('assets/getstartedbtn.png'),

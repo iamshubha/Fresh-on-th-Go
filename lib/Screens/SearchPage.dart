@@ -117,11 +117,11 @@ class _SearchPageState extends State<SearchPage> {
     getDataFromServer();
   }
 
-  // @override
-  // void dispose() {
-  //   _name.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

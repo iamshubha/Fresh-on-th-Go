@@ -44,12 +44,12 @@ class CustomDrawer extends StatelessWidget {
                         .size(10)
                         .textStyle(GoogleFonts.openSans())
                         .make(),
-                    "EDITAR PERFIL"
-                        .text
-                        .white
-                        .size(10)
-                        .textStyle(GoogleFonts.openSans())
-                        .make()
+                    // "EDITAR PERFIL"
+                    //     .text
+                    //     .white
+                    //     .size(10)
+                    //     .textStyle(GoogleFonts.openSans())
+                    //     .make()
                   ],
                 ),
               ],
@@ -92,7 +92,8 @@ class CustomDrawer extends StatelessWidget {
             ),
           ).p(10),
           ListTile(
-            onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>HomePage())),
+            onTap: () => Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (_) => HomePage())),
             leading: Image.asset("assets/images/menu-icon.png"),
             title: "CATEGORIAS".text.textStyle(GoogleFonts.openSans()).make(),
           ),

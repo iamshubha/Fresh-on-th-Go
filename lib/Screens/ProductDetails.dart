@@ -20,13 +20,16 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final Connectivity _stateNet = Connectivity();
-  int qnt;
+  int qnt = 0;
   bool loader = true;
   var predictData;
   var productDetails;
   String uid;
   bool isRspAvlb = true;
-  addToCart(String pid, String qty) async {
+  addToCart(String pid, int qty) async {
+    setState(() {
+      loader = false;
+    });
     try {
       var network = await Connectivity().checkConnectivity();
       print(network.index);
@@ -51,6 +54,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         if (data['status']) {
           setState(() {
             loader = true;
+            qnt = 0;
           });
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
@@ -58,6 +62,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             duration: Duration(seconds: 3),
           ));
         } else {
+          setState(() {
+            qnt = qty;
+            loader = true;
+          });
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text('${data['message']}'),
@@ -304,35 +312,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      InkWell(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    ProductDetailsPage(
-                                                        cid: predictData[i]
-                                                            ['cid'],
-                                                        pid: predictData[i]
-                                                            ['pid']))),
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.1,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.1,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.network(
-                                              predictData[i]['image'],
-                                              fit: BoxFit.cover,
-                                            ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.1,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            predictData[i]['image'],
+                                            fit: BoxFit.cover,
                                           ),
-                                        ).p(10),
-                                      ).pOnly(right: 10),
+                                        ),
+                                      ).p(10).pOnly(right: 10),
                                       Container(
                                         // width: MediaQuery.of(context).size.width * 0.60,
                                         child: Column(
@@ -377,13 +372,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 //             0.07),
                                                 InkWell(
                                                   onTap: () {
-                                                    //TODO:fdhdfjdg
-                                                    setState(() {
-                                                      loader = false;
-                                                    });
-                                                    addToCart(
-                                                        predictData[i]['pid'],
-                                                        "$qnt");
+                                                    qnt != 0
+                                                        ? addToCart(
+                                                            predictData[i]
+                                                                ['pid'],
+                                                            qnt)
+                                                        : context.showToast(
+                                                            bgColor:
+                                                                kPrimaryColor,
+                                                            textColor:
+                                                                Colors.white,
+                                                            msg:
+                                                                "Please increase value");
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(
