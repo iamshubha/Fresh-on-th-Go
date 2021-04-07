@@ -68,8 +68,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  String id = "customer1@gmail.com";
-  String password = "123";
+  // String id = "customer1@gmail.com";
+  // String password = "123";
 
   @override
   Widget build(BuildContext context) {

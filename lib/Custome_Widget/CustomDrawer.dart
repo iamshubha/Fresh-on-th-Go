@@ -100,7 +100,7 @@ class CustomDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Image.asset("assets/images/menu-icon.png"),
-            title: "cerrar sesion"
+            title: "Cerrar Sessión"
                 .text
                 .uppercase
                 .textStyle(GoogleFonts.openSans())

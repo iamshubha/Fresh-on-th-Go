@@ -47,8 +47,8 @@ class _CartIconHomeState extends State<CartIconHome> {
       if (rsp['status']) {
         setState(() {
           iconval = rsp['total_qty'];
-          print("==================");
-          print(url);
+          // print("==================");
+          // print(url);
         });
       } else {
         setState(() {

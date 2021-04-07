@@ -391,18 +391,18 @@ class _ProductPageState extends State<ProductPage> {
                   ? ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (BuildContext context, int i) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => ProductDetailsPage(
-                                          cid: data[i]['category'], //category
-                                          pid: data[i]['name']))),
-                              child: Container(
+                        return InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ProductDetailsPage(
+                                      cid: data[i]['category'], //category
+                                      pid: data[i]['name']))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
                                 height:
                                     MediaQuery.of(context).size.height * 0.15,
                                 width: MediaQuery.of(context).size.width * 0.25,
@@ -414,41 +414,41 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                 ),
                               ).p(18),
-                            ),
-                            Container(
-                              // width: MediaQuery.of(context).size.width * 0.,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  "${data[i]['name']}"
-                                      .text
-                                      .textStyle(GoogleFonts.openSans())
-                                      .size(8)
-                                      .make()
-                                      .pOnly(bottom: 5),
-                                  // "${data[i]['category']}"
-                                  //     .text
-                                  //     .textStyle(GoogleFonts.openSans())
-                                  //     .bold
-                                  //     .make()
-                                  //     .pOnly(bottom: 5),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
-                                          .text
-                                          .textStyle(GoogleFonts.openSans())
-                                          .xl
-                                          .make(),
-                                    ],
-                                  )
-                                ],
-                                // ),
-                              ),
-                            ).pOnly(top: 30)
-                          ],
+                              Container(
+                                // width: MediaQuery.of(context).size.width * 0.,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    "${data[i]['name']}"
+                                        .text
+                                        .textStyle(GoogleFonts.openSans())
+                                        .size(8)
+                                        .make()
+                                        .pOnly(bottom: 5),
+                                    // "${data[i]['category']}"
+                                    //     .text
+                                    //     .textStyle(GoogleFonts.openSans())
+                                    //     .bold
+                                    //     .make()
+                                    //     .pOnly(bottom: 5),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
+                                            .text
+                                            .textStyle(GoogleFonts.openSans())
+                                            .xl
+                                            .make(),
+                                      ],
+                                    )
+                                  ],
+                                  // ),
+                                ),
+                              ).pOnly(top: 30)
+                            ],
+                          ),
                         );
                       },
                     )

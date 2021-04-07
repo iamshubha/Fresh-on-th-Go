@@ -73,7 +73,7 @@ class _CreateAccountState extends State<CreateAccount> {
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: kPrimaryColor,
-        content: Text('Confirm Password must be same'),
+        content: Text('Confirmar contraseña debe ser la misma'),
         // duration: Duration(seconds: 3),
       ));
     }

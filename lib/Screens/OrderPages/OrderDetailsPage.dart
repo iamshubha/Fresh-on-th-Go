@@ -165,12 +165,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .uppercase
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
-                                " ${data['order_status']}"
-                                    .text
-                                    .bold
-                                    .color(kPrimaryColor)
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make()
+                                Container(
+                                  child: " ${data['order_status']}"
+                                      .text
+                                      .bold
+                                      .color(kPrimaryColor)
+                                      .textStyle(GoogleFonts.openSans())
+                                      .makeCentered(),
+                                )
                               ],
                             )
                           ],
