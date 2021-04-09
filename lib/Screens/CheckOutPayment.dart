@@ -41,6 +41,8 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   String _initialLocationVal = 'Click Here For Location';
   String uid;
   int delvDicider = 0;
+  String delevery_address;
+
   // List<String> _status = ["Pending", "Released", "Blocked"];
   getTimeAddress() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -62,6 +64,10 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
             "https://mercadosagricolaspr.com/farmer-new/apis/store_addresses/get_customer_delivery_options?uid=$uid";
         var response = await http.get(url);
         var rsp = jsonDecode(response.body);
+        String urlforuserdata =
+            "https://mercadosagricolaspr.com/farmer-new/apis/customer/get_details_by_id?id=$uid";
+        final r = await http.get(urlforuserdata);
+
         print(rsp);
 
         if (response.statusCode == 200) {
@@ -69,6 +75,8 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
 
           print(uid);
           setState(() {
+            final ad = jsonDecode(r.body);
+            delevery_address = ad['data'][0]['address'];
             _timeList = rsp['home_delivery_timing'];
             _verticalGroupValue = _timeList[0];
             rsp['delivery_address'].forEach((element) {
@@ -116,10 +124,11 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                             setState(() {
                               _initialLocationVal = _delvAddress[i].add;
                               _selectedAddress = _delvAddress[i].add;
+
                               // delvDicider = ;
-                              if (_delvAddress[i].i == 1) {
-                                tabbar = true;
-                              }
+                              // if (_delvAddress[i].i == 1) {
+                              //   tabbar = true;
+                              // }
                             });
                             Navigator.of(ctx).pop();
                           },
@@ -195,7 +204,12 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
     }
   }
 
-  postCheckoutonline({List cartId, String total, String paymentId}) async {
+  postCheckoutonline(
+      {List cartId,
+      String total,
+      @required String typeOfOrder,
+      @required String adrs,
+      @required String ptime}) async {
     Navigator.pop(context);
     try {
       var network = await Connectivity().checkConnectivity();
@@ -212,16 +226,17 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "cart_id": cartId,
-          "payment_id": "COD ",
+          "payment_id": "$typeOfOrder ",
           "tot_price": total.toString(),
           "status": "1",
           "remarks": "ordered...",
           "created_by": uid.toString(),
-          "delivery_address": _initialLocationVal,
-          "delivery_time": _verticalGroupValue
+          "delivery_address": adrs,
+          "delivery_time": ptime
         };
         print(body);
         String jsonBody = json.encode(body);
+        print(jsonBody);
         print(
             "===========================================================================================");
         print(jsonBody);
@@ -327,6 +342,9 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                           onTap: () {
                             setState(() {
                               tabbar = true;
+
+                              _selectedAddress = null;
+                              _initialLocationVal = 'Click Here For Location';
                             });
                           },
                           child: Container(
@@ -437,31 +455,48 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                             print(_initialLocationVal +
                                                 'Click Here For Location' +
                                                 _verticalGroupValue);
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        PaypalPayment(
-                                                  quantity: widget.cartids,
-                                                  totalAmmount: widget
-                                                      .totalPrice
-                                                      .toString(),
-                                                  onFinish: (number) async {
-                                                    postCheckoutonline(
-                                                        cartId: widget.cartids,
-                                                        total: widget.totalPrice
-                                                            .toString(),
-                                                        paymentId:
-                                                            number.toString());
-                                                    // payment done
-                                                    print(
-                                                        'order id: ' + number);
-                                                    print(
-                                                        "___________________________________________________________________________________________________________________");
-                                                  },
-                                                ),
-                                              ),
-                                            );
+
+                                            ///[another tab]
+                                            showAlertDialog(
+                                                context,
+                                                _verticalGroupValue,
+                                                delevery_address);
+                                            // locationType == 0
+                                            //     ? context.showToast(
+                                            //         bgColor: kPrimaryColor,
+                                            //         textColor: Colors.white,
+                                            //         msg:
+                                            //             "please change location")
+                                            //     : Navigator.of(context).push(
+                                            //         MaterialPageRoute(
+                                            //           builder: (BuildContext
+                                            //                   context) =>
+                                            //               PaypalPayment(
+                                            //             quantity:
+                                            //                 widget.cartids,
+                                            //             totalAmmount: widget
+                                            //                 .totalPrice
+                                            //                 .toString(),
+                                            //             onFinish:
+                                            //                 (number) async {
+                                            //               postCheckoutonline(
+                                            //                 typeOfOrder: number
+                                            //                     .toString(),
+                                            //                 cartId:
+                                            //                     widget.cartids,
+                                            //                 total: widget
+                                            //                     .totalPrice
+                                            //                     .toString(),
+                                            //               );
+                                            //               // payment done
+                                            //               print('order id: ' +
+                                            //                   number);
+                                            //               print(
+                                            //                   "___________________________________________________________________________________________________________________");
+                                            //             },
+                                            //           ),
+                                            //         ),
+                                            //       );
 
                                             // showAlertDialog(context);
                                             // postCheckout(
@@ -555,21 +590,15 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () {
-                                            print(
-                                                widget.totalPrice.runtimeType);
-                                            print(_initialLocationVal +
-                                                'Click Here For Location' +
-                                                _verticalGroupValue);
-
-                                            // showAlertDialog(context);
-                                            // postCheckout(
-                                            //     cartId: widget.cartids,
-                                            //     total: widget.totalPrice.toString());
-                                            print(_initialLocationVal);
-                                            postCheckoutCod(
-                                                cartId: widget.cartids,
-                                                total: widget.totalPrice
-                                                    .toString());
+                                            _initialLocationVal ==
+                                                    'Click Here For Location'
+                                                ? context.showToast(
+                                                    msg:
+                                                        "Please select address",
+                                                    bgColor: kPrimaryColor,
+                                                    textColor: Colors.white)
+                                                : showAlertDialog(context, '',
+                                                    _initialLocationVal);
                                           },
                                           child: Container(
                                               height: MediaQuery.of(context)
@@ -599,56 +628,67 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
             : Center(child: CircularProgressIndicator()));
   }
 
-  // showAlertDialog(BuildContext context) {
-  //   // set up the button
-  //   Widget okButton = TextButton(
-  //     child: Text("Cash On Delivey"),
-  //     onPressed: () {
-  //       postCheckout(
-  //           cartId: widget.cartids, total: widget.totalPrice.toString());
-  //     },
-  //   );
-  //   Widget pod = TextButton(
-  //     child: Text("Pay Online"),
-  //     onPressed: () {
-  //       // make PayPal payment
+  showAlertDialog(BuildContext context, String time, String ardersssss) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("Cash On Delivey"),
+      onPressed: () {
+        postCheckoutonline(
+          adrs: ardersssss,
+          ptime: time,
+          typeOfOrder: "COD",
+          cartId: widget.cartids,
+          total: widget.totalPrice.toString(),
+        );
 
-  //       Navigator.of(context).push(
-  //         MaterialPageRoute(
-  //           builder: (BuildContext context) => PaypalPayment(
-  //             quantity: widget.cartids,
-  //             totalAmmount: widget.totalPrice.toString(),
-  //             onFinish: (number) async {
-  //               postCheckoutonline(
-  //                   cartId: widget.cartids,
-  //                   total: widget.totalPrice.toString(),
-  //                   paymentId: number.toString());
-  //               // payment done
-  //               print('order id: ' + number);
-  //               print(
-  //                   "___________________________________________________________________________________________________________________");
-  //             },
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
+        // postCheckout(
+        //     cartId: widget.cartids, total: widget.totalPrice.toString());
+      },
+    );
+    Widget pod = TextButton(
+      child: Text("Pay Online"),
+      onPressed: () {
+        // make PayPal payment
 
-  //   // set up the AlertDialog
-  //   AlertDialog alert = AlertDialog(
-  //     title: Text("Select Payment Method"),
-  //     actions: [okButton, pod],
-  //   );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => PaypalPayment(
+              quantity: widget.cartids,
+              totalAmmount: widget.totalPrice.toString(),
+              onFinish: (number) async {
+                // Navigator.pop(context);
+                postCheckoutonline(
+                  adrs: ardersssss,
+                  ptime: time,
+                  typeOfOrder: number.toString(),
+                  cartId: widget.cartids,
+                  total: widget.totalPrice.toString(),
+                ).then((e) => Navigator.pop(context));
+                // payment done
+                print('order id: ' + number);
+                print(
+                    "___________________________________________________________________________________________________________________");
+              },
+            ),
+          ),
+        );
+      },
+    );
 
-  //   // show the dialog
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return alert;
-  //     },
-  //   );
-  // }
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Select Payment Method"),
+      actions: [okButton, pod],
+    );
 
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
 
 class DeliveryAddress {
