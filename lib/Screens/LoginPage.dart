@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        String url = "http://888travelthailand.com/farmers/apis/customer/login";
+        String url = "https://www.mercadosagricolaspr.com/farmers/apis/customer/login";
         final headers = {'Content-Type': 'application/json'};
         Map<String, dynamic> body = {
           "user_type": "3",
