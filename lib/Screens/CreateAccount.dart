@@ -149,17 +149,25 @@ class _CreateAccountState extends State<CreateAccount> {
                   SizedBox(
                     height: 10,
                   ),
-                   TextFormField(
+                  TextFormField(
                     validator: (value) => value.length >= 2
                         ? null
                         : "Por favor ingrese su direccion",
                     controller: _addressEditingController,
                     decoration: InputDecoration(
                       filled: true,
-                      suffixIcon: Image.asset(
-                        'usernameico.png',
-                        width: 10,
-                      ).pOnly(top: 10, bottom: 10, right: 10),
+                      suffixIcon: Icon(
+                        Icons.location_on,
+                        color: Colors.black,
+                        // size: 10,
+                      )
+
+                          // Image.asset(
+                          //   'usernameico.png',
+                          //   width: 10,
+                          // )
+
+                          .pOnly(top: 10, bottom: 10, right: 10),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                         borderSide: BorderSide(
@@ -184,7 +192,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   SizedBox(
                     height: 10,
                   ),
-
                   TextFormField(
                     validator: (value) => EmailValidator.validate(value)
                         ? null
@@ -192,10 +199,15 @@ class _CreateAccountState extends State<CreateAccount> {
                     controller: _userEditingController,
                     decoration: InputDecoration(
                       filled: true,
-                      suffixIcon: Image.asset(
-                        'usernameico.png',
-                        width: 10,
-                      ).pOnly(top: 10, bottom: 10, right: 10),
+                      suffixIcon: Icon(
+                        Icons.email,
+                        color: Colors.black,
+                      )
+                          //  Image.asset(
+                          //   'usernameico.png',
+                          //   width: 10,
+                          // )
+                          .pOnly(top: 10, bottom: 10, right: 10),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
                         borderSide: BorderSide(
@@ -292,7 +304,10 @@ class _CreateAccountState extends State<CreateAccount> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.40,
                         child: InkWell(
-                          onTap: createUserPostRequest,
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            createUserPostRequest();
+                          },
                           // () => Navigator.pushReplacement(context,
                           //     MaterialPageRoute(builder: (_) => LoginPage())),
                           child: Image.asset('assets/getstartedbtn.png'),

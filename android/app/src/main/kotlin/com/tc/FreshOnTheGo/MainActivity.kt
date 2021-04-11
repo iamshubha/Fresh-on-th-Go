@@ -1,4 +1,4 @@
-package com.shubha.FreshOnTheGo
+package com.tc.FreshOnTheGo
 
 import io.flutter.embedding.android.FlutterActivity
 

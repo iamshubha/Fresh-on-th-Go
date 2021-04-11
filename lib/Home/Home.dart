@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
   final GlobalKey<ExpansionTileCardState> cardA = new GlobalKey();
   final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
   bool loader = true;
-  var data;
+  List data;
   String uid;
   getCartData() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -70,6 +70,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -182,706 +183,281 @@ class _HomeState extends State<Home> {
             loader == true
                 ? Container(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ExpansionTileCard(
-                          baseColor: Colors.grey[300],
-                          expandedColor: Colors.grey[200],
-                          // key: cardB,
-                          leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(90),
-                              child: Image.network(
-                                '${data[0]['c_img']}',
-                                fit: BoxFit.cover,
-                              )),
-                          title: '${data[0]['category']}'
-                              .text
-                              .size(14)
-                              .textStyle(GoogleFonts.openSans())
-                              .black
-                              .make(),
-                          subtitle: 'Verduras frescas para ti.'
-                              .text
-                              .black
-                              .textStyle(GoogleFonts.openSans())
-                              .size(5)
-                              .make(),
-                          initiallyExpanded: true,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                                cid: data[0]['cdata'][0]['cid'],
-                                                pid: data[0]['cdata'][0]['pid'],
-                                              ))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.50,
+                          child: ListView.builder(
+                              itemCount: data.length,
+                              itemBuilder: (context, i) {
+                                return ExpansionTileCard(
+                                  baseColor: Colors.grey[300],
+                                  expandedColor: Colors.grey[200],
+                                  // key: cardB,
+                                  leading: ClipRRect(
+                                      borderRadius: BorderRadius.circular(90),
                                       child: Image.network(
-                                        data[0]['cdata'][0]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[0]['cdata'][1]['cid'],
-                                              pid: data[0]['cdata'][1]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[0]['cdata'][1]['image'],
+                                        '${data[i]['c_img']}',
                                         fit: BoxFit.cover,
                                       )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[0]['cdata'][2]['cid'],
-                                              pid: data[0]['cdata'][2]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
+                                  title: '${data[i]['category']}'
+                                      .text
+                                      .size(14)
+                                      .textStyle(GoogleFonts.openSans())
+                                      .black
+                                      .make(),
+                                  subtitle: 'Verduras frescas para ti.'
+                                      .text
+                                      .black
+                                      .textStyle(GoogleFonts.openSans())
+                                      .size(5)
+                                      .make(),
+                                  initiallyExpanded: true,
+                                  children: [
+                                    Container(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[0]['cdata'][2]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ),
-                            Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[0]['cdata'][3]['cid'],
-                                              pid: data[0]['cdata'][3]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[0]['cdata'][3]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[0]['cdata'][4]['cid'],
-                                              pid: data[0]['cdata'][4]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[0]['cdata'][4]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[0]['cdata'][5]['cid'],
-                                              pid: data[0]['cdata'][5]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[0]['cdata'][5]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ).pOnly(bottom: 10),
-                          ],
-                        ).p(20),
-                        ExpansionTileCard(
-                          baseColor: Colors.grey[300],
-                          expandedColor: Colors.grey[200], // key: cardB,
-                          leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(90),
-                              child: Image.network(
-                                '${data[1]['c_img']}',
-                                fit: BoxFit.cover,
-                              )),
-                          title: '${data[1]['category']}'
-                              .text
-                              .size(14)
-                              .textStyle(GoogleFonts.openSans())
-                              .black
-                              .make(),
-                          subtitle: 'Verduras frescas para ti.'
-                              .text
-                              .black
-                              .textStyle(GoogleFonts.openSans())
-                              .size(5)
-                              .make(),
-                          initiallyExpanded: true,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                                cid: data[1]['cdata'][0]['cid'],
-                                                pid: data[1]['cdata'][0]['pid'],
-                                              ))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[1]['cdata'][0]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[1]['cdata'][1]['cid'],
-                                              pid: data[1]['cdata'][1]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[1]['cdata'][1]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[1]['cdata'][2]['cid'],
-                                              pid: data[1]['cdata'][2]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[1]['cdata'][2]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ),
-                            Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[1]['cdata'][3]['cid'],
-                                              pid: data[1]['cdata'][3]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[1]['cdata'][3]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[1]['cdata'][4]['cid'],
-                                              pid: data[1]['cdata'][4]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[1]['cdata'][4]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[1]['cdata'][5]['cid'],
-                                              pid: data[1]['cdata'][5]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[1]['cdata'][5]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ).pOnly(bottom: 10),
-                          ],
-                        ).p(20),
-                        ExpansionTileCard(
-                          baseColor: Colors.grey[300],
-                          expandedColor: Colors.grey[200],
-                          // key: cardB,
-                          leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(90),
-                              child: Image.network(
-                                '${data[2]['c_img']}',
-                                fit: BoxFit.cover,
-                              )),
-                          title: '${data[2]['category']}'
-                              .text
-                              .size(14)
-                              .textStyle(GoogleFonts.openSans())
-                              .black
-                              .make(),
-                          subtitle: 'Verduras frescas para ti.'
-                              .text
-                              .black
-                              .textStyle(GoogleFonts.openSans())
-                              .size(5)
-                              .make(),
-                          initiallyExpanded: true,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                                cid: data[2]['cdata'][0]['cid'],
-                                                pid: data[2]['cdata'][0]['pid'],
-                                              ))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[2]['cdata'][0]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => ProductDetailsPage(
-                                            cid: data[2]['cdata'][1]['cid'],
-                                            pid: data[2]['cdata'][1]['pid'])),
-                                  ),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[2]['cdata'][1]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[2]['cdata'][2]['cid'],
-                                              pid: data[2]['cdata'][2]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[2]['cdata'][2]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ),
-                            Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[2]['cdata'][3]['cid'],
-                                              pid: data[2]['cdata'][3]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[2]['cdata'][3]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[2]['cdata'][4]['cid'],
-                                              pid: data[2]['cdata'][4]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[2]['cdata'][4]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[2]['cdata'][5]['cid'],
-                                              pid: data[2]['cdata'][5]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[2]['cdata'][5]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ).pOnly(bottom: 10),
-                          ],
-                        ).p(20),
-                        ExpansionTileCard(
-                          baseColor: Colors.grey[300],
-                          expandedColor: Colors.grey[200], // key: cardB,
-                          leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(90),
-                              child: Image.network(
-                                '${data[4]['c_img']}',
-                                fit: BoxFit.cover,
-                              )),
-                          title: '${data[4]['category']}'
-                              .text
-                              .size(14)
-                              .textStyle(GoogleFonts.openSans())
-                              .black
-                              .make(),
-                          subtitle: 'Verduras frescas para ti.'
-                              .text
-                              .black
-                              .textStyle(GoogleFonts.openSans())
-                              .size(5)
-                              .make(),
-                          initiallyExpanded: true,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                                cid: data[4]['cdata'][0]['cid'],
-                                                pid: data[4]['cdata'][0]['pid'],
-                                              ))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[4]['cdata'][0]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[4]['cdata'][1]['cid'],
-                                              pid: data[4]['cdata'][1]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[4]['cdata'][1]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[4]['cdata'][2]['cid'],
-                                              pid: data[4]['cdata'][2]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[4]['cdata'][2]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ),
-                            Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[4]['cdata'][3]['cid'],
-                                              pid: data[4]['cdata'][3]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[4]['cdata'][3]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(left: 10),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[4]['cdata'][4]['cid'],
-                                              pid: data[4]['cdata'][4]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[4]['cdata'][4]['image'],
-                                        fit: BoxFit.cover,
-                                      )),
-                                ),
-                                InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProductDetailsPage(
-                                              cid: data[4]['cdata'][5]['cid'],
-                                              pid: data[4]['cdata'][5]
-                                                  ['pid']))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.10,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      child: Image.network(
-                                        data[4]['cdata'][5]['image'],
-                                        fit: BoxFit.cover,
-                                      )).pOnly(right: 10),
-                                ),
-                              ],
-                            ).pOnly(bottom: 10),
-                          ],
-                        ).p(15),
+                                              0.27,
+                                      child: GridView.builder(
+                                        // padding: EdgeInsets.only(
+                                        //     left: 20, right: 20),
+                                        //itemCount: 3,
+                                        itemCount: data[i].length,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 3
 
-                        InkWell(
-                          onTap: () => Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Menu())),
-                          child: Container(
-                            height: 50,
-                            width: 100,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: Color(0xFFFFD456),
-                                borderRadius: BorderRadius.circular(30)),
-                            child: "Más".text.bold.make(),
-                          ),
-                        )
-                        //; }),
+                                                // (orientation ==
+                                                //         Orientation.portrait)
+                                                //     ? 3
+                                                //     : 3,
+                                                //crossAxisCount: 3,
+                                                ),
+                                        itemBuilder: (_, gi) {
+                                          return InkWell(
+                                            onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        ProductDetailsPage(
+                                                            cid: data[i]
+                                                                    ['cdata']
+                                                                [gi]['cid'],
+                                                            pid: data[i]
+                                                                    ['cdata']
+                                                                [gi]['pid']))),
+                                            child: Container(
+                                                margin: EdgeInsets.all(20),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10))),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.5,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.15,
+                                                child: Image.network(
+                                                  data[i]['cdata'][gi]['image'],
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //   children: [
+                                    //     GestureDetector(
+                                    //       onTap: () => Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (_) =>
+                                    //                   ProductDetailsPage(
+                                    //                     cid: data[i]['cdata'][0]
+                                    //                         ['cid'],
+                                    //                     pid: data[0]['cdata'][0]
+                                    //                         ['pid'],
+                                    //                   ))),
+                                    //       child: Container(
+                                    //           decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.all(
+                                    //                       Radius.circular(10))),
+                                    //           height: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .height *
+                                    //               0.10,
+                                    //           width: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width *
+                                    //               0.25,
+                                    //           child: Image.network(
+                                    //             data[0]['cdata'][0]['image'],
+                                    //             fit: BoxFit.cover,
+                                    //           )).pOnly(left: 10),
+                                    //     ),
+                                    //     InkWell(
+                                    //       onTap: () => Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (_) =>
+                                    //                   ProductDetailsPage(
+                                    //                       cid: data[0]['cdata']
+                                    //                           [1]['cid'],
+                                    //                       pid: data[0]['cdata']
+                                    //                           [1]['pid']))),
+                                    //       child: Container(
+                                    //           decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.all(
+                                    //                       Radius.circular(10))),
+                                    //           height: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .height *
+                                    //               0.10,
+                                    //           width: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width *
+                                    //               0.25,
+                                    //           child: Image.network(
+                                    //             data[0]['cdata'][1]['image'],
+                                    //             fit: BoxFit.cover,
+                                    //           )),
+                                    //     ),
+                                    //     InkWell(
+                                    //       onTap: () => Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (_) =>
+                                    //                   ProductDetailsPage(
+                                    //                       cid: data[0]['cdata']
+                                    //                           [2]['cid'],
+                                    //                       pid: data[0]['cdata']
+                                    //                           [2]['pid']))),
+                                    //       child: Container(
+                                    //           decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.all(
+                                    //                       Radius.circular(10))),
+                                    //           height: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .height *
+                                    //               0.10,
+                                    //           width: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width *
+                                    //               0.25,
+                                    //           child: Image.network(
+                                    //             data[0]['cdata'][2]['image'],
+                                    //             fit: BoxFit.cover,
+                                    //           )).pOnly(right: 10),
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    // Divider(),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.start,
+                                    //   children: [
+                                    //     InkWell(
+                                    //       onTap: () => Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (_) =>
+                                    //                   ProductDetailsPage(
+                                    //                       cid: data[0]['cdata']
+                                    //                           [3]['cid'],
+                                    //                       pid: data[0]['cdata']
+                                    //                           [3]['pid']))),
+                                    //       child: Container(
+                                    //           decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.all(
+                                    //                       Radius.circular(10))),
+                                    //           height: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .height *
+                                    //               0.10,
+                                    //           width: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width *
+                                    //               0.25,
+                                    //           child: Image.network(
+                                    //             data[0]['cdata'][3]['image'],
+                                    //             fit: BoxFit.cover,
+                                    //           )).pOnly(left: 10),
+                                    //     ),
+                                    //     InkWell(
+                                    //       onTap: () => Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (_) =>
+                                    //                   ProductDetailsPage(
+                                    //                       cid: data[0]['cdata']
+                                    //                           [4]['cid'],
+                                    //                       pid: data[0]['cdata']
+                                    //                           [4]['pid']))),
+                                    //       child: Container(
+                                    //           decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.all(
+                                    //                       Radius.circular(10))),
+                                    //           height: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .height *
+                                    //               0.10,
+                                    //           width: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width *
+                                    //               0.25,
+                                    //           child: Image.network(
+                                    //             data[0]['cdata'][4]['image'],
+                                    //             fit: BoxFit.cover,
+                                    //           )),
+                                    //     ),
+                                    //     InkWell(
+                                    //       onTap: () => Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (_) =>
+                                    //                   ProductDetailsPage(
+                                    //                       cid: data[0]['cdata']
+                                    //                           [5]['cid'],
+                                    //                       pid: data[0]['cdata']
+                                    //                           [5]['pid']))),
+                                    //       child: Container(
+                                    //           decoration: BoxDecoration(
+                                    //               borderRadius:
+                                    //                   BorderRadius.all(
+                                    //                       Radius.circular(10))),
+                                    //           height: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .height *
+                                    //               0.10,
+                                    //           width: MediaQuery.of(context)
+                                    //                   .size
+                                    //                   .width *
+                                    //               0.25,
+                                    //           child: Image.network(
+                                    //             data[0]['cdata'][5]['image'],
+                                    //             fit: BoxFit.cover,
+                                    //           )).pOnly(right: 10),
+                                    //     ),
+                                    //   ],
+                                    // ).pOnly(bottom: 10),
+                                  ],
+                                ).p(20);
+                              }),
+                        ),
                       ],
                     ),
                   )
@@ -897,3 +473,709 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 }
+////////bal chal from here
+//  Container(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         ExpansionTileCard(
+//                           baseColor: Colors.grey[300],
+//                           expandedColor: Colors.grey[200],
+//                           // key: cardB,
+//                           leading: ClipRRect(
+//                               borderRadius: BorderRadius.circular(90),
+//                               child: Image.network(
+//                                 '${data[0]['c_img']}',
+//                                 fit: BoxFit.cover,
+//                               )),
+//                           title: '${data[0]['category']}'
+//                               .text
+//                               .size(14)
+//                               .textStyle(GoogleFonts.openSans())
+//                               .black
+//                               .make(),
+//                           subtitle: 'Verduras frescas para ti.'
+//                               .text
+//                               .black
+//                               .textStyle(GoogleFonts.openSans())
+//                               .size(5)
+//                               .make(),
+//                           initiallyExpanded: true,
+//                           children: [
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 GestureDetector(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                                 cid: data[0]['cdata'][0]['cid'],
+//                                                 pid: data[0]['cdata'][0]['pid'],
+//                                               ))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[0]['cdata'][0]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[0]['cdata'][1]['cid'],
+//                                               pid: data[0]['cdata'][1]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[0]['cdata'][1]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[0]['cdata'][2]['cid'],
+//                                               pid: data[0]['cdata'][2]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[0]['cdata'][2]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ),
+//                             Divider(),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[0]['cdata'][3]['cid'],
+//                                               pid: data[0]['cdata'][3]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[0]['cdata'][3]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[0]['cdata'][4]['cid'],
+//                                               pid: data[0]['cdata'][4]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[0]['cdata'][4]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[0]['cdata'][5]['cid'],
+//                                               pid: data[0]['cdata'][5]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[0]['cdata'][5]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ).pOnly(bottom: 10),
+//                           ],
+//                         ).p(20),
+//                         ExpansionTileCard(
+//                           baseColor: Colors.grey[300],
+//                           expandedColor: Colors.grey[200], // key: cardB,
+//                           leading: ClipRRect(
+//                               borderRadius: BorderRadius.circular(90),
+//                               child: Image.network(
+//                                 '${data[1]['c_img']}',
+//                                 fit: BoxFit.cover,
+//                               )),
+//                           title: '${data[1]['category']}'
+//                               .text
+//                               .size(14)
+//                               .textStyle(GoogleFonts.openSans())
+//                               .black
+//                               .make(),
+//                           subtitle: 'Verduras frescas para ti.'
+//                               .text
+//                               .black
+//                               .textStyle(GoogleFonts.openSans())
+//                               .size(5)
+//                               .make(),
+//                           initiallyExpanded: true,
+//                           children: [
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 GestureDetector(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                                 cid: data[1]['cdata'][0]['cid'],
+//                                                 pid: data[1]['cdata'][0]['pid'],
+//                                               ))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[1]['cdata'][0]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[1]['cdata'][1]['cid'],
+//                                               pid: data[1]['cdata'][1]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[1]['cdata'][1]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[1]['cdata'][2]['cid'],
+//                                               pid: data[1]['cdata'][2]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[1]['cdata'][2]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ),
+//                             Divider(),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[1]['cdata'][3]['cid'],
+//                                               pid: data[1]['cdata'][3]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[1]['cdata'][3]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[1]['cdata'][4]['cid'],
+//                                               pid: data[1]['cdata'][4]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[1]['cdata'][4]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[1]['cdata'][5]['cid'],
+//                                               pid: data[1]['cdata'][5]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[1]['cdata'][5]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ).pOnly(bottom: 10),
+//                           ],
+//                         ).p(20),
+//                         ExpansionTileCard(
+//                           baseColor: Colors.grey[300],
+//                           expandedColor: Colors.grey[200],
+//                           // key: cardB,
+//                           leading: ClipRRect(
+//                               borderRadius: BorderRadius.circular(90),
+//                               child: Image.network(
+//                                 '${data[2]['c_img']}',
+//                                 fit: BoxFit.cover,
+//                               )),
+//                           title: '${data[2]['category']}'
+//                               .text
+//                               .size(14)
+//                               .textStyle(GoogleFonts.openSans())
+//                               .black
+//                               .make(),
+//                           subtitle: 'Verduras frescas para ti.'
+//                               .text
+//                               .black
+//                               .textStyle(GoogleFonts.openSans())
+//                               .size(5)
+//                               .make(),
+//                           initiallyExpanded: true,
+//                           children: [
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 GestureDetector(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                                 cid: data[2]['cdata'][0]['cid'],
+//                                                 pid: data[2]['cdata'][0]['pid'],
+//                                               ))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[2]['cdata'][0]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                     context,
+//                                     MaterialPageRoute(
+//                                         builder: (_) => ProductDetailsPage(
+//                                             cid: data[2]['cdata'][1]['cid'],
+//                                             pid: data[2]['cdata'][1]['pid'])),
+//                                   ),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[2]['cdata'][1]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[2]['cdata'][2]['cid'],
+//                                               pid: data[2]['cdata'][2]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[2]['cdata'][2]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ),
+//                             Divider(),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[2]['cdata'][3]['cid'],
+//                                               pid: data[2]['cdata'][3]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[2]['cdata'][3]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[2]['cdata'][4]['cid'],
+//                                               pid: data[2]['cdata'][4]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[2]['cdata'][4]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[2]['cdata'][5]['cid'],
+//                                               pid: data[2]['cdata'][5]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[2]['cdata'][5]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ).pOnly(bottom: 10),
+//                           ],
+//                         ).p(20),
+//                         ExpansionTileCard(
+//                           baseColor: Colors.grey[300],
+//                           expandedColor: Colors.grey[200], // key: cardB,
+//                           leading: ClipRRect(
+//                               borderRadius: BorderRadius.circular(90),
+//                               child: Image.network(
+//                                 '${data[4]['c_img']}',
+//                                 fit: BoxFit.cover,
+//                               )),
+//                           title: '${data[4]['category']}'
+//                               .text
+//                               .size(14)
+//                               .textStyle(GoogleFonts.openSans())
+//                               .black
+//                               .make(),
+//                           subtitle: 'Verduras frescas para ti.'
+//                               .text
+//                               .black
+//                               .textStyle(GoogleFonts.openSans())
+//                               .size(5)
+//                               .make(),
+//                           initiallyExpanded: true,
+//                           children: [
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 GestureDetector(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                                 cid: data[4]['cdata'][0]['cid'],
+//                                                 pid: data[4]['cdata'][0]['pid'],
+//                                               ))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[4]['cdata'][0]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[4]['cdata'][1]['cid'],
+//                                               pid: data[4]['cdata'][1]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[4]['cdata'][1]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[4]['cdata'][2]['cid'],
+//                                               pid: data[4]['cdata'][2]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[4]['cdata'][2]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ),
+//                             Divider(),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[4]['cdata'][3]['cid'],
+//                                               pid: data[4]['cdata'][3]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[4]['cdata'][3]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(left: 10),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[4]['cdata'][4]['cid'],
+//                                               pid: data[4]['cdata'][4]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[4]['cdata'][4]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )),
+//                                 ),
+//                                 InkWell(
+//                                   onTap: () => Navigator.push(
+//                                       context,
+//                                       MaterialPageRoute(
+//                                           builder: (_) => ProductDetailsPage(
+//                                               cid: data[4]['cdata'][5]['cid'],
+//                                               pid: data[4]['cdata'][5]
+//                                                   ['pid']))),
+//                                   child: Container(
+//                                       decoration: BoxDecoration(
+//                                           borderRadius: BorderRadius.all(
+//                                               Radius.circular(10))),
+//                                       height:
+//                                           MediaQuery.of(context).size.height *
+//                                               0.10,
+//                                       width: MediaQuery.of(context).size.width *
+//                                           0.25,
+//                                       child: Image.network(
+//                                         data[4]['cdata'][5]['image'],
+//                                         fit: BoxFit.cover,
+//                                       )).pOnly(right: 10),
+//                                 ),
+//                               ],
+//                             ).pOnly(bottom: 10),
+//                           ],
+//                         ).p(15),
+
+//                         InkWell(
+//                           onTap: () => Navigator.push(context,
+//                               MaterialPageRoute(builder: (_) => Menu())),
+//                           child: Container(
+//                             height: 50,
+//                             width: 100,
+//                             alignment: Alignment.center,
+//                             decoration: BoxDecoration(
+//                                 color: Color(0xFFFFD456),
+//                                 borderRadius: BorderRadius.circular(30)),
+//                             child: "Más".text.bold.make(),
+//                           ),
+//                         )
+//                         //; }),
+//                       ],
+//                     ),
+//                   )
