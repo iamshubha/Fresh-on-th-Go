@@ -226,7 +226,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        "Ammount"
+                                        "A pagar"
                                             .text
                                             .textStyle(GoogleFonts.openSans())
                                             .bold
