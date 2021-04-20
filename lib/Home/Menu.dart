@@ -203,12 +203,12 @@ class _MenuState extends State<Menu> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "LUGAR DE ENTERGA"
+            "Caribbean Produce Exchange"
                 .text
                 .size(10)
                 .textStyle(GoogleFonts.openSans())
                 .make(),
-            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL"
+            "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
                 .text
                 .size(3)
                 .textStyle(GoogleFonts.openSans())
@@ -245,7 +245,7 @@ class _MenuState extends State<Menu> {
                         bottomRight: Radius.circular(20.0)),
                   ),
                   alignment: Alignment.topCenter,
-                  child: "FRUTA FRESCA"
+                  child: "Categoria"
                       .text
                       .textStyle(GoogleFonts.openSans())
                       .white
