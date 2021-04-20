@@ -341,7 +341,8 @@ class _MenuState extends State<Menu> {
                                             builder: (_) => ProductDetailsPage(
                                                 cid: data[i]
                                                     ['category'], //category
-                                                pid: data[i]['name']))),
+                                                pid: data[i]['name'],
+                                                price: data[i]['cost_price']))),
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *

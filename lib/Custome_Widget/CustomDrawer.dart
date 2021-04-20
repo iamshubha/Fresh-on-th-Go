@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
@@ -5,8 +7,42 @@ import 'package:FreshOnTheGo/Screens/LoginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  List data = [];
+  bool loader = true;
+  getData() async {
+    final _prefs = await SharedPreferences.getInstance();
+    final uid = _prefs.getString('uid');
+    try {
+      String url =
+          "https://mercadosagricolaspr.com/farmer-new/apis/order/show_latest_order_add_time?uid=$uid";
+      final response = await http.get(url);
+      var rsp = jsonDecode(response.body);
+      if (rsp['status']) {
+        setState(() {
+          data = rsp['data'];
+          loader = true;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    loader = false;
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -44,20 +80,10 @@ class CustomDrawer extends StatelessWidget {
                         .size(10)
                         .textStyle(GoogleFonts.openSans())
                         .make(),
-                    // "EDITAR PERFIL"
-                    //     .text
-                    //     .white
-                    //     .size(10)
-                    //     .textStyle(GoogleFonts.openSans())
-                    //     .make()
                   ],
                 ),
               ],
             ),
-            // UserAccountsDrawerHeader(
-            //   currentAccountPicture: CircleAvatar(child: Image.asset('assets/images/home-icon.png',fit: BoxFit.cover,)),
-            // ),
-            // "bfgfyfghfx".text.make(),
             decoration: BoxDecoration(color: kPrimaryColor),
           ),
           Container(
@@ -65,31 +91,37 @@ class CustomDrawer extends StatelessWidget {
                 color: kPrimaryColor,
                 borderRadius: BorderRadius.all(Radius.circular(70))),
             height: MediaQuery.of(context).size.height * 0.08,
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/images/delevery-ico.png',
-                  fit: BoxFit.contain,
-                ).p(5),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    "Próxima Fecha de Entrega"
-                        .text
-                        .size(1)
-                        .textStyle(GoogleFonts.openSans())
-                        .bold
-                        .make(),
-                    "Sabado, 12 de diciembre de"
-                        .text
-                        .white
-                        .textStyle(GoogleFonts.openSans())
-                        .bold
-                        .make()
-                  ],
-                )
-              ],
-            ),
+            child: loader == true
+                ? Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/delevery-ico.png',
+                        fit: BoxFit.contain,
+                      ).p(5),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          "${data[0]['delivery_address']}"
+                              .text
+                              .size(1)
+                              .textStyle(GoogleFonts.openSans())
+                              .bold
+                              .make(),
+                          "${data[0]['delivery_time']}"
+                              .text
+                              .white
+                              .textStyle(GoogleFonts.openSans())
+                              .bold
+                              .make()
+                        ],
+                      )
+                    ],
+                  )
+                : Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                  ),
           ).p(10),
           ListTile(
             onTap: () => Navigator.pushReplacement(

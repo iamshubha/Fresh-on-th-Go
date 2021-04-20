@@ -38,7 +38,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   List<DeliveryAddress> _delvAddress = [];
   bool loader = true;
   String _selectedAddress;
-  String _initialLocationVal = 'Click Here For Location';
+  String _initialLocationVal = 'Seleccione ubicación de recogido';
   String uid;
   int delvDicider = 0;
   String delevery_address;
@@ -327,7 +327,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                           child: Container(
                               color: tabbar ? Color(0xFFB0E0CA) : kPrimaryColor,
                               height: 45,
-                              child: "elegir del caribe"
+                              child: "RECOGIDO"
                                   .text
                                   .uppercase
                                   .textStyle(GoogleFonts.openSans())
@@ -344,14 +344,15 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                               tabbar = true;
 
                               _selectedAddress = null;
-                              _initialLocationVal = 'Click Here For Location';
+                              _initialLocationVal =
+                                  'Seleccione ubicación de recogido';
                             });
                           },
                           child: Container(
                               height: 45,
                               color: tabbar ? kPrimaryColor : Color(0xFFB0E0CA),
                               alignment: Alignment.center,
-                              child: "Entrega a domicilio"
+                              child: "DATOS ENTREGA"
                                   .text
                                   .textStyle(GoogleFonts.openSans())
                                   .bold
@@ -453,7 +454,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                             print(
                                                 widget.totalPrice.runtimeType);
                                             print(_initialLocationVal +
-                                                'Click Here For Location' +
+                                                'Seleccione ubicación de recogido' +
                                                 _verticalGroupValue);
 
                                             ///[another tab]
@@ -591,7 +592,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                                         child: InkWell(
                                           onTap: () {
                                             _initialLocationVal ==
-                                                    'Click Here For Location'
+                                                    'Seleccione ubicación de recogido'
                                                 ? context.showToast(
                                                     msg:
                                                         "Please select address",

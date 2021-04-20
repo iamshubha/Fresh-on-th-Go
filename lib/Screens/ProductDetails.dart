@@ -10,8 +10,9 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsPage extends StatefulWidget {
-  final String cid, pid;
-  ProductDetailsPage({@required this.cid, @required this.pid});
+  final String cid, pid, price;
+  ProductDetailsPage(
+      {@required this.cid, @required this.pid, @required this.price});
 
   @override
   _ProductDetailsPageState createState() => _ProductDetailsPageState();
@@ -91,13 +92,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       });
       var productDescriptionse = http.get(
         "https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=${widget.pid}",
-        // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbyid?pid=${widget.pid}'
       );
 
       var predictDataResponse = http.get(
-          'https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=${widget.pid}'
-          // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=${widget.cid}'
-          );
+          'https://mercadosagricolaspr.com/farmer-new/apis/product/get_all_product_by_name?pname=${widget.pid}');
       var responseData =
           await Future.wait([productDescriptionse, predictDataResponse]);
 
@@ -239,7 +237,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                             .bold
                                             .textStyle(GoogleFonts.openSans())
                                             .make(),
-                                        "\$: ${productDetails['sell_price']}"
+                                        "\$: ${widget.price}"
                                             .text
                                             .xl
                                             .bold
@@ -296,7 +294,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   MediaQuery.of(context).size.height * 0.043),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.85,
-                            height: MediaQuery.of(context).size.height * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.4,
                             child: ListView.builder(
                               itemCount: predictData.length,
                               itemBuilder: (BuildContext context, int i) {
@@ -492,4 +490,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 //         ))
 //     .toList();
 
+  // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbyid?pid=${widget.pid}'
+  // 'https://mercadosagricolaspr.com/farmer-new/apis/product/searchproductbycatagory?cid=${widget.cid}'
 }

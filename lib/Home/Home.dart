@@ -102,18 +102,18 @@ class _HomeState extends State<Home> {
           GestureDetector(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIconHome().p(10)), //TODO:send data of total
+              child: CartIconHome().p(10)),
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "LUGAR DE ENTERGA"
+            "Caribbean Produce Exchange"
                 .text
                 .size(10)
                 .textStyle(GoogleFonts.openSans())
                 .make(),
-            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL"
+            "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
                 .text
                 .size(3)
                 .textStyle(GoogleFonts.openSans())
@@ -168,7 +168,7 @@ class _HomeState extends State<Home> {
                   height: MediaQuery.of(context).size.height * 0.045,
                   // width: MediaQuery.of(context).size.width * 0.40,
                   alignment: Alignment.center,
-                  child: "Categorias"
+                  child: "Fruta Fresca"
                       .text
                       .textStyle(GoogleFonts.openSans())
                       .white
@@ -369,12 +369,12 @@ class _ProductPageState extends State<ProductPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "LUGAR DE ENTERGA"
+            "Caribbean Produce Exchange"
                 .text
                 .size(10)
                 .textStyle(GoogleFonts.openSans())
                 .make(),
-            "B-12 TOURCHTHREETEEN, SEC-15, PARTUGAL"
+            "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
                 .text
                 .size(3)
                 .textStyle(GoogleFonts.openSans())
@@ -396,6 +396,7 @@ class _ProductPageState extends State<ProductPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (_) => ProductDetailsPage(
+                                      price: data[i]['cost_price'],
                                       cid: data[i]['category'], //category
                                       pid: data[i]['name']))),
                           child: Row(

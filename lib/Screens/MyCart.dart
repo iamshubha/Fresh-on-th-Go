@@ -39,7 +39,9 @@ class _MyCartPageState extends State<MyCartPage> {
         ));
       } else {
         String url =
-            "https://mercadosagricolaspr.com/farmer-new/apis/order/showcart_byuid?uid=$uid";
+            "https://mercadosagricolaspr.com/farmer-new/apis/order/showcart_byuid?uid=$uid"; //121
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        print(uid);
         var response = await http.get(url);
         var rsp = jsonDecode(response.body);
         setState(() {

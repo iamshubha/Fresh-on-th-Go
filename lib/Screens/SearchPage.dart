@@ -188,6 +188,7 @@ class _SearchPageState extends State<SearchPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (_) => ProductDetailsPage(
+                                      price: data[i]['sell_price'],
                                       cid: data[i]['category'], //category
                                       pid: data[i]['name']
                                       //TODO:Work here
