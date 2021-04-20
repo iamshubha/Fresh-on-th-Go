@@ -111,7 +111,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           ),
         ),
         context: ctx,
-        title: "ELEGIRLA UBICACIÓN",
+        title: "ELEGIR A UBICACIÓN",
         content: Container(
           height: 400,
           width: 500,
