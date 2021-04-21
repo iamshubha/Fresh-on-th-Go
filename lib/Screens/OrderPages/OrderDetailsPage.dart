@@ -100,7 +100,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                "Order Id :"
+                                "Nùmero de Orden :"
                                     .text
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
@@ -116,7 +116,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                "Total :"
+                                "Total de Productos :"
                                     .text
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
@@ -141,7 +141,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                "Date :"
+                                "Realizada :"
                                     .text
                                     .uppercase
                                     .bold
@@ -159,7 +159,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                "Order Status :"
+                                "Estatus :"
                                     .text
                                     .bold
                                     .uppercase
