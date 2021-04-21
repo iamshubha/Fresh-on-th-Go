@@ -127,7 +127,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             onTap: () => Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (_) => HomePage())),
             leading: Image.asset("assets/images/menu-icon.png"),
-            title: "CATEGORIAS".text.textStyle(GoogleFonts.openSans()).make(),
+            title: "CATEGORIA".text.textStyle(GoogleFonts.openSans()).make(),
           ),
           Divider(),
           ListTile(
