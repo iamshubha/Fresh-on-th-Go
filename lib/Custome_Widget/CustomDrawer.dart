@@ -89,30 +89,39 @@ class _CustomDrawerState extends State<CustomDrawer> {
           Container(
             decoration: BoxDecoration(
                 color: kPrimaryColor,
-                borderRadius: BorderRadius.all(Radius.circular(70))),
-            height: MediaQuery.of(context).size.height * 0.08,
+                borderRadius: BorderRadius.all(Radius.circular(100))),
+            height: MediaQuery.of(context).size.height * 0.12,
             child: loader == true
                 ? Row(
                     children: [
                       Image.asset(
                         'assets/images/delevery-ico.png',
                         fit: BoxFit.contain,
+                        height: MediaQuery.of(context).size.height * 0.065,
                       ).p(5),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          "${data[0]['delivery_address']}"
-                              .text
-                              .size(1)
-                              .textStyle(GoogleFonts.openSans())
-                              .bold
-                              .make(),
-                          "${data[0]['delivery_time']}"
-                              .text
-                              .white
-                              .textStyle(GoogleFonts.openSans())
-                              .bold
-                              .make()
+                          Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width * 0.37,
+                            child: "${data[0]['delivery_address']}"
+                                .text
+                                .textStyle(TextStyle(fontSize: 6))
+                                .textStyle(GoogleFonts.openSans())
+                                .bold
+                                .make(),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            width: 80,
+                            child: "${data[0]['delivery_time']}"
+                                .text
+                                .white
+                                .textStyle(GoogleFonts.openSans())
+                                .bold
+                                .make(),
+                          )
                         ],
                       )
                     ],

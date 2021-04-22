@@ -282,14 +282,14 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           backgroundColor: kPrimaryColor,
           elevation: 0,
           centerTitle: true,
-          leading: InkWell(
-            child: Image.asset(
-              'assets/images/back-ico.png',
-              height: 4,
-              width: 4,
-            ),
-            onTap: () => Navigator.pop(context),
-          ),
+          // leading: InkWell(
+          //   child: Image.asset(
+          //     'assets/images/back-ico.png',
+          //     height: 4,
+          //     width: 4,
+          //   ),
+          //   onTap: () => Navigator.pop(context),
+          // ),
           // actions: [CartIcon().p(12)],
           title: Column(
             mainAxisAlignment: MainAxisAlignment.start,

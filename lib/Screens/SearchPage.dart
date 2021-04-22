@@ -130,14 +130,14 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         centerTitle: true,
-        leading: InkWell(
-          child: Image.asset(
-            'assets/images/back-ico.png',
-            height: 4,
-            width: 4,
-          ),
-          onTap: () => Navigator.pop(context),
-        ),
+        // leading: InkWell(
+        //   child: Image.asset(
+        //     'assets/images/back-ico.png',
+        //     height: 4,
+        //     width: 4,
+        //   ),
+        //   onTap: () => Navigator.pop(context),
+        // ),
         elevation: 0,
         title: Container(
             color: kPrimaryColor,

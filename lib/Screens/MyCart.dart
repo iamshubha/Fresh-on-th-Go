@@ -181,14 +181,14 @@ class _MyCartPageState extends State<MyCartPage> {
         backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
-        leading: InkWell(
-          child: Image.asset(
-            'assets/images/back-ico.png',
-            height: 4,
-            width: 4,
-          ),
-          onTap: () => Navigator.pop(context),
-        ),
+        // leading: InkWell(
+        //   child: Image.asset(
+        //     'assets/images/back-ico.png',
+        //     height: 4,
+        //     width: 4,
+        //   ),
+        //   onTap: () => Navigator.pop(context),
+        // ),
         // actions: [
         //   InkWell(
         //       onTap: () => Navigator.push(
@@ -224,7 +224,7 @@ class _MyCartPageState extends State<MyCartPage> {
                 ? Column(children: [
                     Container(
                       color: Colors.white,
-                      height: MediaQuery.of(context).size.height * 0.53,
+                      height: MediaQuery.of(context).size.height * 0.6,
                       // width: MediaQuery.of(context).size.width,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -234,7 +234,7 @@ class _MyCartPageState extends State<MyCartPage> {
                           data['status'] == true
                               ? Container(
                                   height:
-                                      MediaQuery.of(context).size.height * 0.45,
+                                      MediaQuery.of(context).size.height * 0.6,
                                   // width: MediaQuery.of(context).size.width * 0.50,
                                   child: ListView.builder(
                                     itemCount: data['data'].length,

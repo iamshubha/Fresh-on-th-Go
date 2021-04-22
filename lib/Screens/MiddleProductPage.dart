@@ -57,14 +57,14 @@ class _ProductPageState extends State<ProductPage> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        leading: InkWell(
-          child: Image.asset(
-            'assets/images/back-ico.png',
-            // height: 4,
-            // width: 4,
-          ).p(5),
-          onTap: () => Navigator.pop(context),
-        ),
+        // leading: InkWell(
+        //   child: Image.asset(
+        //     'assets/images/back-ico.png',
+        //     // height: 4,
+        //     // width: 4,
+        //   ).p(5),
+        //   onTap: () => Navigator.pop(context),
+        // ),
         // leading: Builder(
         //   builder: (BuildContext context) {
         //     return IconButton(
@@ -104,7 +104,7 @@ class _ProductPageState extends State<ProductPage> {
       ),
       body: loader == true
           ? Container(
-              height: MediaQuery.of(context).size.height * 0.544,
+              height: MediaQuery.of(context).size.height * 0.80,
               width: MediaQuery.of(context).size.width,
               child: data.length != null
                   ? ListView.builder(

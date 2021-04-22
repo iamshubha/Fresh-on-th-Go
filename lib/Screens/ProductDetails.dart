@@ -155,14 +155,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         backgroundColor: kPrimaryColor,
         elevation: 0,
         centerTitle: true,
-        leading: InkWell(
-          child: Image.asset(
-            'assets/images/back-ico.png',
-            // height: 4,
-            // width: 4,
-          ).p(5),
-          onTap: () => Navigator.pop(context),
-        ),
+        // leading: InkWell(
+        //   child: Image.asset(
+        //     'assets/images/back-ico.png',
+        //     // height: 4,
+        //     // width: 4,
+        //   ).p(5),
+        //   onTap: () => Navigator.pop(context),
+        // ),
         actions: [
           InkWell(
                   onTap: () => Navigator.push(

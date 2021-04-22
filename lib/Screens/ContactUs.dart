@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 /**
  * 
  * [3:31 PM, 1/19/2021] +91 98303 28321: Get in touch = 
@@ -21,14 +22,14 @@ class ContactUsPage extends StatelessWidget {
             .letterSpacing(2)
             .uppercase
             .make(),
-        leading: InkWell(
-          child: Image.asset(
-            'assets/images/back-ico.png',
-            height: 4,
-            width: 4,
-          ),
-          onTap: () => Navigator.pop(context),
-        ),
+        // leading: InkWell(
+        //   child: Image.asset(
+        //     'assets/images/back-ico.png',
+        //     height: 4,
+        //     width: 4,
+        //   ),
+        //   onTap: () => Navigator.pop(context),
+        // ),
         centerTitle: true,
         elevation: 0,
       ),
@@ -78,18 +79,25 @@ class ContactUsPage extends StatelessWidget {
                                 .uppercase
                                 .black
                                 .bold
-                                .make().pOnly(bottom:10),
+                                .make()
+                                .pOnly(bottom: 10),
                             Container(
-                              width: MediaQuery.of(context).size.width*0.80,
-                              child: "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
-                                  .text.center
-                                  .uppercase
-                                  .black
-                                  .bold
-                                  .make()
-                                  .pOnly(bottom: 10),
+                              width: MediaQuery.of(context).size.width * 0.80,
+                              child:
+                                  "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
+                                      .text
+                                      .center
+                                      .uppercase
+                                      .black
+                                      .bold
+                                      .make()
+                                      .pOnly(bottom: 10),
                             ),
-                            "Abrir el Mapa".text.bold.color(kPrimaryColor).make()
+                            "Abrir el Mapa"
+                                .text
+                                .bold
+                                .color(kPrimaryColor)
+                                .make()
                           ],
                         ).pOnly(top: MediaQuery.of(context).size.height * 0.02),
                       ).pOnly(top: MediaQuery.of(context).size.height * 0.01),
@@ -99,13 +107,7 @@ class ContactUsPage extends StatelessWidget {
                           children: [
                             Image.asset('assets/images/contact-mail.png')
                                 .pOnly(bottom: 15),
-                            "787-793-0750"
-                                .text
-                                .uppercase
-                                .black
-                                .bold
-                                .make(),
-                            
+                            "787-793-0750".text.uppercase.black.bold.make(),
                             "info@mercadosagricolaspr.com"
                                 .text
                                 .bold
@@ -123,11 +125,13 @@ class ContactUsPage extends StatelessWidget {
                             Image.asset('assets/images/contact-time.png')
                                 .pOnly(bottom: 15),
                             Container(
-                              child: "Lunes a Viernes de\n 8:30am – 5:30pm / Sábados 9am -12pm"
-                                  .text
-                                  .uppercase.center
-                                  .bold
-                                  .make(),
+                              child:
+                                  "Lunes a Viernes de\n 8:30am – 5:30pm / Sábados 9am -12pm"
+                                      .text
+                                      .uppercase
+                                      .center
+                                      .bold
+                                      .make(),
                             ),
                             // "9am - 5pm".text.uppercase.black.bold.make(),
                             // "saturday - sunday"
