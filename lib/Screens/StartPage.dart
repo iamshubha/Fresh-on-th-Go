@@ -13,7 +13,7 @@ class StartPage extends StatelessWidget {
   //     "image": "apple.jpg",
   //     "name": "Blueberry",
   //     "description": "Fruit with distinctive taste",
-  //     "cost_price": 180.26,
+  //     "sell_price": 180.26,
   //     "sell_price": 200.56,
   //     "unit": "Kg",
   //     "total_qty": 450,

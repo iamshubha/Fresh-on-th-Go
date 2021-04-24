@@ -115,7 +115,7 @@ class _ProductPageState extends State<ProductPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (_) => ProductDetailsPage(
-                                      price: data[i]['cost_price'],
+                                      price: data[i]['sell_price'],
                                       cid: data[i]['category'], //category
                                       pid: data[i]['name']))),
                           child: Row(
@@ -156,7 +156,7 @@ class _ProductPageState extends State<ProductPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
+                                        "\$: ${data[i]['sell_price']} / ${data[i]['unit']}"
                                             .text
                                             .textStyle(GoogleFonts.openSans())
                                             .xl

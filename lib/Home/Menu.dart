@@ -342,7 +342,7 @@ class _MenuState extends State<Menu> {
                                                 cid: data[i]
                                                     ['category'], //category
                                                 pid: data[i]['name'],
-                                                price: data[i]['cost_price']))),
+                                                price: data[i]['sell_price']))),
                                     child: Container(
                                       height:
                                           MediaQuery.of(context).size.height *
@@ -382,7 +382,7 @@ class _MenuState extends State<Menu> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            "\$: ${data[i]['cost_price']} / ${data[i]['unit']}"
+                                            "\$: ${data[i]['sell_price']} / ${data[i]['unit']}"
                                                 .text
                                                 .textStyle(
                                                     GoogleFonts.openSans())
