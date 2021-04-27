@@ -267,8 +267,8 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
   @override
   void initState() {
     getTimeAddress();
-    Future.microtask(
-        () => {print(widget.cartids + "" + widget.totalPrice.runtimeType)});
+    // Future.microtask(
+    //     () => {print(widget.cartids + "" + widget.totalPrice.runtimeType)});
 
     super.initState();
   }
@@ -654,7 +654,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) => PaypalPayment(
-              quantity: widget.cartids,
+              quantity: widget.cartids.length,
               totalAmmount: widget.totalPrice.toString(),
               onFinish: (number) async {
                 // Navigator.pop(context);

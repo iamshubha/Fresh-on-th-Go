@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PaypalPayment extends StatefulWidget {
   final Function onFinish;
   final String totalAmmount;
-  final List quantity;
+  final int quantity;
 
   PaypalPayment(
       {this.onFinish, @required this.totalAmmount, @required this.quantity});
@@ -47,8 +47,12 @@ class PaypalPaymentState extends State<PaypalPayment> {
         accessToken = await services.getAccessToken();
 
         final transactions = getOrderParams();
+        print(transactions);
+        print(transactions);
+
         final res =
             await services.createPaypalPayment(transactions, accessToken);
+            print(res);
         if (res != null) {
           print(res);
           setState(() {
@@ -79,14 +83,16 @@ class PaypalPaymentState extends State<PaypalPayment> {
   // int  = 1;
 
   Map<String, dynamic> getOrderParams() {
-    List items = [
+    List items = [ 
       {
-        "name": 'Food',
-        "quantity": widget.quantity.length,
+        "name": 'Foods',
+        "quantity": 1,//widget.quantity,
         "price": widget.totalAmmount,
         "currency": defaultCurrency["currency"]
       }
     ];
+    print(items);
+    print(items);
 
     // // checkout invoice details
     // String totalAmount = '1.99';
@@ -94,14 +100,14 @@ class PaypalPaymentState extends State<PaypalPayment> {
     String shippingCost = '0';
     int shippingDiscountCost = 0;
 
-    String userFirstName = 'Gulshan';
-    String userLastName = 'Yadav';
-    String addressCity = 'Delhi';
-    String addressStreet = 'Mathura Road';
-    String addressZipCode = '110014';
-    String addressCountry = 'India';
-    String addressState = 'Delhi';
-    String addressPhoneNumber = '+919990119091';
+    // String userFirstName = 'Gulshan';
+    // String userLastName = 'Yadav';
+    // String addressCity = 'Delhi';
+    // String addressStreet = 'Mathura Road';
+    // String addressZipCode = '110014';
+    // String addressCountry = 'India';
+    // String addressState = 'Delhi';
+    // String addressPhoneNumber = '+919990119091';
 
     Map<String, dynamic> temp = {
       "intent": "sale",
@@ -125,14 +131,14 @@ class PaypalPaymentState extends State<PaypalPayment> {
             "items": items,
             if (isEnableShipping && isEnableAddress)
               "shipping_address": {
-                "recipient_name": userFirstName + " " + userLastName,
-                "line1": addressStreet,
-                "line2": "",
-                "city": addressCity,
-                "country_code": addressCountry,
-                "postal_code": addressZipCode,
-                "phone": addressPhoneNumber,
-                "state": addressState
+                // "recipient_name": userFirstName + " " + userLastName,
+                // "line1": addressStreet,
+                // "line2": "",
+                // "city": addressCity,
+                // "country_code": addressCountry,
+                // "postal_code": addressZipCode,
+                // "phone": addressPhoneNumber,
+                // "state": addressState
               },
           }
         }
