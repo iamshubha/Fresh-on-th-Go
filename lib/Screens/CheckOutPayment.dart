@@ -295,7 +295,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              "Revisa".text.uppercase.make(),
+              "Datos De Entrega".text.uppercase.make(),
               // "Baishnab para Santipur Nadia".text.size(10).make(),
             ],
           ),
@@ -352,7 +352,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
                               height: 45,
                               color: tabbar ? kPrimaryColor : Color(0xFFB0E0CA),
                               alignment: Alignment.center,
-                              child: "DATOS ENTREGA"
+                              child: "Entrega Domicilio"
                                   .text
                                   .textStyle(GoogleFonts.openSans())
                                   .bold
