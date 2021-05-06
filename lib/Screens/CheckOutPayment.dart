@@ -255,8 +255,13 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           //     backgroundColor: kPrimaryColor,
           //     textColor: Colors.white,
           //     fontSize: 16.0);
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomePage()));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => HomePage(),
+            ),
+            (r) => false,
+          );
         }
       }
     } catch (e) {
@@ -651,6 +656,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
       onPressed: () {
         // make PayPal payment
 
+        setState(() => loader = false);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) => PaypalPayment(

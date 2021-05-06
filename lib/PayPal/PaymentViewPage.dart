@@ -52,7 +52,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
 
         final res =
             await services.createPaypalPayment(transactions, accessToken);
-            print(res);
+        print(res);
         if (res != null) {
           print(res);
           setState(() {
@@ -83,10 +83,10 @@ class PaypalPaymentState extends State<PaypalPayment> {
   // int  = 1;
 
   Map<String, dynamic> getOrderParams() {
-    List items = [ 
+    List items = [
       {
         "name": 'Foods',
-        "quantity": 1,//widget.quantity,
+        "quantity": 1, //widget.quantity,
         "price": widget.totalAmmount,
         "currency": defaultCurrency["currency"]
       }
