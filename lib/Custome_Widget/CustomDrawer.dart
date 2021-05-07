@@ -86,182 +86,120 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             decoration: BoxDecoration(color: kPrimaryColor),
           ),
-        loader == true
-                    ?   Container(
-            child: Column(children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(100))),
-                height: MediaQuery.of(context).size.height * 0.12,
-                child: loader == true
-                    ? Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/delevery-ico.png',
-                            fit: BoxFit.contain,
-                            height: MediaQuery.of(context).size.height * 0.065,
-                          ).p(5),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
+          loader == true
+              ? ListTile(
+                  leading: Image.asset(
+                    'assets/images/delevery-ico.png',
+                    fit: BoxFit.contain,
+                    height: MediaQuery.of(context).size.height * 0.065,
+                  ).p(5),
+                  title: Text("Detalles de la Entrega"),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        child: AlertDialog(
+                          title: Text("Detalles de la Entrega"),
+                          content: Container(
+                            height: MediaQuery.of(context).size.height * 0.50,
+                            width: MediaQuery.of(context).size.width * 0.70,
+                            child: Column(children: [
                               Container(
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * 0.37,
-                                child: "${data[0]['delivery_address']}"
-                                    .text
-                                    // .textStyle(TextStyle(fontSize: 6))
-                                    .textStyle(GoogleFonts.openSans())
-                                    .bold
-                                    .make(),
-                              ),
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   // width: 80,
-                              //   child: "   ${data[0]['delivery_time']}"
-                              //       .text
-                              //       .white
-                              //       .textStyle(GoogleFonts.openSans())
-                              //       .bold
-                              //       .make(),
-                              // ),
-                              //  Container(
-                              //   alignment: Alignment.bottomLeft,
-                              //   width: 80,
-                              //   child: "${data[0]['delivery_on']}"
-                              //       .text
-                              //       .white
-                              //       .textStyle(GoogleFonts.openSans())
-                              //       .bold
-                              //       .make(),
-                              // )
-                            ],
-                          )
-                        ],
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                        ),
-                      ),
-              ).p(10),
-              Container(
-                decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(100))),
-                height: MediaQuery.of(context).size.height * 0.12,
-                child: loader == true
-                    ? Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/delevery-ico.png',
-                            fit: BoxFit.contain,
-                            height: MediaQuery.of(context).size.height * 0.065,
-                          ).p(5),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   width: MediaQuery.of(context).size.width * 0.37,
-                              //   child: "${data[0]['delivery_address']}"
-                              //       .text
-                              //       // .textStyle(TextStyle(fontSize: 6))
-                              //       .textStyle(GoogleFonts.openSans())
-                              //       .bold
-                              //       .make(),
-                              // ),
+                                      decoration: BoxDecoration(
+                                          // color: kPrimaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.37,
+                                        child: Column(
+                                          children: [
+                                            "Address: "
+                                              .text
+                                                .bold
+                                                .black
+                                                .make(),
+                                            "${data[0]['delivery_address']}"
+                                                .text
+                                                // .textStyle(TextStyle(fontSize: 6))
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .bold
+                                                .make(),
+                                          ],
+                                        ),
+                                      ).p(40))
+                                  .p(10),
                               Container(
-                                alignment: Alignment.center,
-                                // width: 80,
-                                child: "   ${data[0]['delivery_time']}"
-                                    .text
-                                    .white
-                                    .textStyle(GoogleFonts.openSans())
-                                    .bold
-                                    .make(),
-                              ),
-                              //  Container(
-                              //   alignment: Alignment.bottomLeft,
-                              //   width: 80,
-                              //   child: "${data[0]['delivery_on']}"
-                              //       .text
-                              //       .white
-                              //       .textStyle(GoogleFonts.openSans())
-                              //       .bold
-                              //       .make(),
-                              // )
-                            ],
-                          )
-                        ],
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                        ),
-                      ),
-              ).p(10),
-              Container(
-                decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(100))),
-                height: MediaQuery.of(context).size.height * 0.12,
-                child: loader == true
-                    ? Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/delevery-ico.png',
-                            fit: BoxFit.contain,
-                            height: MediaQuery.of(context).size.height * 0.065,
-                          ).p(5),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   width: MediaQuery.of(context).size.width * 0.37,
-                              //   child: "${data[0]['delivery_address']}"
-                              //       .text
-                              //       // .textStyle(TextStyle(fontSize: 6))
-                              //       .textStyle(GoogleFonts.openSans())
-                              //       .bold
-                              //       .make(),
-                              // ),
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   // width: 80,
-                              //   child: "   ${data[0]['delivery_time']}"
-                              //       .text
-                              //       .white
-                              //       .textStyle(GoogleFonts.openSans())
-                              //       .bold
-                              //       .make(),
-                              // ),
+                                      decoration: BoxDecoration(
+                                          // color: kPrimaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        // width:
+                                        //     MediaQuery.of(context).size.width *
+                                        //         0.7,
+                                        child: Column(
+                                          children: [
+                                            "Time: "
+                                                .text
+                                                .bold
+                                                .black
+                                                .make(),
+                                            "${data[0]['delivery_time']}"
+                                                .text
+                                                // .textStyle(TextStyle(fontSize: 6))
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .bold
+                                                .make(),
+                                          ],
+                                        ),
+                                      ).p(10))
+                                  .p(10),
                               Container(
-                                alignment: Alignment.bottomLeft,
-                                width: 80,
-                                child: "${data[0]['delivery_on']}"
-                                    .text
-                                    .white
-                                    .textStyle(GoogleFonts.openSans())
-                                    .bold
-                                    .make(),
-                              )
-                            ],
-                          )
-                        ],
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                        ),
-                      ),
-              ).p(10),
-            ]),
-          ):Center(child: CircularProgressIndicator()),
+                                      decoration: BoxDecoration(
+                                          // color: kPrimaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        // width:
+                                        //     MediaQuery.of(context).size.width *
+                                        //         0.37,
+                                        child: Column(
+                                          children: [
+                                            "Delivery On: "
+                                                .text
+                                                .bold
+                                                .black
+                                                .make(),
+                                            "${data[0]['delivery_on']}"
+                                                .text
+                                                // .textStyle(TextStyle(fontSize: 6))
+                                                .textStyle(
+                                                    GoogleFonts.openSans())
+                                                .bold
+                                                .make(),
+                                          ],
+                                        ),
+                                      ).p(10))
+                                  .p(10),
+                            ]),
+                          ),
+                          actions: [
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Cancel'),
+                            ),
+                          ],
+                        ));
+                  })
+              : Center(child: CircularProgressIndicator()),
           ListTile(
             onTap: () => Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (_) => HomePage())),

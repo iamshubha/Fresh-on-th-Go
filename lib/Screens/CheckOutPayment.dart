@@ -657,6 +657,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
         // make PayPal payment
 
         setState(() => loader = false);
+        Navigator.pop(context);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) => PaypalPayment(
