@@ -262,7 +262,7 @@ class _MyCartPageState extends State<MyCartPage> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                          ).p(20),
+                                          ).p(15),
                                           Container(
                                             width: MediaQuery.of(context)
                                                     .size

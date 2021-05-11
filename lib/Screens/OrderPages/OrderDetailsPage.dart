@@ -11,7 +11,10 @@ import 'package:http/http.dart' as http;
 
 class OrderDetailsPage extends StatefulWidget {
   final String oid;
-  OrderDetailsPage({this.oid});
+  final String date;
+  final String status;
+  OrderDetailsPage(
+      {@required this.oid, @required this.date, @required this.status});
 
   @override
   _OrderDetailsPageState createState() => _OrderDetailsPageState();
@@ -20,6 +23,7 @@ class OrderDetailsPage extends StatefulWidget {
 class _OrderDetailsPageState extends State<OrderDetailsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var data;
+  List arrData = [];
   bool loader = true;
   getData() async {
     final _prefs = await SharedPreferences.getInstance();
@@ -37,12 +41,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           loader = false;
         });
         String url =
-            'https://mercadosagricolaspr.com/farmer-new/apis/customer/customer_order_dets?oid=${widget.oid}&uid=$uid';
-
+            // 'https://mercadosagricolaspr.com/farmer-new/apis/customer/customer_order_dets?oid=${widget.oid}&uid=$uid';
+            "https://mercadosagricolaspr.com/farmer-new/apis/customer/detail_for_order_no?order_no=${widget.oid}";
         final resp = await http.get(url);
         var response = jsonDecode(resp.body);
         setState(() {
           data = response;
+          arrData = data['data'];
+          print(arrData);
           loader = true;
         });
         print(data);
@@ -91,7 +97,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             loader == true
                 ? Column(children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +111,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
-                                " ${data['order_id']}"
+                                " ${data['order_no']}"
                                     .text
                                     .bold
                                     .color(kPrimaryColor)
@@ -121,23 +127,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
-                                " ${data['total']}"
+                                " ${arrData.length}"
                                     .text
                                     .bold
                                     .color(kPrimaryColor)
                                     .textStyle(GoogleFonts.openSans())
                                     .make()
                               ],
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: SizedBox(),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -147,7 +144,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
-                                " ${data['date']}"
+                                // " ${data['date']}"
+                                "${widget.date}"
                                     .text
                                     .uppercase
                                     .color(kPrimaryColor)
@@ -166,7 +164,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
                                 Container(
-                                  child: " ${data['order_status']}"
+                                  child: " ${widget.status}"
                                       .text
                                       .bold
                                       .color(kPrimaryColor)
@@ -176,15 +174,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               ],
                             )
                           ],
-                        )
+                        ),
                       ],
-                    ).pOnly(left: 17, right: 17, bottom: 20),
+                    ).pOnly(left: 17, right: 17, bottom: 10),
                     Container(
                         width: MediaQuery.of(context).size.width * 0.95,
-                        height: MediaQuery.of(context).size.height * 0.60,
+                        height: MediaQuery.of(context).size.height * 0.57,
                         // color: Colors.green,
                         child: ListView.builder(
-                            itemCount: data['data'].length,
+                            itemCount: arrData.length,
                             itemBuilder: (_, i) {
                               return ListTile(
                                   leading: Container(
@@ -193,7 +191,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     height: MediaQuery.of(context).size.height *
                                         0.2,
                                     child: Image.network(
-                                      data['data'][i]['products']['pimg'],
+                                      arrData[i]['products']['pimg'],
                                       fit: BoxFit.cover,
                                     ).p(8),
                                   ),
@@ -201,19 +199,19 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        '${data['data'][i]['products']['pname']}'
+                                        '${arrData[i]['products']['pname']}'
                                             .text
                                             .size(1)
                                             .textStyle(GoogleFonts.openSans())
                                             .bold
                                             .make(),
-                                        'Qty : ${data['data'][i]['products']['ordered_qty']} ${data['data'][i]['products']['unit']}'
+                                        'Qty : ${arrData[i]['products']['ordered_qty']} ${arrData[i]['products']['unit']}'
                                             .text
                                             .size(1)
                                             .textStyle(GoogleFonts.openSans())
                                             .bold
                                             .make(),
-                                        '${data['data'][i]['products']['pdesc']}'
+                                        '${arrData[i]['products']['pdesc']}'
                                             .text
                                             .size(1)
                                             .textStyle(GoogleFonts.openSans())
@@ -232,7 +230,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                             .bold
                                             .make(),
                                         SizedBox(height: 10),
-                                        "\$: ${data['data'][i]['products']['total_price']}"
+                                        "\$: ${arrData[i]['products']['total_price']}"
                                             .text
                                             .extraBold
                                             .textStyle(GoogleFonts.openSans())

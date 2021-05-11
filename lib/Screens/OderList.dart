@@ -33,7 +33,8 @@ class _OrderListPageState extends State<OrderListPage> {
         ));
       } else {
         String url =
-            "https://mercadosagricolaspr.com/farmer-new/apis/customer/order_got_for_customer?uid=$uid";
+            "https://mercadosagricolaspr.com/farmer-new/apis/customer/order_no_for_customer?uid=$uid";
+        // "https://mercadosagricolaspr.com/farmer-new/apis/customer/order_got_for_customer?uid=$uid";
         final response = await http.get(url);
         var rsp = jsonDecode(response.body);
         if (rsp['status']) {
@@ -123,9 +124,11 @@ class _OrderListPageState extends State<OrderListPage> {
                                         onTap: () => Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (_) =>
-                                                    OrderDetailsPage(
-                                                        oid: data[i]['oid']))),
+                                                builder: (_) => OrderDetailsPage(
+                                                    date: data[i]["order_dt"],
+                                                    status: data[i]['status'],
+                                                    // "status":"Pedido En Proceso",
+                                                    oid: data[i]['oid']))),
                                         child: Container(
                                           height: MediaQuery.of(context)
                                                   .size
@@ -139,7 +142,8 @@ class _OrderListPageState extends State<OrderListPage> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              "${data[i]['oid']}".text.make(),
+                                              // "${data[i]['oid']}".text.make(),
+                                              "${i + 1}".text.make(),
                                               Container(
                                                 height: MediaQuery.of(context)
                                                         .size
