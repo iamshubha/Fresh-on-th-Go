@@ -96,8 +96,89 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             BannerWidget().p(17),
             loader == true
                 ? Column(children: [
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       mainAxisAlignment: MainAxisAlignment.start,
+                    //       children: [
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             "Nùmero de Orden :"
+                    //                 .text
+                    //                 .bold
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make(),
+                    //             " ${data['order_no']}"
+                    //                 .text
+                    //                 .bold
+                    //                 .color(kPrimaryColor)
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make()
+                    //           ],
+                    //         ),
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             "Total de Productos :"
+                    //                 .text
+                    //                 .bold
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make(),
+                    //             " ${arrData.length}"
+                    //                 .text
+                    //                 .bold
+                    //                 .color(kPrimaryColor)
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make()
+                    //           ],
+                    //         ),
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             "Realizada :"
+                    //                 .text
+                    //                 .uppercase
+                    //                 .bold
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make(),
+                    //             // " ${data['date']}"
+                    //             "${widget.date}"
+                    //                 .text
+                    //                 .uppercase
+                    //                 .color(kPrimaryColor)
+                    //                 .bold
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make()
+                    //           ],
+                    //         ),
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             "Estatus :"
+                    //                 .text
+                    //                 .bold
+                    //                 .uppercase
+                    //                 .textStyle(GoogleFonts.openSans())
+                    //                 .make(),
+                    //             Container(
+                    //               child: " ${widget.status}"
+                    //                   .text
+                    //                   .bold
+                    //                   .color(kPrimaryColor)
+                    //                   .textStyle(GoogleFonts.openSans())
+                    //                   .makeCentered(),
+                    //             )
+                    //           ],
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ).pOnly(left: 17, right: 17, bottom: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,6 +189,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               children: [
                                 "Nùmero de Orden :"
                                     .text
+                                    .size(10)
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
@@ -124,6 +206,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               children: [
                                 "Total de Productos :"
                                     .text
+                                    .size(8)
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
@@ -134,19 +217,29 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .textStyle(GoogleFonts.openSans())
                                     .make()
                               ],
-                            ),
+                            )
+                          ],
+                        ),
+                        Expanded(
+                          child: SizedBox(),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 "Realizada :"
                                     .text
+                                    .size(10)
                                     .uppercase
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
-                                // " ${data['date']}"
-                                "${widget.date}"
+                                " ${widget.date}"
                                     .text
+                                    .size(8)
                                     .uppercase
                                     .color(kPrimaryColor)
                                     .bold
@@ -159,6 +252,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               children: [
                                 "Estatus :"
                                     .text
+                                    .size(10)
                                     .bold
                                     .uppercase
                                     .textStyle(GoogleFonts.openSans())
@@ -166,6 +260,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                 Container(
                                   child: " ${widget.status}"
                                       .text
+                                      .size(8)
                                       .bold
                                       .color(kPrimaryColor)
                                       .textStyle(GoogleFonts.openSans())
@@ -174,9 +269,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               ],
                             )
                           ],
-                        ),
+                        )
                       ],
-                    ).pOnly(left: 17, right: 17, bottom: 10),
+                    ).pOnly(left: 17, right: 17, bottom: 20),
                     Container(
                         width: MediaQuery.of(context).size.width * 0.95,
                         height: MediaQuery.of(context).size.height * 0.57,
@@ -236,7 +331,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                             .textStyle(GoogleFonts.openSans())
                                             .make(),
                                       ]));
-                            })).pOnly(left: 17, right: 17)
+                            })).pOnly(left: 10, right: 10)
                   ])
                 : Center(child: CircularProgressIndicator())
           ]),
