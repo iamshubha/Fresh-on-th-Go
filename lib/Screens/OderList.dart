@@ -92,7 +92,7 @@ class _OrderListPageState extends State<OrderListPage> {
               ),
               Container(
                 color: Colors.white,
-                height: MediaQuery.of(context).size.height * 0.53,
+                height: MediaQuery.of(context).size.height * 0.6,
                 // width: MediaQuery.of(context).size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -115,7 +115,7 @@ class _OrderListPageState extends State<OrderListPage> {
                     ),
                     loader == true
                         ? Container(
-                            height: MediaQuery.of(context).size.height * 0.42,
+                            height: MediaQuery.of(context).size.height * 0.482,
                             child: data.length != 0
                                 ? ListView.builder(
                                     itemCount: data.length,
@@ -155,7 +155,7 @@ class _OrderListPageState extends State<OrderListPage> {
                                                       BorderRadius.circular(8),
                                                   color: kPrimaryColor,
                                                 ),
-                                                child: "${data[i]['status']}"
+                                                child: "${data[i]['oid']}"
                                                     .text
                                                     .white
                                                     .bold
@@ -171,7 +171,7 @@ class _OrderListPageState extends State<OrderListPage> {
                                             ],
                                           ).pOnly(left: 16, right: 16),
                                         ).pOnly(top: 5),
-                                      );
+                                      ).pOnly(top:5,bottom:5);
                                     },
                                   )
                                 : Center(

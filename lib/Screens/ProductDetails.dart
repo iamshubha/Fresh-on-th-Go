@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
+import 'package:FreshOnTheGo/Screens/LoginPage.dart';
+import 'package:FreshOnTheGo/utils/prefs.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
 import 'package:FreshOnTheGo/Screens/MyCart.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
@@ -164,11 +167,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         //   onTap: () => Navigator.pop(context),
         // ),
         actions: [
-          InkWell(
-                  onTap: () => Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => MyCartPage())),
-                  child: CartIconHome().p(3.09))
-              .p(5)
+          Consumer<PrefsUtils>(builder: (context, snapshot, _) {
+            return snapshot.uid != null
+                ? InkWell(
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => MyCartPage())),
+                    child: CartIconHome().p(3.09),
+                  ).p(5)
+                : InkWell(
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => LoginPage())),
+                    child: ZeroCartIconHome().p(3.09),
+                  ).p(5);
+          })
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -368,37 +379,66 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                 //                 .size
                                                 //                 .width *
                                                 //             0.07),
-                                                InkWell(
-                                                  onTap: () {
-                                                    qnt != 0
-                                                        ? addToCart(
-                                                            predictData[i]
-                                                                ['pid'],
-                                                            qnt)
-                                                        : context.showToast(
-                                                            bgColor:
-                                                                kPrimaryColor,
-                                                            textColor:
-                                                                Colors.white,
-                                                            msg:
-                                                                "Please increase value");
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.green,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8)),
-                                                    child: "Añadir"
-                                                        .text
-                                                        .textStyle(GoogleFonts
-                                                            .openSans())
-                                                        .white
-                                                        .size(10)
-                                                        .make()
-                                                        .p(8),
-                                                  ).pOnly(right: 10),
-                                                ),
+                                                Consumer<PrefsUtils>(builder:
+                                                    (context, snapshot, _) {
+                                                  return snapshot.uid != null
+                                                      ? InkWell(
+                                                          onTap: () {
+                                                            qnt != 0
+                                                                ? addToCart(
+                                                                    predictData[
+                                                                            i]
+                                                                        ['pid'],
+                                                                    qnt)
+                                                                : context.showToast(
+                                                                    bgColor:
+                                                                        kPrimaryColor,
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    msg:
+                                                                        "Please increase value");
+                                                          },
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .green,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8)),
+                                                            child: "Añadir"
+                                                                .text
+                                                                .textStyle(
+                                                                    GoogleFonts
+                                                                        .openSans())
+                                                                .white
+                                                                .size(10)
+                                                                .make()
+                                                                .p(8),
+                                                          ).pOnly(right: 10),
+                                                        )
+                                                      : InkWell(
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .green,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8)),
+                                                            child: "Añadir"
+                                                                .text
+                                                                .textStyle(
+                                                                    GoogleFonts
+                                                                        .openSans())
+                                                                .white
+                                                                .size(10)
+                                                                .make()
+                                                                .p(8),
+                                                          ).pOnly(right: 10),
+                                                        );
+                                                }),
 
                                                 Container(
                                                     alignment: Alignment.center,

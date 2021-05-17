@@ -60,6 +60,9 @@ flutter:
     - assets/icon.png
     - splash.png
     - getstartedbtn.png
+    - 3.png
+    - home.png
+    - menu1.png
     - login.png
     - usernameico.png
     - passwordico.png

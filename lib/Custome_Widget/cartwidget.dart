@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:FreshOnTheGo/utils/prefs.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -47,8 +49,6 @@ class _CartIconHomeState extends State<CartIconHome> {
       if (rsp['status']) {
         setState(() {
           iconval = rsp['total_qty'];
-          // print("==================");
-          // print(url);
         });
       } else {
         setState(() {
@@ -70,14 +70,38 @@ class _CartIconHomeState extends State<CartIconHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Badge(
-        child: Image.asset('assets/images/cart.png', fit: BoxFit.contain).p(5),
-        badgeContent: Text("$iconval").text.white.make(),
-        elevation: 0,
-        badgeColor: kPrimaryColor,
-      ),
-    );
+    return Consumer<PrefsUtils>(builder: (context, snapshot, _) {
+      return Container(
+        child: Badge(
+          child:
+              Image.asset('assets/images/cart.png', fit: BoxFit.contain).p(5),
+          badgeContent: snapshot.uid != null
+              ? Text("$iconval").text.white.make()
+              : Text("0").text.white.make(),
+          elevation: 0,
+          badgeColor: kPrimaryColor,
+        ),
+      );
+    });
+  }
+}
+
+class ZeroCartIconHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PrefsUtils>(builder: (context, snapshot, _) {
+      return Container(
+        child: Badge(
+          child:
+              Image.asset('assets/images/cart.png', fit: BoxFit.contain).p(5),
+          badgeContent: snapshot.uid != null
+              ? Text("0").text.white.make()
+              : Text("0").text.white.make(),
+          elevation: 0,
+          badgeColor: kPrimaryColor,
+        ),
+      );
+    });
   }
 }
 

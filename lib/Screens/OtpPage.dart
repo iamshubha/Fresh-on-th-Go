@@ -17,6 +17,7 @@ class OtpPage extends StatefulWidget {
 class _OtpPageState extends State<OtpPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _otpEditingController = TextEditingController();
+  bool loader = false;
   verifyOtpPostRequest() async {
     var network = await Connectivity().checkConnectivity();
     print(network.index);
@@ -42,6 +43,9 @@ class _OtpPageState extends State<OtpPage> {
       print(data);
       print(response);
       if (data['status']) {
+        setState(() {
+          loader = false;
+        });
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: kPrimaryColor,
           content: Text(data['message']),
@@ -50,6 +54,9 @@ class _OtpPageState extends State<OtpPage> {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => LoginPage()));
       } else {
+        setState(() {
+          loader = false;
+        });
         _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text(data['message']),
@@ -115,17 +122,33 @@ class _OtpPageState extends State<OtpPage> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.41,
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  child: InkWell(
-                    onTap: () => verifyOtpPostRequest(),
-                    child: Image.asset(
-                      'assets/getstartedbtn.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                loader != true
+                    ? Container(
+                        width: MediaQuery.of(context).size.width * 0.41,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              loader = true;
+                            });
+                            verifyOtpPostRequest();
+                          },
+                          child: Image.asset(
+                            'assets/getstartedbtn.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width * 0.41,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: InkWell(
+                          child: Image.asset(
+                            'assets/3.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),

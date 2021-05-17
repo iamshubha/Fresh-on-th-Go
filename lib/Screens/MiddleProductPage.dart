@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
 import 'package:FreshOnTheGo/Custome_Widget/const.dart';
+import 'package:FreshOnTheGo/Screens/LoginPage.dart';
 import 'package:FreshOnTheGo/Screens/MyCart.dart';
 import 'package:FreshOnTheGo/Screens/ProductDetails.dart';
+import 'package:FreshOnTheGo/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
@@ -79,10 +82,17 @@ class _ProductPageState extends State<ProductPage> {
         //   },
         // ),
         actions: [
-          GestureDetector(
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIconHome().p(10))
+          Consumer<PrefsUtils>(builder: (context, snapshot, _) {
+            return GestureDetector(
+                onTap: () => snapshot.uid != null
+                    ? Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => MyCartPage()))
+                    : Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => LoginPage())),
+                child: snapshot.uid != null
+                    ? CartIconHome().p(10)
+                    : ZeroCartIconHome().p(10));
+          })
         ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.start,

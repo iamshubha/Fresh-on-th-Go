@@ -193,7 +193,7 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
           //     fontSize: 16.0);
           ///TODO:[Fuck here]
           Navigator.pushAndRemoveUntil(context,
-              MaterialPageRoute(builder: (_) => Dicider()), (route) => false);
+              MaterialPageRoute(builder: (_) => HomePage()), (route) => false);
 
           // Navigator.pushReplacement(
           //     context, MaterialPageRoute(builder: (_) => HomePage()));

@@ -14,6 +14,7 @@ class ForgetPasswordPage extends StatefulWidget {
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _forgetEditingController = TextEditingController();
+  bool loader = false;
   postEmail() async {
     try {
       var network = await Connectivity().checkConnectivity();
@@ -35,6 +36,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
         var data = jsonDecode(rsp.body);
         print(data);
         if (data['status']) {
+          setState(() {
+            loader = false;
+          });
           Fluttertoast.showToast(
               msg: data['message'],
               toastLength: Toast.LENGTH_SHORT,
@@ -45,6 +49,9 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               fontSize: 16.0);
           Navigator.pop(context);
         } else {
+          setState(() {
+            loader = false;
+          });
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text(data['message']),
@@ -121,17 +128,34 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.41,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          child: InkWell(
-                            onTap: () => postEmail(),
-                            child: Image.asset(
-                              'assets/getstartedbtn.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        )
+                        loader == false
+                            ? Container(
+                                width: MediaQuery.of(context).size.width * 0.41,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      loader = true;
+                                    });
+                                    postEmail();
+                                  },
+                                  child: Image.asset(
+                                    'assets/getstartedbtn.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                width: MediaQuery.of(context).size.width * 0.41,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.06,
+                                child: InkWell(
+                                  child: Image.asset(
+                                    'assets/3.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ))
                       ])))),
     );
   }

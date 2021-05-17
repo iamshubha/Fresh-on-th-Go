@@ -1,3 +1,4 @@
+import 'package:FreshOnTheGo/utils/prefs.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:FreshOnTheGo/Screens/CreateAccount.dart';
 import 'package:FreshOnTheGo/Screens/ForgetPasswordPage.dart';
 import 'package:FreshOnTheGo/Screens/HomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -20,7 +22,8 @@ class _LoginPageState extends State<LoginPage> {
   final _userEditingController = TextEditingController();
   final _passwordEditingController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  loginFunction() async {
+  bool loader = false;
+  loginFunction(prov) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     try {
       var network = await Connectivity().checkConnectivity();
@@ -52,10 +55,17 @@ class _LoginPageState extends State<LoginPage> {
           ));
           setState(() {
             _prefs.setString('uid', data['data'][0]['uid']);
+            _prefs.setString('name', data['data'][0]['name']);
+            prov.getStringuid();
+            loader = false;
           });
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomePage()));
+          Navigator.pop(context);
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (_) => HomePage()));
         } else {
+          setState(() {
+            loader = false;
+          });
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             backgroundColor: kPrimaryColor,
             content: Text('${data['message']}'),
@@ -73,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _prefs = Provider.of<PrefsUtils>(context, listen: false);
     return Scaffold(
       key: _scaffoldKey,
       body: SingleChildScrollView(
@@ -179,13 +190,26 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ).pOnly(top: 5),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      child: InkWell(
-                        onTap: () => loginFunction(),
-                        child: Image.asset('assets/getstartedbtn.png'),
-                      ),
-                    ),
+                    loader ==false
+                        ? Container(
+                            width: MediaQuery.of(context).size.width * 0.40,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  loader = true;
+                                });
+                                loginFunction(_prefs);
+                              },
+                              child: Image.asset('assets/getstartedbtn.png'),
+                            ),
+                          )
+                        : Container(
+                            width: MediaQuery.of(context).size.width * 0.40,
+                            child: InkWell(
+                             
+                              child: Image.asset('assets/3.png'),
+                            ),
+                          ),
                   ],
                 ).pOnly(left: 5, right: 5),
                 InkWell(

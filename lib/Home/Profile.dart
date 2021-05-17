@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:FreshOnTheGo/Custome_Widget/cartwidget.dart';
+import 'package:FreshOnTheGo/utils/prefs.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:FreshOnTheGo/Custome_Widget/CustomDrawer.dart';
@@ -9,6 +10,7 @@ import 'package:FreshOnTheGo/Screens/LoginPage.dart';
 import 'package:FreshOnTheGo/Screens/MyCart.dart';
 import 'package:FreshOnTheGo/Screens/OderList.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
@@ -146,10 +148,17 @@ class _ProfileState extends State<Profile> {
           },
         ),
         actions: [
-          GestureDetector(
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MyCartPage())),
-              child: CartIconHome().p(10))
+          Consumer<PrefsUtils>(builder: (context, snapshot, _) {
+            return GestureDetector(
+                onTap: () => snapshot.uid != null
+                    ? Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => MyCartPage()))
+                    : Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => LoginPage())),
+                child: snapshot.uid != null
+                    ? CartIconHome().p(10)
+                    : ZeroCartIconHome().p(10));
+          })
         ],
       ),
       body: SingleChildScrollView(
@@ -251,15 +260,15 @@ class _ProfileState extends State<Profile> {
                     leading: Image.asset('assets/images/helpsupport.png'),
                     title: "Ayuda & Apoyo".text.make(),
                   ).pOnly(top: 10),
-                  ListTile(
-                      leading: Image.asset('assets/images/logout.png'),
-                      title: "Cerrar Sessión".text.make(),
-                      onTap: () async {
-                        final _prefs = await SharedPreferences.getInstance();
-                        _prefs.clear();
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => LoginPage()));
-                      }).pOnly(top: 10),
+                  // ListTile(
+                  //     leading: Image.asset('assets/images/logout.png'),
+                  //     title: "Cerrar Sessión".text.make(),
+                  //     onTap: () async {
+                  //       final _prefs = await SharedPreferences.getInstance();
+                  //       _prefs.clear();
+                  //       Navigator.pushReplacement(context,
+                  //           MaterialPageRoute(builder: (_) => LoginPage()));
+                  //     }).pOnly(top: 10),
                 ],
               ),
             ).pOnly(

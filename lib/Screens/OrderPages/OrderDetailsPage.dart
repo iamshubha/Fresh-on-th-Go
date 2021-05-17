@@ -24,7 +24,27 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var data;
   List arrData = [];
+  List resData = [];
   bool loader = true;
+
+  // getData() async {
+  //   final _prefs = await SharedPreferences.getInstance();
+  //   final uid = _prefs.getString('uid');
+  //   try {
+  //     String url1 =
+  //         "https://mercadosagricolaspr.com/farmer-new/apis/order/show_latest_order_add_time?uid=$uid";
+  //     final response = await http.get(url1);
+  //     var rsp = jsonDecode(response.body);
+  //     if (rsp['status']) {
+  //       setState(() {
+  //         data = rsp['data'];
+  //         loader = true;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
   getData() async {
     final _prefs = await SharedPreferences.getInstance();
     final uid = _prefs.getString('uid');
@@ -40,15 +60,24 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         setState(() {
           loader = false;
         });
+        String url1 =
+            "https://mercadosagricolaspr.com/farmer-new/apis/order/show_latest_order_add_time?uid=$uid";
+        final rsp2 = http.get(url1);
         String url =
             // 'https://mercadosagricolaspr.com/farmer-new/apis/customer/customer_order_dets?oid=${widget.oid}&uid=$uid';
             "https://mercadosagricolaspr.com/farmer-new/apis/customer/detail_for_order_no?order_no=${widget.oid}";
-        final resp = await http.get(url);
-        var response = jsonDecode(resp.body);
+        final resp = http.get(url);
+        var trsp = await Future.wait([resp, rsp2]);
+        var response = jsonDecode(trsp[0].body);
+        var response2 = jsonDecode(trsp[1].body);
         setState(() {
           data = response;
-          arrData = data['data'];
-          print(arrData);
+          arrData = response['data'];
+          resData = response2['data'];
+          print(resData[0]['delivery_time'].runtimeType);
+          print(resData[0]['delivery_time']);
+          print('(++++++++++++++++++++++++++++++++++++++++++)');
+          print(resData);
           loader = true;
         });
         print(data);
@@ -96,93 +125,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             BannerWidget().p(17),
             loader == true
                 ? Column(children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Column(
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       children: [
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //           children: [
-                    //             "Nùmero de Orden :"
-                    //                 .text
-                    //                 .bold
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make(),
-                    //             " ${data['order_no']}"
-                    //                 .text
-                    //                 .bold
-                    //                 .color(kPrimaryColor)
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make()
-                    //           ],
-                    //         ),
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //           children: [
-                    //             "Total de Productos :"
-                    //                 .text
-                    //                 .bold
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make(),
-                    //             " ${arrData.length}"
-                    //                 .text
-                    //                 .bold
-                    //                 .color(kPrimaryColor)
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make()
-                    //           ],
-                    //         ),
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //           children: [
-                    //             "Realizada :"
-                    //                 .text
-                    //                 .uppercase
-                    //                 .bold
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make(),
-                    //             // " ${data['date']}"
-                    //             "${widget.date}"
-                    //                 .text
-                    //                 .uppercase
-                    //                 .color(kPrimaryColor)
-                    //                 .bold
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make()
-                    //           ],
-                    //         ),
-                    //         Row(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //           children: [
-                    //             "Estatus :"
-                    //                 .text
-                    //                 .bold
-                    //                 .uppercase
-                    //                 .textStyle(GoogleFonts.openSans())
-                    //                 .make(),
-                    //             Container(
-                    //               child: " ${widget.status}"
-                    //                   .text
-                    //                   .bold
-                    //                   .color(kPrimaryColor)
-                    //                   .textStyle(GoogleFonts.openSans())
-                    //                   .makeCentered(),
-                    //             )
-                    //           ],
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ],
-                    // ).pOnly(left: 17, right: 17, bottom: 10),
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Column(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -195,7 +143,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .make(),
                                 " ${data['order_no']}"
                                     .text
+                                    .size(8)
                                     .bold
+                                    .letterSpacing(0)
                                     .color(kPrimaryColor)
                                     .textStyle(GoogleFonts.openSans())
                                     .make()
@@ -204,49 +154,27 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                "Total de Productos :"
+                                "Total :"
                                     .text
-                                    .size(8)
+                                    .size(10)
                                     .bold
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
                                 " ${arrData.length}"
                                     .text
-                                    .bold
-                                    .color(kPrimaryColor)
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make()
-                              ],
-                            )
-                          ],
-                        ),
-                        Expanded(
-                          child: SizedBox(),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                "Realizada :"
-                                    .text
-                                    .size(10)
-                                    .uppercase
-                                    .bold
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make(),
-                                " ${widget.date}"
-                                    .text
                                     .size(8)
-                                    .uppercase
-                                    .color(kPrimaryColor)
                                     .bold
+                                    .color(kPrimaryColor)
                                     .textStyle(GoogleFonts.openSans())
                                     .make()
                               ],
                             ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -254,7 +182,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .text
                                     .size(10)
                                     .bold
-                                    .uppercase
                                     .textStyle(GoogleFonts.openSans())
                                     .make(),
                                 Container(
@@ -267,14 +194,84 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       .makeCentered(),
                                 )
                               ],
-                            )
+                            ),
+                              Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                "Realizada :"
+                                    .text
+                                    .size(10)
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                " ${widget.date}"
+                                    .text
+                                    .size(8)
+                                    .color(kPrimaryColor)
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make()
+                              ],
+                            ),
+                          
                           ],
-                        )
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: Alignment.topCenter,
+                                  child: "Direccion: "
+                                      .text
+                                      .size(10)
+                                      .bold
+                                      .textStyle(GoogleFonts.openSans())
+                                      .make(),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.19,
+                                  child: " ${resData[0]['delivery_address']}"
+                                      .text
+                                      .size(8)
+                                      .bold
+                                      .color(kPrimaryColor)
+                                      .textStyle(GoogleFonts.openSans())
+                                      .make(),
+                                )
+                              ],
+                            ),
+
+                    data['delivery_time'] !=null?        Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                "Hora:"
+                                    .text
+                                    .size(8)
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                " ${data['delivery_time']}"
+                                    .text
+                                    .size(8)
+                                    .color(kPrimaryColor)
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make()
+                              ],
+                            ):Container(),
+                         ],
+                        ),
                       ],
                     ).pOnly(left: 17, right: 17, bottom: 20),
                     Container(
                         width: MediaQuery.of(context).size.width * 0.95,
-                        height: MediaQuery.of(context).size.height * 0.57,
+                        height: MediaQuery.of(context).size.height * 0.50,
                         // color: Colors.green,
                         child: ListView.builder(
                             itemCount: arrData.length,
@@ -282,13 +279,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               return ListTile(
                                   leading: Container(
                                     width: MediaQuery.of(context).size.width *
-                                        0.20,
+                                        0.23,
                                     height: MediaQuery.of(context).size.height *
-                                        0.2,
+                                        0.23,
                                     child: Image.network(
                                       arrData[i]['products']['pimg'],
                                       fit: BoxFit.cover,
-                                    ).p(8),
+                                    ).pOnly(right: 5),
                                   ),
                                   title: Column(
                                       crossAxisAlignment:
@@ -331,10 +328,90 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                             .textStyle(GoogleFonts.openSans())
                                             .make(),
                                       ]));
-                            })).pOnly(left: 10, right: 10)
+                            })).pOnly(left: 0, right: 10)
                   ])
                 : Center(child: CircularProgressIndicator())
           ]),
     );
   }
 }
+
+/**
+ *     Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                "Nùmero de Orden :"
+                                    .text
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                " ${data['order_no']}"
+                                    .text
+                                    .bold
+                                    .color(kPrimaryColor)
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make()
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                "Total de Productos :"
+                                    .text
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                " ${arrData.length}"
+                                    .text
+                                    .bold
+                                    .color(kPrimaryColor)
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make()
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                "Realizada :"
+                                    .text
+                                    .uppercase
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                // " ${data['date']}"
+                                "${widget.date}"
+                                    .text
+                                    .uppercase
+                                    .color(kPrimaryColor)
+                                    .bold
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make()
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                "Estatus :"
+                                    .text
+                                    .bold
+                                    .uppercase
+                                    .textStyle(GoogleFonts.openSans())
+                                    .make(),
+                                Container(
+                                  child: " ${widget.status}"
+                                      .text
+                                      .bold
+                                      .color(kPrimaryColor)
+                                      .textStyle(GoogleFonts.openSans())
+                                      .makeCentered(),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                    
+ */
