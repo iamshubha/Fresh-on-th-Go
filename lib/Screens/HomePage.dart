@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Color(0xFFE6E6E6),
                     label: 'Profile',
                     icon: Image.asset(
-                      'assets/images/profile-bottom.png',
+                      'assets/profile.png',
                       height: MediaQuery.of(context).size.height * 0.046,
                     ),
                   ),

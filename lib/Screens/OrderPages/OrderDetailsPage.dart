@@ -171,6 +171,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +198,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                 )
                               ],
                             ),
-                              Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 "Realizada :"
@@ -213,8 +216,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     .make()
                               ],
                             ),
-                          
                           ],
+                        ),
+                        SizedBox(
+                          height: 5,
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,9 +239,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       .make(),
                                 ),
                                 Container(
-                                  width:
-                                      MediaQuery.of(context).size.height * 0.19,
-                                  child: " ${resData[0]['delivery_address']}"
+                                  width:data['delivery_time'] == null
+                                ?  MediaQuery.of(context).size.height * 0.25:
+                                      MediaQuery.of(context).size.height * 0.17,
+                                  child: " ${data['delivery_address']}"
                                       .text
                                       .size(8)
                                       .bold
@@ -246,26 +252,27 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                 )
                               ],
                             ),
-
-                    data['delivery_time'] !=null?        Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                "Hora:"
-                                    .text
-                                    .size(8)
-                                    .bold
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make(),
-                                " ${data['delivery_time']}"
-                                    .text
-                                    .size(8)
-                                    .color(kPrimaryColor)
-                                    .bold
-                                    .textStyle(GoogleFonts.openSans())
-                                    .make()
-                              ],
-                            ):Container(),
-                         ],
+                            data['delivery_time'] != null
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      "Hora:"
+                                          .text
+                                          .size(8)
+                                          .bold
+                                          .textStyle(GoogleFonts.openSans())
+                                          .make(),
+                                      " ${data['delivery_time']}"
+                                          .text
+                                          .size(8)
+                                          .color(kPrimaryColor)
+                                          .bold
+                                          .textStyle(GoogleFonts.openSans())
+                                          .make()
+                                    ],
+                                  )
+                                : Container(),
+                          ],
                         ),
                       ],
                     ).pOnly(left: 17, right: 17, bottom: 20),

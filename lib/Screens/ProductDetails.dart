@@ -30,7 +30,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   var productDetails;
   String uid;
   bool isRspAvlb = true;
-  addToCart(String pid, int qty) async {
+  addToCart(String pid, int qty, String _uid) async {
     setState(() {
       loader = false;
     });
@@ -49,8 +49,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         Map<String, dynamic> body = {
           "pid": "$pid",
           "qty": "$qty",
-          "uid": "$uid"
+          "uid": "$_uid"
         };
+        print(body);
+        print(_uid);
         String jsonBody = json.encode(body);
         final response = await http.post(url, body: jsonBody, headers: headers);
         var data = jsonDecode(response.body);
@@ -365,6 +367,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                     GoogleFonts.openSans())
                                                 .bold
                                                 .make(),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -389,7 +394,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                                     predictData[
                                                                             i]
                                                                         ['pid'],
-                                                                    qnt)
+                                                                    qnt,
+                                                                    snapshot
+                                                                        .uid)
                                                                 : context.showToast(
                                                                     bgColor:
                                                                         kPrimaryColor,
@@ -419,6 +426,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                           ).pOnly(right: 10),
                                                         )
                                                       : InkWell(
+                                                          onTap: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (_) =>
+                                                                        LoginPage()));
+                                                          },
                                                           child: Container(
                                                             decoration: BoxDecoration(
                                                                 color: Colors
