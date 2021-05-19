@@ -117,12 +117,12 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Caribbean Produce Exchange"
+            "Tu Mercado Agrícola"
                 .text
                 .size(10)
                 .textStyle(GoogleFonts.openSans())
                 .make(),
-            "Calle 869 KM 2.8 Interior Las Palmas Cataño, PR 00962"
+            ""
                 .text
                 .size(3)
                 .textStyle(GoogleFonts.openSans())
