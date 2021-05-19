@@ -231,7 +231,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               children: [
                                 Container(
                                   alignment: Alignment.topCenter,
-                                  child: "Direccion: "
+                                  child: "Entrega: "
                                       .text
                                       .size(10)
                                       .bold
