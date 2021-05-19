@@ -72,7 +72,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       // stream: null,
                       builder: (context, snapshot,_) {
                         return snapshot.name ==null? Container(
-                          child: "Hola bienvenidos a \nFresh on the go"
+                          child: "Hola Bienvenido a: \nTu Mercado Agrìcola"
                               .text
                               .bold
                               .size(10)
