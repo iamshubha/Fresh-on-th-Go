@@ -107,9 +107,9 @@ class _OrderListPageState extends State<OrderListPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          "".text.uppercase.make(),
-                          "Estado del Pedido".text.uppercase.make(),
-                          "Fecha actual".text.uppercase.make()
+                          "Numero".text.make(),
+                          "Estatus".text.make(),
+                          "Fecha".text.make()
                         ],
                       ).pOnly(left: 10, right: 10),
                     ),
@@ -143,7 +143,12 @@ class _OrderListPageState extends State<OrderListPage> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               // "${data[i]['oid']}".text.make(),
-                                              "${i + 1}".text.make(),
+                                              Container(
+                                                // width: MediaQuery.of(context).size.width*0.27,
+                                                  child: "${data[i]['oid']}"
+                                                      .text
+                                                      .size(2)
+                                                      .make()),
                                               Container(
                                                 height: MediaQuery.of(context)
                                                         .size
@@ -153,15 +158,17 @@ class _OrderListPageState extends State<OrderListPage> {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(8),
-                                                  color: kPrimaryColor,
+                                                  // color: kPrimaryColor,
                                                 ),
-                                                child: "${data[i]['oid']}"
-                                                    .text
-                                                    .white
-                                                    .bold
-                                                    .uppercase
-                                                    .make()
-                                                    .pOnly(left: 5, right: 5),
+                                                child:
+                                                    "${data[i]['status'].toString()}"
+                                                        .text.size(4)
+                                                        // .white
+                                                        .bold
+                                                        .uppercase
+                                                        .make()
+                                                        .pOnly(
+                                                            left: 5, right: 5),
                                               ),
                                               "${data[i]['order_dt']}"
                                                   .text
@@ -171,7 +178,7 @@ class _OrderListPageState extends State<OrderListPage> {
                                             ],
                                           ).pOnly(left: 16, right: 16),
                                         ).pOnly(top: 5),
-                                      ).pOnly(top:5,bottom:5);
+                                      ).pOnly(top: 5, bottom: 5);
                                     },
                                   )
                                 : Center(

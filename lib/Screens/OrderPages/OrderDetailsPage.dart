@@ -24,30 +24,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var data;
   List arrData = [];
-  List resData = [];
-  bool loader = true;
+  bool loader = false;
 
-  // getData() async {
-  //   final _prefs = await SharedPreferences.getInstance();
-  //   final uid = _prefs.getString('uid');
-  //   try {
-  //     String url1 =
-  //         "https://mercadosagricolaspr.com/farmer-new/apis/order/show_latest_order_add_time?uid=$uid";
-  //     final response = await http.get(url1);
-  //     var rsp = jsonDecode(response.body);
-  //     if (rsp['status']) {
-  //       setState(() {
-  //         data = rsp['data'];
-  //         loader = true;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
   getData() async {
-    final _prefs = await SharedPreferences.getInstance();
-    final uid = _prefs.getString('uid');
     try {
       var network = await Connectivity().checkConnectivity();
       print(network.index);
@@ -57,27 +36,15 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
           content: Text('Please Check Your Internet Connection'),
         ));
       } else {
-        setState(() {
-          loader = false;
-        });
-        String url1 =
-            "https://mercadosagricolaspr.com/farmer-new/apis/order/show_latest_order_add_time?uid=$uid";
-        final rsp2 = http.get(url1);
         String url =
-            // 'https://mercadosagricolaspr.com/farmer-new/apis/customer/customer_order_dets?oid=${widget.oid}&uid=$uid';
             "https://mercadosagricolaspr.com/farmer-new/apis/customer/detail_for_order_no?order_no=${widget.oid}";
-        final resp = http.get(url);
-        var trsp = await Future.wait([resp, rsp2]);
-        var response = jsonDecode(trsp[0].body);
-        var response2 = jsonDecode(trsp[1].body);
+        final resp = await http.get(url);
+        var response = jsonDecode(resp.body);
         setState(() {
           data = response;
+          print(data);
           arrData = response['data'];
-          resData = response2['data'];
-          print(resData[0]['delivery_time'].runtimeType);
-          print(resData[0]['delivery_time']);
-          print('(++++++++++++++++++++++++++++++++++++++++++)');
-          print(resData);
+          print(data);
           loader = true;
         });
         print(data);
@@ -239,9 +206,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       .make(),
                                 ),
                                 Container(
-                                  width:data['delivery_time'] == null
-                                ?  MediaQuery.of(context).size.height * 0.25:
-                                      MediaQuery.of(context).size.height * 0.17,
+                                  width: data['delivery_time'] == null
+                                      ? MediaQuery.of(context).size.height *
+                                          0.25
+                                      : MediaQuery.of(context).size.height *
+                                          0.17,
                                   child: " ${data['delivery_address']}"
                                       .text
                                       .size(8)
@@ -277,47 +246,53 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       ],
                     ).pOnly(left: 17, right: 17, bottom: 20),
                     Container(
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        height: MediaQuery.of(context).size.height * 0.50,
-                        // color: Colors.green,
-                        child: ListView.builder(
-                            itemCount: arrData.length,
-                            itemBuilder: (_, i) {
-                              return ListTile(
-                                  leading: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.23,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.23,
-                                    child: Image.network(
-                                      arrData[i]['products']['pimg'],
-                                      fit: BoxFit.cover,
-                                    ).pOnly(right: 5),
-                                  ),
-                                  title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        '${arrData[i]['products']['pname']}'
-                                            .text
-                                            .size(1)
-                                            .textStyle(GoogleFonts.openSans())
-                                            .bold
-                                            .make(),
-                                        'Qty : ${arrData[i]['products']['ordered_qty']} ${arrData[i]['products']['unit']}'
-                                            .text
-                                            .size(1)
-                                            .textStyle(GoogleFonts.openSans())
-                                            .bold
-                                            .make(),
-                                        '${arrData[i]['products']['pdesc']}'
-                                            .text
-                                            .size(1)
-                                            .textStyle(GoogleFonts.openSans())
-                                            .bold
-                                            .make(),
-                                      ]),
-                                  trailing: Column(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: MediaQuery.of(context).size.height * 0.45,
+                      // color: Colors.green,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Container(
+                              child: ListView.builder(
+                                itemCount: arrData.length,
+                                itemBuilder: (_, i) {
+                                  return ListTile(
+                                    leading: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.23,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.23,
+                                      child: Image.network(
+                                        arrData[i]['products']['pimg'],
+                                        fit: BoxFit.cover,
+                                      ).pOnly(right: 5),
+                                    ),
+                                    title: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          '${arrData[i]['products']['pname']}'
+                                              .text
+                                              .size(1)
+                                              .textStyle(GoogleFonts.openSans())
+                                              .bold
+                                              .make(),
+                                          'Qty : ${arrData[i]['products']['ordered_qty']} ${arrData[i]['products']['unit']}'
+                                              .text
+                                              .size(1)
+                                              .textStyle(GoogleFonts.openSans())
+                                              .bold
+                                              .make(),
+                                          '${arrData[i]['products']['pdesc']}'
+                                              .text
+                                              .size(1)
+                                              .textStyle(GoogleFonts.openSans())
+                                              .bold
+                                              .make(),
+                                        ]),
+                                    trailing: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       crossAxisAlignment:
@@ -334,8 +309,29 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                             .extraBold
                                             .textStyle(GoogleFonts.openSans())
                                             .make(),
-                                      ]));
-                            })).pOnly(left: 0, right: 10)
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          Divider(),
+                          Expanded(
+                            child: Container(
+                              color: Colors.grey[100],
+                              padding: EdgeInsets.only(right: 15),
+                              width: MediaQuery.of(context).size.width,
+                              alignment: Alignment.topRight,
+                              child:
+                                  "Total a pagar: \$${data['total_order_cost']}"
+                                      .text
+                                      .make(),
+                            ),
+                          )
+                        ],
+                      ),
+                    ).pOnly(left: 0, right: 10),
                   ])
                 : Center(child: CircularProgressIndicator())
           ]),
