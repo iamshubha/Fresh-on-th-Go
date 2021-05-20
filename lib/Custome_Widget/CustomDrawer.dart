@@ -80,7 +80,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                               .make(),
                         ):Container(
                           width: MediaQuery.of(context).size.width*0.35,
-                          child: "Hola ${snapshot.name} bienvenidos a \nFresh on the go"
+                          child: "Hola ${snapshot.name} Bienvenido a: \nTu Mercado Agrìcola"
                               .text
                               .bold
                               .size(10)
