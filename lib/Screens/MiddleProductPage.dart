@@ -98,7 +98,7 @@ class _ProductPageState extends State<ProductPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            "Tu Mercoda Agricola"
+            "Tu Mercado Agrícola"
                 .text
                 .size(10)
                 .textStyle(GoogleFonts.openSans())
