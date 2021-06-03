@@ -22,12 +22,15 @@ class _CreateAccountState extends State<CreateAccount> {
   final _userEditingController = TextEditingController();
   final _passwordEditingController = TextEditingController();
   final _confirmPasswordEditingController = TextEditingController();
-
+  bool loader = false;
   createUserPostRequest() async {
     if (_passwordEditingController.text ==
         _confirmPasswordEditingController.text) {
       var network = await Connectivity().checkConnectivity();
       print(network.index);
+      setState(() {
+        loader = true;
+      });
       if (network.index == 2) {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: kPrimaryColor,
@@ -53,6 +56,9 @@ class _CreateAccountState extends State<CreateAccount> {
           var data = jsonDecode(response.body);
           print(data['status'].runtimeType);
           if (data['status']) {
+            setState(() {
+              loader = false;
+            });
             _scaffoldKey.currentState.showSnackBar(SnackBar(
               backgroundColor: kPrimaryColor,
               content: Text(data['message']),
@@ -287,18 +293,25 @@ class _CreateAccountState extends State<CreateAccount> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.40,
-                        child: InkWell(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            createUserPostRequest();
-                          },
-                          // () => Navigator.pushReplacement(context,
-                          //     MaterialPageRoute(builder: (_) => LoginPage())),
-                          child: Image.asset('assets/getstartedbtn.png'),
-                        ),
-                      ),
+                      loader == false
+                          ? Container(
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              child: InkWell(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  createUserPostRequest();
+                                },
+                                // () => Navigator.pushReplacement(context,
+                                //     MaterialPageRoute(builder: (_) => LoginPage())),
+                                child: Image.asset('assets/getstartedbtn.png'),
+                              ),
+                            )
+                          : Container(
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              child: InkWell(
+                                child: Image.asset('assets/3.png'),
+                              ),
+                            ),
                     ],
                   ).pOnly(left: 5, right: 5),
                 ],
