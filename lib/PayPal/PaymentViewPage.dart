@@ -182,6 +182,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
               Navigator.of(context).pop();
             }
             if (request.url.contains(cancelURL)) {
+              widget.onFinish(null);
               Navigator.of(context).pop();
             }
             return NavigationDecision.navigate;

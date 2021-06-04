@@ -664,19 +664,30 @@ class _CheckOutPaymentPageState extends State<CheckOutPaymentPage> {
               quantity: widget.cartids.length,
               totalAmmount: widget.totalPrice.toString(),
               onFinish: (number) async {
+                 print(
+                    "___________________________________________________________________________________________________________________");
+               
+                print(number);
                 // Navigator.pop(context);
-                postCheckoutonline(
+                try {
+     number !=null?    postCheckoutonline(
                   adrs: ardersssss,
                   ptime: time,
                   typeOfOrder: number.toString(),
                   cartId: widget.cartids,
                   total: widget.totalPrice.toString(),
-                ).then((e) => Navigator.pop(context));
+                ).then((e) => Navigator.pop(context)):  setState(() => loader = true);
                 // payment done
                 print('order id: ' + number);
                 print(
                     "___________________________________________________________________________________________________________________");
-              },
+               
+                } catch (e) {
+                  setState(() => loader = true);
+                }finally{
+                  setState(() => loader = true);
+                }
+                },
             ),
           ),
         );
