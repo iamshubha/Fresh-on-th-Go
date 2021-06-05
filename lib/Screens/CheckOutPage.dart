@@ -74,7 +74,7 @@ class CheckOutPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // BannerWidget(),
+              BannerWidget(),
               SizedBox(
                 height: 10,
               ),

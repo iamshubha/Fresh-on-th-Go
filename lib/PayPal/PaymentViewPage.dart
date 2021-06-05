@@ -158,8 +158,13 @@ class PaypalPaymentState extends State<PaypalPayment> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).backgroundColor,
           leading: GestureDetector(
-            child: Icon(Icons.arrow_back_ios),
-            onTap: () => Navigator.pop(context),
+            child:
+                // SizedBox()
+                Icon(Icons.arrow_back_ios),
+            onTap: () {
+              widget.onFinish(null);
+              Navigator.pop(context);
+            },
           ),
         ),
         body: WebView(
@@ -177,6 +182,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
                   Navigator.of(context).pop();
                 });
               } else {
+                widget.onFinish(null);
                 Navigator.of(context).pop();
               }
               Navigator.of(context).pop();
@@ -196,6 +202,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
+                widget.onFinish(null);
                 Navigator.of(context).pop();
               }),
           backgroundColor: Colors.black12,
